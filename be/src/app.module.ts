@@ -10,6 +10,7 @@ import { TrademarksModule } from './modules/trademarks/trademarks/trademarks.mod
 import { WinetypeModule } from './modules/winetypes/winetype/winetype.module';
 import { PhieudatModule } from './modules/phieudat/phieudat/phieudat.module';
 import { BillModule } from './modules/bills/bill/bill.module';
+import { ReviewModule } from './modules/review/review/review.module';
 
 @Module({
   imports: [
@@ -29,7 +30,8 @@ import { BillModule } from './modules/bills/bill/bill.module';
     TrademarksModule,
     WinetypeModule,
     PhieudatModule,
-    BillModule
+    BillModule,
+    ReviewModule
   ],
   controllers: [AppController],
   providers: [AppService],

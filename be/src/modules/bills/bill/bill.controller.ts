@@ -9,7 +9,7 @@ export class BillController {
         private billService: BillService //import bill service
     ) {}
 
-    @Get() //get list bills
+    @Get() 
     findAll() {
         return this.billService.findAll()
     }

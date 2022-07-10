@@ -19,6 +19,7 @@ const trademarks_module_1 = require("./modules/trademarks/trademarks/trademarks.
 const winetype_module_1 = require("./modules/winetypes/winetype/winetype.module");
 const phieudat_module_1 = require("./modules/phieudat/phieudat/phieudat.module");
 const bill_module_1 = require("./modules/bills/bill/bill.module");
+const review_module_1 = require("./modules/review/review/review.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -40,7 +41,8 @@ AppModule = __decorate([
             trademarks_module_1.TrademarksModule,
             winetype_module_1.WinetypeModule,
             phieudat_module_1.PhieudatModule,
-            bill_module_1.BillModule
+            bill_module_1.BillModule,
+            review_module_1.ReviewModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
