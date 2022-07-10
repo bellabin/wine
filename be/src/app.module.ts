@@ -11,6 +11,11 @@ import { WinetypeModule } from './modules/winetypes/winetype/winetype.module';
 import { PhieudatModule } from './modules/phieudat/phieudat/phieudat.module';
 import { BillModule } from './modules/bills/bill/bill.module';
 import { ReviewModule } from './modules/review/review/review.module';
+import { PhieunhapModule } from './modules/phieunhap/phieunhap/phieunhap.module';
+import { PhieutraModule } from './modules/phieutra/phieutra/phieutra.module';
+import { RoleModule } from './modules/role/role.module';
+import { OrderModule } from './modules/order/order.module';
+import { PromotionModule } from './modules/promotion/promotion.module';
 
 @Module({
   imports: [
@@ -31,7 +36,12 @@ import { ReviewModule } from './modules/review/review/review.module';
     WinetypeModule,
     PhieudatModule,
     BillModule,
-    ReviewModule
+    ReviewModule,
+    PhieunhapModule,
+    PhieutraModule,
+    RoleModule,
+    OrderModule,
+    PromotionModule
   ],
   controllers: [AppController],
   providers: [AppService],
