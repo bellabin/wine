@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CungcapService } from './cungcap.service';
 import { CreateCungcapDto } from './dto/create-cungcap.dto';
 import { UpdateCungcapDto } from './dto/update-cungcap.dto';
@@ -17,14 +17,14 @@ export class CungcapController {
     return this.cungcapService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cungcapService.findOne(+id);
+  @Get('one')
+  findOne(@Query('MANCC') MANCC: string, @Query('MADONG') MADONG:string) {
+    return this.cungcapService.findOne(MANCC, MADONG);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCungcapDto: UpdateCungcapDto) {
-    return this.cungcapService.update(+id, updateCungcapDto);
+  @Patch('')
+  update(@Query('MANCC') MANCC: string, @Query('MADONG') MADONG:string, @Body() updateCungcapDto: UpdateCungcapDto) {
+    return this.cungcapService.update(MANCC, MADONG, updateCungcapDto);
   }
 
   @Delete(':id')

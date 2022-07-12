@@ -1,4 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Phieudat } from "src/modules/phieudat/entities/phieudat.entity";
+import { Wineline } from "src/modules/wineline/entities/wineline.entity";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity('ct_phieudat')
 export class CtPhieudat {
@@ -7,9 +9,18 @@ export class CtPhieudat {
 
     @Column({type:'char', primary:true})
     MAPD!: string
+    
+    @ManyToOne(() => Phieudat, phieudat => phieudat.ct_phieudats)
+    @JoinColumn({name:'MAPD'})
+    phieudat: Phieudat
+    
 
     @Column({type:'char', primary:true})
     MADONG!: string
+
+    @ManyToOne(() => Wineline, wineline => wineline.ct_phieudats)
+    @JoinColumn({name:'MADONG'})
+    wineline: Wineline
 
     @Column({type:'int'})
     SOLUONG!: number
@@ -25,4 +36,6 @@ export class CtPhieudat {
 
     @Column({type:'char'})
     MANVGH!: string
+
+
 }
