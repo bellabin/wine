@@ -27,14 +27,14 @@ let CtPhieudatController = class CtPhieudatController {
     findAll() {
         return this.ctPhieudatService.findAll();
     }
-    findOne(id) {
-        return this.ctPhieudatService.findOne(+id);
+    findOne(IDCTPD, MAPD, MADONG) {
+        return this.ctPhieudatService.findOne(IDCTPD, MAPD, MADONG);
     }
-    update(id, updateCtPhieudatDto) {
-        return this.ctPhieudatService.update(+id, updateCtPhieudatDto);
+    update(IDCTPD, MAPD, MADONG, updateCtPhieudatDto) {
+        return this.ctPhieudatService.update(IDCTPD, MAPD, MADONG, updateCtPhieudatDto);
     }
-    remove(id) {
-        return this.ctPhieudatService.remove(+id);
+    remove(IDCTPD, MAPD, MADONG) {
+        return this.ctPhieudatService.remove(IDCTPD, MAPD, MADONG);
     }
 };
 __decorate([
@@ -51,25 +51,31 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CtPhieudatController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('IDCTPD')),
+    __param(1, (0, common_1.Query)('MAPD')),
+    __param(2, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieudatController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('IDCTPD')),
+    __param(1, (0, common_1.Query)('MAPD')),
+    __param(2, (0, common_1.Query)('MADONG')),
+    __param(3, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_ct_phieudat_dto_1.UpdateCtPhieudatDto]),
+    __metadata("design:paramtypes", [Number, String, String, update_ct_phieudat_dto_1.UpdateCtPhieudatDto]),
     __metadata("design:returntype", void 0)
 ], CtPhieudatController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('IDCTPD')),
+    __param(1, (0, common_1.Query)('MAPD')),
+    __param(2, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieudatController.prototype, "remove", null);
 CtPhieudatController = __decorate([

@@ -27,14 +27,14 @@ let ChangepriceController = class ChangepriceController {
     findAll() {
         return this.changepriceService.findAll();
     }
-    findOne(id) {
-        return this.changepriceService.findOne(+id);
+    findOne(MADONG, NGAYTHAYDOI, MANV) {
+        return this.changepriceService.findOne(MADONG, NGAYTHAYDOI, MANV);
     }
-    update(id, updateChangepriceDto) {
-        return this.changepriceService.update(+id, updateChangepriceDto);
+    update(MADONG, NGAYTHAYDOI, MANV, updateChangepriceDto) {
+        return this.changepriceService.update(MADONG, NGAYTHAYDOI, MANV, updateChangepriceDto);
     }
-    remove(id) {
-        return this.changepriceService.remove(+id);
+    remove(MADONG, NGAYTHAYDOI, MANV) {
+        return this.changepriceService.remove(MADONG, NGAYTHAYDOI, MANV);
     }
 };
 __decorate([
@@ -51,25 +51,31 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], ChangepriceController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('NGAYTHAYDOI')),
+    __param(2, (0, common_1.Query)('MANV')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Date, String]),
     __metadata("design:returntype", void 0)
 ], ChangepriceController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('NGAYTHAYDOI')),
+    __param(2, (0, common_1.Query)('MANV')),
+    __param(3, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_changeprice_dto_1.UpdateChangepriceDto]),
+    __metadata("design:paramtypes", [String, Date, String, update_changeprice_dto_1.UpdateChangepriceDto]),
     __metadata("design:returntype", void 0)
 ], ChangepriceController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('NGAYTHAYDOI')),
+    __param(2, (0, common_1.Query)('MANV')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, Date, String]),
     __metadata("design:returntype", void 0)
 ], ChangepriceController.prototype, "remove", null);
 ChangepriceController = __decorate([

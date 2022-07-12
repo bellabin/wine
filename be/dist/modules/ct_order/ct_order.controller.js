@@ -27,14 +27,14 @@ let CtOrderController = class CtOrderController {
     findAll() {
         return this.ctOrderService.findAll();
     }
-    findOne(id) {
-        return this.ctOrderService.findOne(+id);
+    findOne(MADONG, MADDH) {
+        return this.ctOrderService.findOne(MADONG, MADDH);
     }
-    update(id, updateCtOrderDto) {
-        return this.ctOrderService.update(+id, updateCtOrderDto);
+    update(MADONG, MADDH, updateCtOrderDto) {
+        return this.ctOrderService.update(MADONG, MADDH, updateCtOrderDto);
     }
-    remove(id) {
-        return this.ctOrderService.remove(+id);
+    remove(MADONG, MADDH) {
+        return this.ctOrderService.remove(MADONG, MADDH);
     }
 };
 __decorate([
@@ -51,25 +51,28 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CtOrderController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('MADDH')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtOrderController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('MADDH')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_ct_order_dto_1.UpdateCtOrderDto]),
+    __metadata("design:paramtypes", [String, String, update_ct_order_dto_1.UpdateCtOrderDto]),
     __metadata("design:returntype", void 0)
 ], CtOrderController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('MADONG')),
+    __param(1, (0, common_1.Query)('MADDH')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtOrderController.prototype, "remove", null);
 CtOrderController = __decorate([

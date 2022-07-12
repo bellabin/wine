@@ -27,8 +27,8 @@ export class CungcapController {
     return this.cungcapService.update(MANCC, MADONG, updateCungcapDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cungcapService.remove(+id);
+  @Delete('')
+  remove(@Query('MANCC') MANCC: string, @Query('MADONG') MADONG:string) {
+    return this.cungcapService.remove(MANCC, MADONG);
   }
 }

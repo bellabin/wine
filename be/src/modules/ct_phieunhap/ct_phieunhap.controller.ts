@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CtPhieunhapService } from './ct_phieunhap.service';
 import { CreateCtPhieunhapDto } from './dto/create-ct_phieunhap.dto';
 import { UpdateCtPhieunhapDto } from './dto/update-ct_phieunhap.dto';
@@ -17,18 +17,18 @@ export class CtPhieunhapController {
     return this.ctPhieunhapService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ctPhieunhapService.findOne(+id);
+  @Get('one')
+  findOne(@Query('MAPN') MAPN: string, @Query('MADONG') MADONG: string) {
+    return this.ctPhieunhapService.findOne(MAPN, MADONG);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtPhieunhapDto: UpdateCtPhieunhapDto) {
-    return this.ctPhieunhapService.update(+id, updateCtPhieunhapDto);
+  @Patch('')
+  update(@Query('MAPN') MAPN: string, @Query('MADONG') MADONG: string, @Body() updateCtPhieunhapDto: UpdateCtPhieunhapDto) {
+    return this.ctPhieunhapService.update(MAPN, MADONG, updateCtPhieunhapDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ctPhieunhapService.remove(+id);
+  @Delete('')
+  remove(@Query('MAPN') MAPN: string, @Query('MADONG') MADONG: string) {
+    return this.ctPhieunhapService.remove(MAPN, MADONG);
   }
 }

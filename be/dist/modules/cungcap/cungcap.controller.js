@@ -33,8 +33,8 @@ let CungcapController = class CungcapController {
     update(MANCC, MADONG, updateCungcapDto) {
         return this.cungcapService.update(MANCC, MADONG, updateCungcapDto);
     }
-    remove(id) {
-        return this.cungcapService.remove(+id);
+    remove(MANCC, MADONG) {
+        return this.cungcapService.remove(MANCC, MADONG);
     }
 };
 __decorate([
@@ -68,10 +68,11 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CungcapController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('MANCC')),
+    __param(1, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CungcapController.prototype, "remove", null);
 CungcapController = __decorate([

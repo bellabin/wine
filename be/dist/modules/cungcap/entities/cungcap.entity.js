@@ -25,7 +25,7 @@ __decorate([
     __metadata("design:type", provider_entity_1.Provider)
 ], Cungcap.prototype, "provider", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
+    (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], Cungcap.prototype, "MADONG", void 0);
 __decorate([

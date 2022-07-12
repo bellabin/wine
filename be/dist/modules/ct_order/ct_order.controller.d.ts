@@ -4,9 +4,9 @@ import { UpdateCtOrderDto } from './dto/update-ct_order.dto';
 export declare class CtOrderController {
     private readonly ctOrderService;
     constructor(ctOrderService: CtOrderService);
-    create(createCtOrderDto: CreateCtOrderDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateCtOrderDto: UpdateCtOrderDto): string;
-    remove(id: string): string;
+    create(createCtOrderDto: CreateCtOrderDto): Promise<import("./entities/ct_order.entity").CtOrder>;
+    findAll(): Promise<import("./entities/ct_order.entity").CtOrder[]>;
+    findOne(MADONG: string, MADDH: string): Promise<import("./entities/ct_order.entity").CtOrder>;
+    update(MADONG: string, MADDH: string, updateCtOrderDto: UpdateCtOrderDto): Promise<import("typeorm").UpdateResult>;
+    remove(MADONG: string, MADDH: string): Promise<import("./entities/ct_order.entity").CtOrder>;
 }

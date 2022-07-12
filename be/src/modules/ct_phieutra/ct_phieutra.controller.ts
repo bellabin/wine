@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CtPhieutraService } from './ct_phieutra.service';
 import { CreateCtPhieutraDto } from './dto/create-ct_phieutra.dto';
 import { UpdateCtPhieutraDto } from './dto/update-ct_phieutra.dto';
@@ -17,18 +17,18 @@ export class CtPhieutraController {
     return this.ctPhieutraService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ctPhieutraService.findOne(+id);
+  @Get('one')
+  findOne(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string) {
+    return this.ctPhieutraService.findOne(MAPT, IDCTPD);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtPhieutraDto: UpdateCtPhieutraDto) {
-    return this.ctPhieutraService.update(+id, updateCtPhieutraDto);
+  @Patch('')
+  update(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string, @Body() updateCtPhieutraDto: UpdateCtPhieutraDto) {
+    return this.ctPhieutraService.update(MAPT, IDCTPD, updateCtPhieutraDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ctPhieutraService.remove(+id);
+  @Delete('')
+  remove(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string) {
+    return this.ctPhieutraService.remove(MAPT, IDCTPD);
   }
 }

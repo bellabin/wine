@@ -14,7 +14,7 @@ export class Cungcap {
     provider: Provider
 
 
-    @Column({type:'char'})
+    @Column({type:'char', primary:true})
     MADONG!: string
 
     @ManyToOne(() => Wineline, wineline => wineline.cungcaps)

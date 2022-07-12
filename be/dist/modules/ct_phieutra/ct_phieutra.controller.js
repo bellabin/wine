@@ -27,14 +27,14 @@ let CtPhieutraController = class CtPhieutraController {
     findAll() {
         return this.ctPhieutraService.findAll();
     }
-    findOne(id) {
-        return this.ctPhieutraService.findOne(+id);
+    findOne(MAPT, IDCTPD) {
+        return this.ctPhieutraService.findOne(MAPT, IDCTPD);
     }
-    update(id, updateCtPhieutraDto) {
-        return this.ctPhieutraService.update(+id, updateCtPhieutraDto);
+    update(MAPT, IDCTPD, updateCtPhieutraDto) {
+        return this.ctPhieutraService.update(MAPT, IDCTPD, updateCtPhieutraDto);
     }
-    remove(id) {
-        return this.ctPhieutraService.remove(+id);
+    remove(MAPT, IDCTPD) {
+        return this.ctPhieutraService.remove(MAPT, IDCTPD);
     }
 };
 __decorate([
@@ -51,25 +51,28 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('MAPT')),
+    __param(1, (0, common_1.Query)('IDCTPD')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('MAPT')),
+    __param(1, (0, common_1.Query)('IDCTPD')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_ct_phieutra_dto_1.UpdateCtPhieutraDto]),
+    __metadata("design:paramtypes", [String, String, update_ct_phieutra_dto_1.UpdateCtPhieutraDto]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('MAPT')),
+    __param(1, (0, common_1.Query)('IDCTPD')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "remove", null);
 CtPhieutraController = __decorate([

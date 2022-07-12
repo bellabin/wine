@@ -7,6 +7,6 @@ import { PhieutraService } from './phieutra.service';
 @Module({
     imports: [TypeOrmModule.forFeature([Phieutra])], //import entity
     controllers: [PhieutraController], //import controller
-     providers: [PhieutraService] //import service
+    providers: [PhieutraService] //import service
 })
 export class PhieutraModule {}

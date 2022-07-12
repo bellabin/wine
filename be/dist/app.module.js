@@ -26,6 +26,12 @@ const role_module_1 = require("./modules/role/role.module");
 const order_module_1 = require("./modules/order/order.module");
 const promotion_module_1 = require("./modules/promotion/promotion.module");
 const cungcap_module_1 = require("./modules/cungcap/cungcap.module");
+const ct_phieudat_module_1 = require("./modules/ct_phieudat/ct_phieudat.module");
+const ct_phieunhap_module_1 = require("./modules/ct_phieunhap/ct_phieunhap.module");
+const ct_phieutra_module_1 = require("./modules/ct_phieutra/ct_phieutra.module");
+const changeprice_module_1 = require("./modules/changeprice/changeprice.module");
+const ct_promotion_entity_1 = require("./modules/ct_promotion/entities/ct_promotion.entity");
+const ct_order_entity_1 = require("./modules/ct_order/entities/ct_order.entity");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -54,7 +60,13 @@ AppModule = __decorate([
             role_module_1.RoleModule,
             order_module_1.OrderModule,
             promotion_module_1.PromotionModule,
-            cungcap_module_1.CungcapModule
+            cungcap_module_1.CungcapModule,
+            ct_phieudat_module_1.CtPhieudatModule,
+            ct_phieunhap_module_1.CtPhieunhapModule,
+            ct_phieutra_module_1.CtPhieutraModule,
+            changeprice_module_1.ChangepriceModule,
+            ct_promotion_entity_1.CtPromotion,
+            ct_order_entity_1.CtOrder
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

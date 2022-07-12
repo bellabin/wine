@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CtOrderService } from './ct_order.service';
 import { CreateCtOrderDto } from './dto/create-ct_order.dto';
 import { UpdateCtOrderDto } from './dto/update-ct_order.dto';
@@ -17,18 +17,18 @@ export class CtOrderController {
     return this.ctOrderService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ctOrderService.findOne(+id);
+  @Get('one')
+  findOne(@Query('MADONG') MADONG: string, @Query('MADDH') MADDH: string) {
+    return this.ctOrderService.findOne(MADONG, MADDH);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtOrderDto: UpdateCtOrderDto) {
-    return this.ctOrderService.update(+id, updateCtOrderDto);
+  @Patch('')
+  update(@Query('MADONG') MADONG: string, @Query('MADDH') MADDH: string, @Body() updateCtOrderDto: UpdateCtOrderDto) {
+    return this.ctOrderService.update(MADONG, MADDH, updateCtOrderDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ctOrderService.remove(+id);
+  @Delete('')
+  remove(@Query('MADONG') MADONG: string, @Query('MADDH') MADDH: string) {
+    return this.ctOrderService.remove(MADONG, MADDH);
   }
 }

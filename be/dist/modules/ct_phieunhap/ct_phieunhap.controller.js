@@ -27,14 +27,14 @@ let CtPhieunhapController = class CtPhieunhapController {
     findAll() {
         return this.ctPhieunhapService.findAll();
     }
-    findOne(id) {
-        return this.ctPhieunhapService.findOne(+id);
+    findOne(MAPN, MADONG) {
+        return this.ctPhieunhapService.findOne(MAPN, MADONG);
     }
-    update(id, updateCtPhieunhapDto) {
-        return this.ctPhieunhapService.update(+id, updateCtPhieunhapDto);
+    update(MAPN, MADONG, updateCtPhieunhapDto) {
+        return this.ctPhieunhapService.update(MAPN, MADONG, updateCtPhieunhapDto);
     }
-    remove(id) {
-        return this.ctPhieunhapService.remove(+id);
+    remove(MAPN, MADONG) {
+        return this.ctPhieunhapService.remove(MAPN, MADONG);
     }
 };
 __decorate([
@@ -51,25 +51,28 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CtPhieunhapController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('MAPN')),
+    __param(1, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieunhapController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('MAPN')),
+    __param(1, (0, common_1.Query)('MADONG')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_ct_phieunhap_dto_1.UpdateCtPhieunhapDto]),
+    __metadata("design:paramtypes", [String, String, update_ct_phieunhap_dto_1.UpdateCtPhieunhapDto]),
     __metadata("design:returntype", void 0)
 ], CtPhieunhapController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(''),
+    __param(0, (0, common_1.Query)('MAPN')),
+    __param(1, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieunhapController.prototype, "remove", null);
 CtPhieunhapController = __decorate([

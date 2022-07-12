@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { brotliDecompress } from 'zlib';
 import { CreateCtOrderDto } from './dto/create-ct_order.dto';
 import { UpdateCtOrderDto } from './dto/update-ct_order.dto';
+import { CtOrder } from './entities/ct_order.entity';
 
 @Injectable()
 export class CtOrderService {
-  create(createCtOrderDto: CreateCtOrderDto) {
-    return 'This action adds a new ctOrder';
+  @InjectRepository(CtOrder) private ctorderRepo: Repository<CtOrder>
+  async create(payload: CreateCtOrderDto) {
+    const ct_order = this.ctorderRepo.create(payload) //create nhung chua duoc save
+
+    await this.ctorderRepo.save(ct_order) //khi save thi data moi duoc luu vao db
+
+    return ct_order
   }
 
   findAll() {
-    return `This action returns all ctOrder`;
+    return this.ctorderRepo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} ctOrder`;
+  findOne(MADONG: string, MADDH: string) {
+    return this.ctorderRepo.createQueryBuilder('ct_order')
+    .innerJoinAndSelect('ct_order.wineline', 'dongruou')
+    .innerJoinAndSelect('ct_order.order','dondathang')
+    .where('ct_order.MADONG = :MADONG', {MADONG})
+    .andWhere('ct_order.MADDH = :MADDH', {MADDH})
+    .getOne()
   }
 
-  update(id: number, updateCtOrderDto: UpdateCtOrderDto) {
-    return `This action updates a #${id} ctOrder`;
+  async update(MADONG: string, MADDH: string, body: UpdateCtOrderDto) {
+    const ct_order = await this.findOne(MADONG, MADDH)
+
+    if(!ct_order) throw new NotFoundException('not found')
+
+    return this.ctorderRepo
+    .createQueryBuilder()
+    .update(CtOrder) //Entity Cung cap
+    .set({SOLUONG: body.SOLUONG, GIA: body.GIA})
+    .where('MADONG = :MADONG', { MADONG })
+    .andWhere('MADDH = :MADDH', { MADDH })
+    .execute() 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ctOrder`;
+  async remove(MADONG: string, MADDH: string) {
+    const ct_order = await this.findOne(MADONG, MADDH)
+
+    return this.ctorderRepo.remove(ct_order)
   }
 }

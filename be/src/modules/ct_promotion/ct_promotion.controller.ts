@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CtPromotionService } from './ct_promotion.service';
 import { CreateCtPromotionDto } from './dto/create-ct_promotion.dto';
 import { UpdateCtPromotionDto } from './dto/update-ct_promotion.dto';
@@ -17,18 +17,18 @@ export class CtPromotionController {
     return this.ctPromotionService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ctPromotionService.findOne(+id);
+  @Get('one')
+  findOne(@Query('MAKM') MAKM: string, @Query('MADONG') MADONG: string) {
+    return this.ctPromotionService.findOne(MAKM, MADONG);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtPromotionDto: UpdateCtPromotionDto) {
-    return this.ctPromotionService.update(+id, updateCtPromotionDto);
+  @Patch('')
+  update(@Query('MAKM') MAKM: string, @Query('MADONG') MADONG: string, @Body() updateCtPromotionDto: UpdateCtPromotionDto) {
+    return this.ctPromotionService.update(MAKM, MADONG, updateCtPromotionDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ctPromotionService.remove(+id);
+  @Delete('')
+  remove(@Query('MAKM') MAKM: string, @Query('MADONG') MADONG: string) {
+    return this.ctPromotionService.remove(MAKM,MADONG);
   }
 }

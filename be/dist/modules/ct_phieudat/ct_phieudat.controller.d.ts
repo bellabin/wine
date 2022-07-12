@@ -4,9 +4,9 @@ import { UpdateCtPhieudatDto } from './dto/update-ct_phieudat.dto';
 export declare class CtPhieudatController {
     private readonly ctPhieudatService;
     constructor(ctPhieudatService: CtPhieudatService);
-    create(createCtPhieudatDto: CreateCtPhieudatDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateCtPhieudatDto: UpdateCtPhieudatDto): string;
-    remove(id: string): string;
+    create(createCtPhieudatDto: CreateCtPhieudatDto): Promise<import("./entities/ct_phieudat.entity").CtPhieudat>;
+    findAll(): Promise<import("./entities/ct_phieudat.entity").CtPhieudat[]>;
+    findOne(IDCTPD: number, MAPD: string, MADONG: string): Promise<import("./entities/ct_phieudat.entity").CtPhieudat>;
+    update(IDCTPD: number, MAPD: string, MADONG: string, updateCtPhieudatDto: UpdateCtPhieudatDto): Promise<import("typeorm").UpdateResult>;
+    remove(IDCTPD: number, MAPD: string, MADONG: string): Promise<import("./entities/ct_phieudat.entity").CtPhieudat>;
 }

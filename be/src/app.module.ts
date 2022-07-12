@@ -17,6 +17,12 @@ import { RoleModule } from './modules/role/role.module';
 import { OrderModule } from './modules/order/order.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
 import { CungcapModule } from './modules/cungcap/cungcap.module';
+import { CtPhieudatModule } from './modules/ct_phieudat/ct_phieudat.module';
+import { CtPhieunhapModule } from './modules/ct_phieunhap/ct_phieunhap.module';
+import { CtPhieutraModule } from './modules/ct_phieutra/ct_phieutra.module';
+import { ChangepriceModule } from './modules/changeprice/changeprice.module';
+import { CtPromotion } from './modules/ct_promotion/entities/ct_promotion.entity';
+import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
 
 @Module({
   imports: [
@@ -43,7 +49,14 @@ import { CungcapModule } from './modules/cungcap/cungcap.module';
     RoleModule,
     OrderModule,
     PromotionModule,
-    CungcapModule
+    CungcapModule,
+    CtPhieudatModule,
+    CtPhieunhapModule,
+    CtPhieutraModule,
+    ChangepriceModule,
+    CtPromotion,
+    CtOrder
+
   ],
   controllers: [AppController],
   providers: [AppService],

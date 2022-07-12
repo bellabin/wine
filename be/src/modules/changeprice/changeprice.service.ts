@@ -1,26 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateChangepriceDto } from './dto/create-changeprice.dto';
 import { UpdateChangepriceDto } from './dto/update-changeprice.dto';
+import { Changeprice } from './entities/changeprice.entity';
 
 @Injectable()
 export class ChangepriceService {
-  create(createChangepriceDto: CreateChangepriceDto) {
-    return 'This action adds a new changeprice';
+  @InjectRepository(Changeprice) private changepriceRepo: Repository <Changeprice>
+  async create(payload: CreateChangepriceDto) { //func handle create new cp
+    const changeprice = this.changepriceRepo.create(payload) //create nhung chua duoc save
+
+    await this.changepriceRepo.save(changeprice) //khi save thi data moi duoc luu vao db
+
+    return changeprice
   }
 
   findAll() {
-    return `This action returns all changeprice`;
+    return this.changepriceRepo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} changeprice`;
+  findOne(MADONG: string, NGAYTHAYDOI: Date, MANV: string) {
+    return this.changepriceRepo.createQueryBuilder('changeprice')
+    .innerJoinAndSelect('changeprice.wineline', 'dongruou')
+    .innerJoinAndSelect('changeprice.staff','nhanvien')
+    .where('changeprice.MADONG = :MADONG', {MADONG})
+    .andWhere('ct_phieudat.NGAYTHAYDOI = :NGAYTHAYDOI', {NGAYTHAYDOI})
+    .andWhere('ct_phieudat.MANV = :MANV', {MANV})
+    .getOne()
   }
 
-  update(id: number, updateChangepriceDto: UpdateChangepriceDto) {
-    return `This action updates a #${id} changeprice`;
+  async update(MADONG: string, NGAYTHAYDOI: Date, MANV: string, body: UpdateChangepriceDto) {
+    const changeprice = await this.findOne(MADONG, NGAYTHAYDOI, MANV)
+
+    if(!changeprice) throw new NotFoundException('not found')
+
+    return this.changepriceRepo
+    .createQueryBuilder()
+    .update(Changeprice)
+    .set({BIENDONGGIA: body.BIENDONGGIA})
+    .where('MADONG = :MADONG', {MADONG})
+    .andWhere('NGAYTHAYDOI = :NGAYTHAYDOI', {NGAYTHAYDOI})
+    .andWhere('MANV = :MANV', {MANV})
+    .execute()
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} changeprice`;
+  async remove(MADONG: string, NGAYTHAYDOI: Date, MANV: string) {
+    const changeprice = await this.findOne(MADONG, NGAYTHAYDOI, MANV)
+
+    return this.changepriceRepo.remove(changeprice) 
   }
 }

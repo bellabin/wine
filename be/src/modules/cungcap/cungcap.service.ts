@@ -9,7 +9,7 @@ import { Cungcap } from './entities/cungcap.entity';
 @Injectable()
 export class CungcapService {
   @InjectRepository(Cungcap) private cungcapRepo: Repository<Cungcap>
-  async create(payload: CreateCungcapDto) {
+  /*async create(payload: CreateCungcapDto) {
     const { MANCC, MADONG, GIA } = payload
 
     const query = `INSERT INTO CUNGCAP VALUES(${MANCC}, ${MADONG}, ${GIA})` 
@@ -23,6 +23,14 @@ export class CungcapService {
     })
 
     return connection.query(query)
+  }*/
+
+  async create(payload: CreateCungcapDto) { //func handle create new staff
+    const cungcap = this.cungcapRepo.create(payload) //create nhung chua duoc save
+
+    await this.cungcapRepo.save(cungcap) //khi save thi data moi duoc luu vao db
+
+    return cungcap
   }
 
   findAll() {
@@ -31,8 +39,8 @@ export class CungcapService {
 
   findOne(MANCC: string, MADONG:string) {
     return this.cungcapRepo.createQueryBuilder('cungcap')
-    .leftJoinAndSelect('cungcap.MANCC', 'provider')
-    .leftJoinAndSelect('cungcap.MADONG', 'wineline')
+    .innerJoinAndSelect('cungcap.provider', 'nhacungcap')
+    .innerJoinAndSelect('cungcap.wineline', 'dongruou')
     .where('cungcap.MANCC = :MANCC', {MANCC})
     .andWhere('cungcap.MADONG = :MADONG', {MADONG})
     .getOne() 
@@ -44,13 +52,17 @@ export class CungcapService {
 
     if(!cungcap) throw new NotFoundException('not found')
 
-    return this.cungcapRepo.createQueryBuilder().update(Cungcap).set({GIA: body.GIA})
-    .where('cungcap.MANCC = :MANCC', {MANCC})
-    .andWhere('cungcap.MADONG = :MADONG', {MADONG})
+    return this.cungcapRepo
+    .createQueryBuilder()
+    .update(Cungcap) //Entity Cung cap
+    .set({GIA: body.GIA})
+    .where('MANCC = :MANCC', { MANCC })
+    .andWhere('MADONG = :MADONG', { MADONG })
     .execute()
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} cungcap`;
+  async remove(MANCC: string, MADONG: string) {
+    const cungcap = await this.findOne(MANCC,MADONG)
+    return this.cungcapRepo.remove(cungcap)
   }
 }

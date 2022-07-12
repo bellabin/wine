@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CtPhieudatService } from './ct_phieudat.service';
 import { CreateCtPhieudatDto } from './dto/create-ct_phieudat.dto';
 import { UpdateCtPhieudatDto } from './dto/update-ct_phieudat.dto';
@@ -17,18 +17,18 @@ export class CtPhieudatController {
     return this.ctPhieudatService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ctPhieudatService.findOne(+id);
+  @Get('one')
+  findOne(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string) {
+    return this.ctPhieudatService.findOne(IDCTPD, MAPD, MADONG);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCtPhieudatDto: UpdateCtPhieudatDto) {
-    return this.ctPhieudatService.update(+id, updateCtPhieudatDto);
+  @Patch('')
+  update(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string, @Body() updateCtPhieudatDto: UpdateCtPhieudatDto) {
+    return this.ctPhieudatService.update(IDCTPD, MAPD, MADONG, updateCtPhieudatDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ctPhieudatService.remove(+id);
+  @Delete('')
+  remove(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string) {
+    return this.ctPhieudatService.remove(IDCTPD, MAPD, MADONG);
   }
 }

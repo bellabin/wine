@@ -11,12 +11,12 @@ const common_1 = require("@nestjs/common");
 const ct_phieutra_service_1 = require("./ct_phieutra.service");
 const ct_phieutra_controller_1 = require("./ct_phieutra.controller");
 const typeorm_1 = require("@nestjs/typeorm");
-const phieudat_entity_1 = require("../phieudat/entities/phieudat.entity");
+const ct_phieutra_entity_1 = require("./entities/ct_phieutra.entity");
 let CtPhieutraModule = class CtPhieutraModule {
 };
 CtPhieutraModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([phieudat_entity_1.Phieudat])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([ct_phieutra_entity_1.CtPhieutra])],
         controllers: [ct_phieutra_controller_1.CtPhieutraController],
         providers: [ct_phieutra_service_1.CtPhieutraService]
     })

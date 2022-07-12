@@ -1,9 +1,11 @@
 import { CreateCtPhieutraDto } from './dto/create-ct_phieutra.dto';
 import { UpdateCtPhieutraDto } from './dto/update-ct_phieutra.dto';
+import { CtPhieutra } from './entities/ct_phieutra.entity';
 export declare class CtPhieutraService {
-    create(createCtPhieutraDto: CreateCtPhieutraDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateCtPhieutraDto: UpdateCtPhieutraDto): string;
-    remove(id: number): string;
+    private ctphieutraRepo;
+    create(payload: CreateCtPhieutraDto): Promise<CtPhieutra>;
+    findAll(): Promise<CtPhieutra[]>;
+    findOne(MAPT: string, IDCTPD: string): Promise<CtPhieutra>;
+    update(MAPT: string, IDCTPD: string, body: UpdateCtPhieutraDto): Promise<import("typeorm").UpdateResult>;
+    remove(MAPT: string, IDCTPD: string): Promise<CtPhieutra>;
 }
