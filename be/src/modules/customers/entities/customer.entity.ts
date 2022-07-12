@@ -1,4 +1,6 @@
-import { Column, Entity } from "typeorm";
+import { Phieudat } from "src/modules/phieudat/entities/phieudat.entity";
+import { Role } from "src/modules/role/entities/role.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity ('khachhang')
 export class Customer {
@@ -34,4 +36,11 @@ export class Customer {
 
     @Column({ type: 'char'})
     MANQ!: string
+
+    @ManyToOne(() => Role, role => role.customers)
+    @JoinColumn({name:'MANQ'})
+    role: Role
+
+    @OneToMany(() => Phieudat, (phieudat) => phieudat.customer)
+    phieudats: Phieudat[]
 }

@@ -10,6 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Phieudat = void 0;
+const ct_phieudat_entity_1 = require("../../ct_phieudat/entities/ct_phieudat.entity");
+const customer_entity_1 = require("../../customers/entities/customer.entity");
+const staff_entity_1 = require("../../staffs/entities/staff.entity");
 const typeorm_1 = require("typeorm");
 let Phieudat = class Phieudat {
 };
@@ -46,9 +49,10 @@ __decorate([
     __metadata("design:type", String)
 ], Phieudat.prototype, "TRANGTHAI", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
-    __metadata("design:type", String)
-], Phieudat.prototype, "MANVD", void 0);
+    (0, typeorm_1.ManyToOne)((type) => staff_entity_1.Staff, (staff) => staff.MANV),
+    (0, typeorm_1.JoinColumn)({ name: 'MANVD' }),
+    __metadata("design:type", staff_entity_1.Staff)
+], Phieudat.prototype, "staff", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
@@ -57,6 +61,15 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Phieudat.prototype, "MAKH", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)((type) => customer_entity_1.Customer, (customer) => customer.phieudats),
+    (0, typeorm_1.JoinColumn)({ name: 'MAKH' }),
+    __metadata("design:type", customer_entity_1.Customer)
+], Phieudat.prototype, "customer", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => ct_phieudat_entity_1.CtPhieudat, ct_phieudat => ct_phieudat.phieudat),
+    __metadata("design:type", Array)
+], Phieudat.prototype, "ct_phieudats", void 0);
 Phieudat = __decorate([
     (0, typeorm_1.Entity)('phieudat')
 ], Phieudat);

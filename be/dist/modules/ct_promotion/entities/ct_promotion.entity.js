@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CtPromotion = void 0;
+const promotion_entity_1 = require("../../promotion/entities/promotion.entity");
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let CtPromotion = class CtPromotion {
 };
@@ -18,9 +20,19 @@ __decorate([
     __metadata("design:type", String)
 ], CtPromotion.prototype, "MAKM", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => promotion_entity_1.Promotion, promotion => promotion.ct_khuyenmais),
+    (0, typeorm_1.JoinColumn)({ name: 'MAKM' }),
+    __metadata("design:type", promotion_entity_1.Promotion)
+], CtPromotion.prototype, "promotion", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], CtPromotion.prototype, "MADONG", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => wineline_entity_1.Wineline, wineline => wineline.ct_khuyenmais),
+    (0, typeorm_1.JoinColumn)({ name: 'MADONG' }),
+    __metadata("design:type", wineline_entity_1.Wineline)
+], CtPromotion.prototype, "wineline", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'int' }),
     __metadata("design:type", Number)

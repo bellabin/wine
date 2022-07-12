@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Promotion = void 0;
+const ct_promotion_entity_1 = require("../../ct_promotion/entities/ct_promotion.entity");
+const staff_entity_1 = require("../../staffs/entities/staff.entity");
 const typeorm_1 = require("typeorm");
 let Promotion = class Promotion {
 };
@@ -37,6 +39,15 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Promotion.prototype, "MANV", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => staff_entity_1.Staff, staff => staff.promotions),
+    (0, typeorm_1.JoinColumn)({ name: 'MANV' }),
+    __metadata("design:type", staff_entity_1.Staff)
+], Promotion.prototype, "staff", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => ct_promotion_entity_1.CtPromotion, (ct_khuyenmai) => ct_khuyenmai.promotion),
+    __metadata("design:type", Array)
+], Promotion.prototype, "ct_khuyenmais", void 0);
 Promotion = __decorate([
     (0, typeorm_1.Entity)('khuyenmai')
 ], Promotion);

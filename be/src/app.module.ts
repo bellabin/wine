@@ -16,6 +16,7 @@ import { PhieutraModule } from './modules/phieutra/phieutra/phieutra.module';
 import { RoleModule } from './modules/role/role.module';
 import { OrderModule } from './modules/order/order.module';
 import { PromotionModule } from './modules/promotion/promotion.module';
+import { CungcapModule } from './modules/cungcap/cungcap.module';
 
 @Module({
   imports: [
@@ -41,7 +42,8 @@ import { PromotionModule } from './modules/promotion/promotion.module';
     PhieutraModule,
     RoleModule,
     OrderModule,
-    PromotionModule
+    PromotionModule,
+    CungcapModule
   ],
   controllers: [AppController],
   providers: [AppService],

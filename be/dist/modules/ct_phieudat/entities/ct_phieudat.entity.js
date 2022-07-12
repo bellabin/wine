@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CtPhieudat = void 0;
+const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let CtPhieudat = class CtPhieudat {
 };
@@ -22,9 +24,19 @@ __decorate([
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MAPD", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => phieudat_entity_1.Phieudat, phieudat => phieudat.ct_phieudats),
+    (0, typeorm_1.JoinColumn)({ name: 'MAPD' }),
+    __metadata("design:type", phieudat_entity_1.Phieudat)
+], CtPhieudat.prototype, "phieudat", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MADONG", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => wineline_entity_1.Wineline, wineline => wineline.ct_phieudats),
+    (0, typeorm_1.JoinColumn)({ name: 'MADONG' }),
+    __metadata("design:type", wineline_entity_1.Wineline)
+], CtPhieudat.prototype, "wineline", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'int' }),
     __metadata("design:type", Number)

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Trademarks = void 0;
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let Trademarks = class Trademarks {
 };
@@ -25,6 +26,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'varchar' }),
     __metadata("design:type", String)
 ], Trademarks.prototype, "HINHANH", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => wineline_entity_1.Wineline, wineline => wineline.trademark),
+    __metadata("design:type", Array)
+], Trademarks.prototype, "winelines", void 0);
 Trademarks = __decorate([
     (0, typeorm_1.Entity)('thuonghieu')
 ], Trademarks);

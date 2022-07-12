@@ -27,11 +27,11 @@ let CungcapController = class CungcapController {
     findAll() {
         return this.cungcapService.findAll();
     }
-    findOne(id) {
-        return this.cungcapService.findOne(+id);
+    findOne(MANCC, MADONG) {
+        return this.cungcapService.findOne(MANCC, MADONG);
     }
-    update(id, updateCungcapDto) {
-        return this.cungcapService.update(+id, updateCungcapDto);
+    update(MANCC, MADONG, updateCungcapDto) {
+        return this.cungcapService.update(MANCC, MADONG, updateCungcapDto);
     }
     remove(id) {
         return this.cungcapService.remove(+id);
@@ -51,18 +51,20 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], CungcapController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)('one'),
+    __param(0, (0, common_1.Query)('MANCC')),
+    __param(1, (0, common_1.Query)('MADONG')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", void 0)
 ], CungcapController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Patch)(''),
+    __param(0, (0, common_1.Query)('MANCC')),
+    __param(1, (0, common_1.Query)('MADONG')),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_cungcap_dto_1.UpdateCungcapDto]),
+    __metadata("design:paramtypes", [String, String, update_cungcap_dto_1.UpdateCungcapDto]),
     __metadata("design:returntype", void 0)
 ], CungcapController.prototype, "update", null);
 __decorate([

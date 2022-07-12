@@ -10,6 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bill = void 0;
+const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
+const phieutra_entity_1 = require("../../phieutra/entities/phieutra.entity");
+const staff_entity_1 = require("../../staffs/entities/staff.entity");
 const typeorm_1 = require("typeorm");
 let Bill = class Bill {
 };
@@ -34,9 +37,19 @@ __decorate([
     __metadata("design:type", String)
 ], Bill.prototype, "MANV", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
-    __metadata("design:type", String)
-], Bill.prototype, "MAPD", void 0);
+    (0, typeorm_1.ManyToOne)(() => staff_entity_1.Staff, staff => staff.bills),
+    (0, typeorm_1.JoinColumn)({ name: 'MANV' }),
+    __metadata("design:type", staff_entity_1.Staff)
+], Bill.prototype, "staff", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => phieudat_entity_1.Phieudat),
+    (0, typeorm_1.JoinColumn)({ name: 'MAPD' }),
+    __metadata("design:type", phieudat_entity_1.Phieudat)
+], Bill.prototype, "phieudat", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => phieutra_entity_1.Phieutra, phieutra => phieutra.bill),
+    __metadata("design:type", Array)
+], Bill.prototype, "phieutras", void 0);
 Bill = __decorate([
     (0, typeorm_1.Entity)('hoadon')
 ], Bill);

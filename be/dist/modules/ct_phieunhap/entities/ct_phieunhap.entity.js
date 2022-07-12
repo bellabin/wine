@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CtPhieunhap = void 0;
+const phieunhap_entity_1 = require("../../phieunhap/entities/phieunhap.entity");
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let CtPhieunhap = class CtPhieunhap {
 };
@@ -21,6 +23,16 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], CtPhieunhap.prototype, "MADONG", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => phieunhap_entity_1.Phieunhap, phieunhap => phieunhap.MAPN),
+    (0, typeorm_1.JoinColumn)({ name: 'MAPN' }),
+    __metadata("design:type", phieunhap_entity_1.Phieunhap)
+], CtPhieunhap.prototype, "phieunhap", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => wineline_entity_1.Wineline, wineline => wineline.ct_phieunhaps),
+    (0, typeorm_1.JoinColumn)({ name: 'MADONG' }),
+    __metadata("design:type", wineline_entity_1.Wineline)
+], CtPhieunhap.prototype, "wineline", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'int' }),
     __metadata("design:type", Number)

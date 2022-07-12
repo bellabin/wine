@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customer = void 0;
+const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
+const role_entity_1 = require("../../role/entities/role.entity");
 const typeorm_1 = require("typeorm");
 let Customer = class Customer {
 };
@@ -57,6 +59,15 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Customer.prototype, "MANQ", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => role_entity_1.Role, role => role.customers),
+    (0, typeorm_1.JoinColumn)({ name: 'MANQ' }),
+    __metadata("design:type", role_entity_1.Role)
+], Customer.prototype, "role", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => phieudat_entity_1.Phieudat, (phieudat) => phieudat.customer),
+    __metadata("design:type", Array)
+], Customer.prototype, "phieudats", void 0);
 Customer = __decorate([
     (0, typeorm_1.Entity)('khachhang')
 ], Customer);

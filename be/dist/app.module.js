@@ -25,6 +25,7 @@ const phieutra_module_1 = require("./modules/phieutra/phieutra/phieutra.module")
 const role_module_1 = require("./modules/role/role.module");
 const order_module_1 = require("./modules/order/order.module");
 const promotion_module_1 = require("./modules/promotion/promotion.module");
+const cungcap_module_1 = require("./modules/cungcap/cungcap.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -52,7 +53,8 @@ AppModule = __decorate([
             phieutra_module_1.PhieutraModule,
             role_module_1.RoleModule,
             order_module_1.OrderModule,
-            promotion_module_1.PromotionModule
+            promotion_module_1.PromotionModule,
+            cungcap_module_1.CungcapModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

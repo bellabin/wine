@@ -10,6 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Order = void 0;
+const ct_order_entity_1 = require("../../ct_order/entities/ct_order.entity");
+const provider_entity_1 = require("../../provider/entities/provider.entity");
+const staff_entity_1 = require("../../staffs/entities/staff.entity");
 const typeorm_1 = require("typeorm");
 let Order = class Order {
 };
@@ -26,9 +29,23 @@ __decorate([
     __metadata("design:type", String)
 ], Order.prototype, "MANV", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => staff_entity_1.Staff, staff => staff.orders),
+    (0, typeorm_1.JoinColumn)({ name: 'MANV' }),
+    __metadata("design:type", staff_entity_1.Staff)
+], Order.prototype, "staff", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Order.prototype, "MANCC", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => provider_entity_1.Provider, provider => provider.orders),
+    (0, typeorm_1.JoinColumn)({ name: 'MANCC' }),
+    __metadata("design:type", provider_entity_1.Provider)
+], Order.prototype, "provider", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => ct_order_entity_1.CtOrder, (ct_dondathang) => ct_dondathang.order),
+    __metadata("design:type", Array)
+], Order.prototype, "ct_orders", void 0);
 Order = __decorate([
     (0, typeorm_1.Entity)('dondathang')
 ], Order);

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Review = void 0;
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let Review = class Review {
 };
@@ -37,6 +38,11 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Review.prototype, "MADONG", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => wineline_entity_1.Wineline, wineline => wineline.reviews),
+    (0, typeorm_1.JoinColumn)({ name: 'MADONG' }),
+    __metadata("design:type", wineline_entity_1.Wineline)
+], Review.prototype, "wineline", void 0);
 Review = __decorate([
     (0, typeorm_1.Entity)('danhgia')
 ], Review);

@@ -1,4 +1,5 @@
-import { Column, Entity } from "typeorm";
+import { Wineline } from "src/modules/wineline/entities/wineline.entity";
+import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
 
 @Entity('danhgia')
 export class Review {
@@ -19,4 +20,8 @@ export class Review {
 
     @Column({type:'char'})
     MADONG!: string
+
+    @ManyToOne(() => Wineline, wineline => wineline.reviews)
+    @JoinColumn({name:'MADONG'})
+    wineline: Wineline
 }

@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Winetype = void 0;
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let Winetype = class Winetype {
 };
@@ -17,6 +18,10 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], Winetype.prototype, "MALOAI", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => wineline_entity_1.Wineline, (wineline) => wineline.winetype),
+    __metadata("design:type", Array)
+], Winetype.prototype, "winelines", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'varchar' }),
     __metadata("design:type", String)

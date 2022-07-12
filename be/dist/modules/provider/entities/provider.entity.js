@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Provider = void 0;
+const cungcap_entity_1 = require("../../cungcap/entities/cungcap.entity");
+const order_entity_1 = require("../../order/entities/order.entity");
 const typeorm_1 = require("typeorm");
 let Provider = class Provider {
 };
@@ -33,6 +35,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], Provider.prototype, "SDT", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.provider),
+    __metadata("design:type", Array)
+], Provider.prototype, "orders", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cungcap_entity_1.Cungcap, (cungcap) => cungcap.provider),
+    __metadata("design:type", Array)
+], Provider.prototype, "cungcaps", void 0);
 Provider = __decorate([
     (0, typeorm_1.Entity)('nhacungcap')
 ], Provider);

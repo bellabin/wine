@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Changeprice = void 0;
+const staff_entity_1 = require("../../staffs/entities/staff.entity");
+const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
 let Changeprice = class Changeprice {
 };
@@ -18,6 +20,11 @@ __decorate([
     __metadata("design:type", String)
 ], Changeprice.prototype, "MADONG", void 0);
 __decorate([
+    (0, typeorm_1.ManyToOne)(() => wineline_entity_1.Wineline, wineline => wineline.changeprices),
+    (0, typeorm_1.JoinColumn)({ name: 'MADONG' }),
+    __metadata("design:type", wineline_entity_1.Wineline)
+], Changeprice.prototype, "wineline", void 0);
+__decorate([
     (0, typeorm_1.Column)({ type: 'date', primary: true }),
     __metadata("design:type", Date)
 ], Changeprice.prototype, "NGAYTHAYDOI", void 0);
@@ -25,6 +32,11 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'char', primary: true }),
     __metadata("design:type", String)
 ], Changeprice.prototype, "MANV", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => staff_entity_1.Staff, staff => staff.changeprices),
+    (0, typeorm_1.JoinColumn)({ name: 'MANV' }),
+    __metadata("design:type", staff_entity_1.Staff)
+], Changeprice.prototype, "staff", void 0);
 __decorate([
     (0, typeorm_1.Column)({ type: 'float' }),
     __metadata("design:type", Number)

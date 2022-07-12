@@ -1,9 +1,11 @@
 import { CreateCungcapDto } from './dto/create-cungcap.dto';
 import { UpdateCungcapDto } from './dto/update-cungcap.dto';
+import { Cungcap } from './entities/cungcap.entity';
 export declare class CungcapService {
-    create(createCungcapDto: CreateCungcapDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateCungcapDto: UpdateCungcapDto): string;
+    private cungcapRepo;
+    create(payload: CreateCungcapDto): Promise<[import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader"), import("mysql2/typings/mysql/lib/protocol/packets/FieldPacket")[]]>;
+    findAll(): Promise<Cungcap[]>;
+    findOne(MANCC: string, MADONG: string): Promise<Cungcap>;
+    update(MANCC: string, MADONG: string, body: UpdateCungcapDto): Promise<import("typeorm").UpdateResult>;
     remove(id: number): string;
 }
