@@ -2,7 +2,7 @@ import Axios from "axios";
 import { getTokenLocal, setTokenLocal } from "../../utils/Common";
 
 const HttpService = Axios.create({
-  baseURL: "http://127.0.0.1:3000",
+  baseURL: "http://127.0.0.1:3000", //trang BE mac dinh
   timeout: 30000,
   withCredentials: true,
   headers: {
