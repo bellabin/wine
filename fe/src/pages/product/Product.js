@@ -8,7 +8,7 @@ export default function Product() {
 
   useEffect(async () => {
     const products = await GetListProduct()
-
+    console.log(products)
     setListProducts(products)
   }, [])
 
