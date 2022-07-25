@@ -3,14 +3,14 @@ import React from 'react'
 export default function ConfirmOrderPage() {
   return (
     <div>
-        <div class="top-bar">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <i class="fa fa-envelope"></i>HoangKhang1999ag@gmail.com
+        <div className="top-bar">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-6">
+            <i className="fa fa-envelope"></i>HoangKhang1999ag@gmail.com
           </div>
-          <div class="col-sm-6">
-            <i class="fa fa-phone-alt"></i> +0338744192
+          <div className="col-sm-6">
+            <i className="fa fa-phone-alt"></i> +0338744192
           </div>
         </div>
       </div>
@@ -18,28 +18,28 @@ export default function ConfirmOrderPage() {
     {/* <!-- Top bar End --> */}
 
     {/* <!-- Breadcrumb Start --> */}
-    <div class="breadcrumb-wrap">
-      <div class="container-fluid">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-          <li class="breadcrumb-item active">Thành công</li>
+    <div className="breadcrumb-wrap">
+      <div className="container-fluid">
+        <ul className="breadcrumb">
+          <li className="breadcrumb-item"><a href="/">Trang chủ</a></li>
+          <li className="breadcrumb-item active">Thành công</li>
         </ul>
       </div>
     </div>
     {/* <!-- Breadcrumb End --> */}
 
     {/* <!-- Login Start --> */}
-    <div class="login">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6 mx-auto">
-            <div class="login-form">
+    <div className="login">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-6 mx-auto">
+            <div className="login-form">
               <form action="/users/dang-nhap" method="post">
-                <div class="row">
-                  <legend class="text-center">
+                <div className="row">
+                  <legend className="text-center">
                     <h1>GIAO DỊCH THÀNH CÔNG</h1>
                   </legend>
-                  <a class="mx-auto" href="/">Quay lại trang chủ</a>
+                  <a className="mx-auto" href="/">Quay lại trang chủ</a>
                 </div>
               </form>
             </div>
@@ -50,46 +50,42 @@ export default function ConfirmOrderPage() {
     {/* <!-- Login End --> */}
 
     {/* <!-- Footer Start --> */}
-    <div class="footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+    <div className="footer">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Liên Hệ</h2>
-              <div class="contact-info">
-                <p><i class="fa fa-map-marker"></i>Thành phố Hồ Chí Minh</p>
-                <p><i class="fa fa-envelope"></i>HoangKhang1999ag@gmail.com</p>
-                <p><i class="fa fa-phone"></i>+0338744192</p>
+              <div className="contact-info">
+                <p><i className="fa fa-map-marker"></i>Thành phố Hồ Chí Minh</p>
+                <p><i className="fa fa-envelope"></i>HoangKhang1999ag@gmail.com</p>
+                <p><i className="fa fa-phone"></i>+0338744192</p>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Theo Dõi Tôi</h2>
-              <div class="contact-info">
-                <div class="social">
-                  <a href=""><i class="fab fa-twitter"></i></a>
+              <div className="contact-info">
+                <div className="social">
+                  <a href=""><i className="fab fa-twitter"></i></a>
                   <a href="https://www.facebook.com/ybx1802"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
+                    ><i className="fab fa-facebook-f"></i></a>
                   <a href="https://www.linkedin.com/in/huy-tran-57777b202/"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
+                    ><i className="fab fa-linkedin-in"></i></a>
                   <a href="https://www.instagram.com/huy_jr18"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
+                    ><i className="fab fa-instagram"></i></a>
                   <a
                     href="https://www.youtube.com/channel/UCctcteJFmH4Wxc8npHW9Cog"
-                    ><i class="fab fa-youtube"></i
-                  ></a>
+                    ><i className="fab fa-youtube"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Thông Tin Cửa Hàng</h2>
               <ul>
                 <li><a href="#">Giới thiệu</a></li>
@@ -99,8 +95,8 @@ export default function ConfirmOrderPage() {
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Thông Tin Mua Hàng</h2>
               <ul>
                 <li><a href="#">Chính sách thanh toán</a></li>
@@ -111,15 +107,15 @@ export default function ConfirmOrderPage() {
           </div>
         </div>
 
-        <div class="row payment align-items-center">
-          <div class="col-md-6">
-            <div class="payment-method">
+        <div className="row payment align-items-center">
+          <div className="col-md-6">
+            <div className="payment-method">
               <h2>Nhận thanh toán bằng:</h2>
               <img src="../img/payment-method.png" alt="Payment Method" />
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="payment-security">
+          <div className="col-md-6">
+            <div className="payment-security">
               <h2>Chứng chỉ bảo mật:</h2>
               <img src="../img/godaddy.svg" alt="Payment Security" />
               <img src="../img/norton.svg" alt="Payment Security" />
@@ -132,10 +128,10 @@ export default function ConfirmOrderPage() {
     {/* <!-- Footer End --> */}
 
     {/* <!-- Footer Bottom Start --> */}
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 copyright">
+    <div className="footer-bottom">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 copyright">
             <p>
               Copyright &copy;
               <a href="https:www.facebook.com/ybx1802">Ruou Ngon Store</a>. All
@@ -143,7 +139,7 @@ export default function ConfirmOrderPage() {
             </p>
           </div>
 
-          <div class="col-md-6 template-by">
+          <div className="col-md-6 template-by">
             <p>Developed By <a href="https://htmlcodex.com">Khang Nguyen</a></p>
           </div>
         </div>
@@ -152,7 +148,7 @@ export default function ConfirmOrderPage() {
     {/* <!-- Footer Bottom End --> */}
 
     {/* <!-- Back to Top --> */}
-    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <a href="#" className="back-to-top"><i className="fa fa-chevron-up"></i></a>
 
     </div>
   )

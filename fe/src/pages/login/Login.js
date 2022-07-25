@@ -128,18 +128,14 @@ export default function LoginPage() {
                   <div class="social">
                     <a href=""><i class="fab fa-twitter"></i></a>
                     <a href="https://www.facebook.com/ybx1802"
-                    ><i class="fab fa-facebook-f"></i
-                    ></a>
+                    ><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.linkedin.com/in/huy-tran-57777b202/"
-                    ><i class="fab fa-linkedin-in"></i
-                    ></a>
+                    ><i class="fab fa-linkedin-in"></i></a>
                     <a href="https://www.instagram.com/huy_jr18"
-                    ><i class="fab fa-instagram"></i
-                    ></a>
+                    ><i class="fab fa-instagram"></i></a>
                     <a
                       href="https://www.youtube.com/channel/UCctcteJFmH4Wxc8npHW9Cog"
-                    ><i class="fab fa-youtube"></i
-                    ></a>
+                    ><i class="fab fa-youtube"></i></a>
                   </div>
                 </div>
               </div>

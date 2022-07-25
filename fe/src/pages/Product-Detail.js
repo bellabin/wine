@@ -3,14 +3,14 @@ import React from 'react'
 export default function ProductDetailPage() {
   return (
     <div>
-        <div class="top-bar">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <i class="fa fa-envelope"></i> huyyntran@.com
+        <div className="top-bar">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-6">
+            <i className="fa fa-envelope"></i> huyyntran@.com
           </div>
-          <div class="col-sm-6">
-            <i class="fa fa-phone-alt"></i> +0333 964 846
+          <div className="col-sm-6">
+            <i className="fa fa-phone-alt"></i> +0333 964 846
           </div>
         </div>
       </div>
@@ -18,58 +18,54 @@ export default function ProductDetailPage() {
     {/* <!-- Top bar End --> */}
 
     {/* <!-- Nav Bar Start --> */}
-    <div class="nav">
-      <div class="container-fluid">
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-          <a href="#" class="navbar-brand">MENU</a>
+    <div className="nav">
+      <div className="container-fluid">
+        <nav className="navbar navbar-expand-md bg-dark navbar-dark">
+          <a href="#" className="navbar-brand">MENU</a>
           <button
             type="button"
-            class="navbar-toggler"
+            className="navbar-toggler"
             data-toggle="collapse"
             data-target="#navbarCollapse"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
           <div
-            class="collapse navbar-collapse justify-content-between"
+            className="collapse navbar-collapse justify-content-between"
             id="navbarCollapse"
           >
-            <div class="navbar-nav mr-auto">
-              <a href="/" class="nav-item nav-link active">Trang Chủ</a>
-              <a href="/san-pham" class="nav-item nav-link">Sản Phẩm</a>
-              <!-- <a href="product-detail.html" class="nav-item nav-link">Product Detail</a> -->
-              <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
-              <a href="/thanh-toan" class="nav-item nav-link">Thanh Toán</a>
-              <a href="/tai-khoan" class="nav-item nav-link"
-                >Tài khoản của bạn</a
-              >
-              <div class="nav-item dropdown">
+            <div className="navbar-nav mr-auto">
+              <a href="/" className="nav-item nav-link active">Trang Chủ</a>
+              <a href="/san-pham" className="nav-item nav-link">Sản Phẩm</a>
+              {/* <!-- <a href="product-detail.html" className="nav-item nav-link">Product Detail</a> --> */}
+              <a href="/gio-hang" className="nav-item nav-link">Giỏ Hàng</a>
+              <a href="/thanh-toan" className="nav-item nav-link">Thanh Toán</a>
+              <a href="/tai-khoan" className="nav-item nav-link"
+                >Tài khoản của bạn</a>
+              <div className="nav-item dropdown">
                 <a
                   href="#"
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   data-toggle="dropdown"
-                  >Trang khác</a
-                >
-                <div class="dropdown-menu">
-                  <a href="/wishlist" class="dropdown-item"
-                    >Sản phẩm đã thích</a
-                  >
-                  <a href="/lien-he" class="dropdown-item">Liên hệ</a>
+                  >Trang khác</a>
+                <div className="dropdown-menu">
+                  <a href="/wishlist" className="dropdown-item"
+                    >Sản phẩm đã thích</a>
+                  <a href="/lien-he" className="dropdown-item">Liên hệ</a>
                 </div>
               </div>
             </div>
-            <div class="navbar-nav ml-auto">
-              <div class="nav-item dropdown">
+            <div className="navbar-nav ml-auto">
+              <div className="nav-item dropdown">
                 <a
                   href="#"
-                  class="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle"
                   data-toggle="dropdown"
-                  >Tài khoản</a
-                >
-                <div class="dropdown-menu">
-                  <a href="/users/dang-nhap" class="dropdown-item">Đăng nhập</a>
-                  <a href="/users/dang-ky" class="dropdown-item">Đăng ký</a>
+                  >Tài khoản</a>
+                <div className="dropdown-menu">
+                  <a href="/users/dang-nhap" className="dropdown-item">Đăng nhập</a>
+                  <a href="/users/dang-ky" className="dropdown-item">Đăng ký</a>
                 </div>
               </div>
             </div>
@@ -80,30 +76,30 @@ export default function ProductDetailPage() {
     {/* <!-- Nav Bar End --> */}
 
     {/* <!-- Bottom Bar Start --> */}
-    <div class="bottom-bar">
-      <div class="container-fluid">
-        <div class="row align-items-center">
-          <div class="col-md-3">
-            <div class="logo">
+    <div className="bottom-bar">
+      <div className="container-fluid">
+        <div className="row align-items-center">
+          <div className="col-md-3">
+            <div className="logo">
               <a href="/">
                 <img src="../img/logo.png" alt="Logo" />
               </a>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="search">
+          <div className="col-md-6">
+            <div className="search">
               <input type="text" placeholder="Search" />
-              <button><i class="fa fa-search"></i></button>
+              <button><i className="fa fa-search"></i></button>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="user">
-              <a href="wishlist.html" class="btn wishlist">
-                <i class="fa fa-heart"></i>
+          <div className="col-md-3">
+            <div className="user">
+              <a href="wishlist.html" className="btn wishlist">
+                <i className="fa fa-heart"></i>
                 <span>(0)</span>
               </a>
-              <a href="cart.html" class="btn cart">
-                <i class="fa fa-shopping-cart"></i>
+              <a href="cart.html" className="btn cart">
+                <i className="fa fa-shopping-cart"></i>
                 <span>(0)</span>
               </a>
             </div>
@@ -114,110 +110,106 @@ export default function ProductDetailPage() {
     {/* <!-- Bottom Bar End --> */}
 
     {/* <!-- Breadcrumb Start --> */}
-    <div class="breadcrumb-wrap">
-      <div class="container-fluid">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Home</a></li>
-          <li class="breadcrumb-item"><a href="/san-pham">Sản phẩm</a></li>
-          <li class="breadcrumb-item active"><%=breadcrumb%></li>
+    <div className="breadcrumb-wrap">
+      <div className="container-fluid">
+        <ul className="breadcrumb">
+          <li className="breadcrumb-item"><a href="/">Home</a></li>
+          <li className="breadcrumb-item"><a href="/san-pham">Sản phẩm</a></li>
+          <li className="breadcrumb-item active"><%=breadcrumb%></li>
         </ul>
       </div>
     </div>
     {/* <!-- Breadcrumb End --> */}
 
     {/* <!-- Product Detail Start --> */}
-    <div class="product-detail">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="product-detail-top">
-              <div id="chi-tiet-san-pham" class="row align-items-center">
-                <div class="col-md-5">
-                  <div class="product-slider-single normal-slider">
+    <div className="product-detail">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-8">
+            <div className="product-detail-top">
+              <div id="chi-tiet-san-pham" className="row align-items-center">
+                <div className="col-md-5">
+                  <div className="product-slider-single normal-slider">
                     
                   </div>
                 </div>
-                <div class="col-md-7">
-                  <div class="product-content">
-                    <div class="title">
+                <div className="col-md-7">
+                  <div className="product-content">
+                    <div className="title">
                       <h2 id="nameProduct"></h2>
                     </div>
-                    <div class="ratting">
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                    <div className="ratting">
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
+                      <i className="fa fa-star"></i>
                     </div>
-                    <div class="price">
+                    <div className="price">
                       <h4>Giá:</h4>
                       <p id="priceProduct"></p>
                     </div>
-                    <div class="quantity">
+                    <div className="quantity">
                       <h4>Số lượng:</h4>
-                      <div class="qty">
-                        <button class="btn-minus">
-                          <i class="fa fa-minus"></i>
+                      <div className="qty">
+                        <button className="btn-minus">
+                          <i className="fa fa-minus"></i>
                         </button>
                         <input type="text" value="1" />
-                        <button class="btn-plus">
-                          <i class="fa fa-plus"></i>
+                        <button className="btn-plus">
+                          <i className="fa fa-plus"></i>
                         </button>
                       </div>
                     </div>
-                    <div class="p-size">
+                    <div className="p-size">
                       <h4>Kích thước:</h4>
                       <div
                         id="sizeProduct"
-                        class="btn-group btn-group-sm"
+                        className="btn-group btn-group-sm"
                       ></div>
                     </div>
-                    <div class="p-color">
+                    <div className="p-color">
                       <h4>Màu:</h4>
-                      <div class="btn-group btn-group-sm">
-                        <button type="button" class="btn">Trắng</button>
-                        <button type="button" class="btn">Đen</button>
-                        <button type="button" class="btn">Cam</button>
+                      <div className="btn-group btn-group-sm">
+                        <button type="button" className="btn">Trắng</button>
+                        <button type="button" className="btn">Đen</button>
+                        <button type="button" className="btn">Cam</button>
                       </div>
                     </div>
-                    <div class="action">
-                      <a class="btn" href="#"
-                        ><i class="fa fa-shopping-bag"></i>Mua Ngay</a
-                      >
-                      <a class="btn" href="#"
-                        ><i class="fa fa-shopping-cart"></i>Thêm vào giỏ</a
-                      >
+                    <div className="action">
+                      <a className="btn" href="#"
+                        ><i className="fa fa-shopping-bag"></i>Mua Ngay</a>
+                      <a className="btn" href="#"
+                        ><i className="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="row product-detail-bottom">
-              <div class="col-lg-12">
-                <ul class="nav nav-pills nav-justified">
-                  <li class="nav-item">
+            <div className="row product-detail-bottom">
+              <div className="col-lg-12">
+                <ul className="nav nav-pills nav-justified">
+                  <li className="nav-item">
                     <a
-                      class="nav-link active"
+                      className="nav-link active"
                       data-toggle="pill"
                       href="#description"
-                      >Mô tả</a
-                    >
+                      >Mô tả</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#specification"
-                      >Chi tiết</a
-                    >
+                  <li className="nav-item">
+                    <a className="nav-link" data-toggle="pill" href="#specification"
+                      >Chi tiết</a>
                   </li>
                   
                 </ul>
 
-                <div class="tab-content">
-                  <div id="description" class="container tab-pane active">
+                <div className="tab-content">
+                  <div id="description" className="container tab-pane active">
                     <h4>Mô tả sản phẩm</h4>
                     <p id="desProduct"></p>
                   </div>
-                  <div id="specification" class="container tab-pane fade">
+                  <div id="specification" className="container tab-pane fade">
                     <h4>Chi tiết sản phẩm</h4>
                     <ul>
                       <li>Lorem ipsum dolor sit amet</li>
@@ -227,17 +219,17 @@ export default function ProductDetailPage() {
                       <li>Lorem ipsum dolor sit amet</li>
                     </ul>
                   </div>
-                  <div id="reviews" class="container tab-pane fade">
+                  <div id="reviews" className="container tab-pane fade">
                     
                     <form
                       action="/san-pham/comment/createcomment"
                       method="post"
                     >
-                      <div class="reviews-submit">
-                        <div class="field">
+                      <div className="reviews-submit">
+                        <div className="field">
                           <h4>Viết đánh giá của bạn:</h4>
-                          <div class="control">
-                            <div class="rating">
+                          <div className="control">
+                            <div className="rating">
                               <input
                                 type="radio"
                                 name="star"
@@ -272,18 +264,18 @@ export default function ProductDetailPage() {
                           </div>
                         </div>
 
-                        <div class="row form clearfix">
-                          <div class="col-sm-6">
+                        <div className="row form clearfix">
+                          <div className="col-sm-6">
                             <input name="ten" type="text" placeholder="Tên" />
                           </div>
-                          <div class="col-sm-6">
+                          <div className="col-sm-6">
                             <input
                               name="email"
                               type="email"
                               placeholder="Email"
                             />
                           </div>
-                          <div class="col-sm-12">
+                          <div className="col-sm-12">
                             <textarea
                               name="content"
                               placeholder="Đánh giá..."
@@ -299,7 +291,7 @@ export default function ProductDetailPage() {
                             name="nameProduct"
                             value="<%=itemPro.TENDONG%>"
                           />
-                          <div class="col-sm-12">
+                          <div className="col-sm-12">
                             <button>Gửi</button>
                           </div>
                         </div>
@@ -310,13 +302,13 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            <div class="product">
-              <div class="section-header">
+            <div className="product">
+              <div className="section-header">
                 <h1>Nón tương tự</h1>
               </div>
 
               <div
-                class="row align-items-center product-slider product-slider-3"
+                className="row align-items-center product-slider product-slider-3"
               >
                 
               </div>
@@ -324,32 +316,32 @@ export default function ProductDetailPage() {
           </div>
 
           {/* <!-- Side Bar Start --> */}
-          <div class="col-lg-4 sidebar">
-            <div class="sidebar-widget category">
-              <h2 class="title">Danh mục</h2>
-              <nav class="navbar bg-light">
-                <ul class="navbar-nav">
+          <div className="col-lg-4 sidebar">
+            <div className="sidebar-widget category">
+              <h2 className="title">Danh mục</h2>
+              <nav className="navbar bg-light">
+                <ul className="navbar-nav">
                   
                 </ul>
               </nav>
             </div>
 
-            <div class="sidebar-widget widget-slider">
-              <h3 style="text-align: center; color: #ff6f61">RƯỢU NỔI BẬT</h3>
-              <div class="sidebar-slider normal-slider">
+            <div className="sidebar-widget widget-slider">
+              <h3 style={{textAlign: 'center', color: '#ff6f61'}}>RƯỢU NỔI BẬT</h3>
+              <div className="sidebar-slider normal-slider">
                 
               </div>
             </div>
 
-            <div class="sidebar-widget brands">
-              <h2 class="title">Thương hiệu</h2>
+            <div className="sidebar-widget brands">
+              <h2 className="title">Thương hiệu</h2>
               <ul>
                 
               </ul>
             </div>
 
-            <div class="sidebar-widget tag">
-              <h2 class="title">Tags Cloud</h2>
+            <div className="sidebar-widget tag">
+              <h2 className="title">Tags Cloud</h2>
               <a href="#">Lorem ipsum</a>
               <a href="#">Vivamus</a>
               <a href="#">Phasellus</a>
@@ -371,63 +363,59 @@ export default function ProductDetailPage() {
     {/* <!-- Product Detail End --> */}
 
     {/* <!-- Brand Start --> */}
-    <div class="brand">
-      <div class="container-fluid">
-        <div class="brand-slider">
-          <div class="brand-item"><img src="../img/brand-1.png" alt="" /></div>
-          <div class="brand-item"><img src="../img/brand-2.png" alt="" /></div>
-          <div class="brand-item"><img src="../img/brand-3.png" alt="" /></div>
-          <div class="brand-item"><img src="../img/brand-4.png" alt="" /></div>
-          <div class="brand-item"><img src="../img/brand-5.png" alt="" /></div>
-          <div class="brand-item"><img src="../img/brand-6.png" alt="" /></div>
+    <div className="brand">
+      <div className="container-fluid">
+        <div className="brand-slider">
+          <div className="brand-item"><img src="../img/brand-1.png" alt="" /></div>
+          <div className="brand-item"><img src="../img/brand-2.png" alt="" /></div>
+          <div className="brand-item"><img src="../img/brand-3.png" alt="" /></div>
+          <div className="brand-item"><img src="../img/brand-4.png" alt="" /></div>
+          <div className="brand-item"><img src="../img/brand-5.png" alt="" /></div>
+          <div className="brand-item"><img src="../img/brand-6.png" alt="" /></div>
         </div>
       </div>
     </div>
     {/* <!-- Brand End --> */}
 
     {/* <!-- Footer Start --> */}
-    <div class="footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+    <div className="footer">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Liên Hệ</h2>
-              <div class="contact-info">
+              <div className="contact-info">
                 <p>
-                  <i class="fa fa-map-marker"></i>Trảng Bàng, Tây Ninh, Việt Nam
+                  <i className="fa fa-map-marker"></i>Trảng Bàng, Tây Ninh, Việt Nam
                 </p>
-                <p><i class="fa fa-envelope"></i>huyyntran@gmail.com</p>
-                <p><i class="fa fa-phone"></i>+0333 964 846</p>
+                <p><i className="fa fa-envelope"></i>huyyntran@gmail.com</p>
+                <p><i className="fa fa-phone"></i>+0333 964 846</p>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Theo Dõi Tôi</h2>
-              <div class="contact-info">
-                <div class="social">
-                  <a href=""><i class="fab fa-twitter"></i></a>
+              <div className="contact-info">
+                <div className="social">
+                  <a href=""><i className="fab fa-twitter"></i></a>
                   <a href="https://www.facebook.com/ybx1802"
-                    ><i class="fab fa-facebook-f"></i
-                  ></a>
+                    ><i className="fab fa-facebook-f"></i></a>
                   <a href="https://www.linkedin.com/in/huy-tran-57777b202/"
-                    ><i class="fab fa-linkedin-in"></i
-                  ></a>
+                    ><i className="fab fa-linkedin-in"></i></a>
                   <a href="https://www.instagram.com/huy_jr18"
-                    ><i class="fab fa-instagram"></i
-                  ></a>
+                    ><i className="fab fa-instagram"></i></a>
                   <a
                     href="https://www.youtube.com/channel/UCctcteJFmH4Wxc8npHW9Cog"
-                    ><i class="fab fa-youtube"></i
-                  ></a>
+                    ><i className="fab fa-youtube"></i></a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Thông Tin Cửa Hàng</h2>
               <ul>
                 <li><a href="#">Giới thiệu</a></li>
@@ -437,8 +425,8 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-widget">
+          <div className="col-lg-3 col-md-6">
+            <div className="footer-widget">
               <h2>Thông Tin Mua Hàng</h2>
               <ul>
                 <li><a href="#">Chính sách thanh toán</a></li>
@@ -449,15 +437,15 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        <div class="row payment align-items-center">
-          <div class="col-md-6">
-            <div class="payment-method">
+        <div className="row payment align-items-center">
+          <div className="col-md-6">
+            <div className="payment-method">
               <h2>Nhận thanh toán bằng:</h2>
               <img src="../img/payment-method.png" alt="Payment Method" />
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="payment-security">
+          <div className="col-md-6">
+            <div className="payment-security">
               <h2>Chứng chỉ bảo mật:</h2>
               <img src="../img/godaddy.svg" alt="Payment Security" />
               <img src="../img/norton.svg" alt="Payment Security" />
@@ -470,10 +458,10 @@ export default function ProductDetailPage() {
     {/* <!-- Footer End --> */}
 
     {/* <!-- Footer Bottom Start --> */}
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 copyright">
+    <div className="footer-bottom">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-6 copyright">
             <p>
               Copyright &copy;
               <a href="https:www.facebook.com/ybx1802">Fullface Store</a>. All
@@ -481,7 +469,7 @@ export default function ProductDetailPage() {
             </p>
           </div>
 
-          <div class="col-md-6 template-by">
+          <div className="col-md-6 template-by">
             <p>Developed By <a href="https://htmlcodex.com">Huy JR</a></p>
           </div>
         </div>
@@ -490,7 +478,7 @@ export default function ProductDetailPage() {
     {/* <!-- Footer Bottom End --> */}
 
     {/* <!-- Back to Top --> */}
-    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <a href="#" className="back-to-top"><i className="fa fa-chevron-up"></i></a>
 
     </div>
   )

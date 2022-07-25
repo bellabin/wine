@@ -1,7 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, NotFoundException, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { StaffService } from './staff.service';
+import { AuthGuard } from '@nestjs/passport';
+import { LoginStaffDto } from './dto/login-staff.dto';
+import { NotFoundError } from 'rxjs';
 
 @Controller('staffs')
 export class StaffController {
@@ -18,6 +21,18 @@ export class StaffController {
     findById(@Param('id') id: string) {
         return this.staffService.findById(id)
     }
+
+   @Post('login')
+   async login(@Body() payload: LoginStaffDto){
+        const staff = await this.staffService.findByUsername(payload.USERNAME)
+
+        if(!staff) throw new NotFoundException()
+
+        if(payload.PASSWORD != staff.PASSWORD) throw new HttpException ('invalid credential', HttpStatus.UNAUTHORIZED)
+
+        return staff
+
+   }
 
     @Post() //create new staff
     create(@Body() payload: CreateStaffDto) {

@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/Home"
+import HomePage from "./pages/home/Home"
 import LoginPage from "./pages/login/Login";
-import AdminPage from "./pages/admin"
+import AdminPage from "./pages/admin/admin"
+import SignInAdminPage from "./pages/Sign-in-admin/Sign-in-admin"
 import EditCustomerPage from "./pages/Edit-customer"
 import EditPromotionPage from "./pages/Edit-promotion"
 import ProductPage from "./pages/product/Product"
@@ -11,9 +12,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
+        <Route path="/home" element={<HomePage/>} />
         <Route path="/login" element={<LoginPage/>} />
-        {/* <Route path="/" element={<AdminPage/>} /> */}
+        <Route path="/admin" element={<AdminPage/>} />
+        <Route path="/Sign-in-admin" element={<SignInAdminPage/>} />
         <Route path="/edit-customer" element={<EditCustomerPage/>} />
         <Route path="/edit-promo" element={<EditPromotionPage/>} />
         <Route path="/product" element={<ProductPage/>} />

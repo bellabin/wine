@@ -66,7 +66,7 @@ AppModule = __decorate([
             ct_phieutra_module_1.CtPhieutraModule,
             changeprice_module_1.ChangepriceModule,
             ct_promotion_entity_1.CtPromotion,
-            ct_order_entity_1.CtOrder
+            ct_order_entity_1.CtOrder,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

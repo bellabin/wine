@@ -22,6 +22,19 @@ export class StaffService {
             .getOne()
     }
 
+    findByUsername(USERNAME: string) {
+        return this.staffRepo
+            .createQueryBuilder('staffs')
+            .where('staffs.USERNAME = :USERNAME', {USERNAME})
+            .getOne()
+    
+    }
+
+    Login(USERNAME: string, PASSWORD: string){
+        
+    }
+
+
     async create(payload: CreateStaffDto) { //func handle create new staff
         const staff = this.staffRepo.create(payload) //create nhung chua duoc save
 

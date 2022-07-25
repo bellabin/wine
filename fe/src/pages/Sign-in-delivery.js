@@ -3,14 +3,14 @@ import React from 'react'
 export default function SignInDeliveryPage() {
   return (
     <div>
-        <div class="top-bar">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <i class="fa fa-envelope"></i>HoangKhang1999ag@gmail.com
+        <div className="top-bar">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-6">
+            <i className="fa fa-envelope"></i>HoangKhang1999ag@gmail.com
           </div>
-          <div class="col-sm-6">
-            <i class="fa fa-phone-alt"></i>+0338744192
+          <div className="col-sm-6">
+            <i className="fa fa-phone-alt"></i>+0338744192
           </div>
         </div>
       </div>
@@ -18,27 +18,28 @@ export default function SignInDeliveryPage() {
     {/* <!-- Top bar End --> */}
 
     {/* <!-- Nav Bar Start --> */}
-    <div class="nav">
-      <div class="container-fluid">
-        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-          <a href="#" class="navbar-brand">MENU</a>
+    <div className="nav">
+      <div className="container-fluid">
+        <nav className="navbar navbar-expand-md bg-dark navbar-dark">
+          <a href="#" className="navbar-brand">MENU</a>
           <button
             type="button"
-            class="navbar-toggler"
+            className="navbar-toggler"
             data-toggle="collapse"
             data-target="#navbarCollapse"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
 
           <div
-            class="collapse navbar-collapse justify-content-between"
+            className="collapse navbar-collapse justify-content-between"
             id="navbarCollapse"
           >
-            <div class="navbar-nav mr-auto">
-              <a href="/" class="nav-item nav-link">Trang Chủ</a>
-            <div class="navbar-nav ml-auto">
+            <div className="navbar-nav mr-auto">
+              <a href="/" className="nav-item nav-link">Trang Chủ</a>
+            <div className="navbar-nav ml-auto">
             </div>
+          </div>
           </div>
         </nav>
       </div>
@@ -48,54 +49,54 @@ export default function SignInDeliveryPage() {
     
 
     {/* <!-- Breadcrumb Start --> */}
-    <div class="breadcrumb-wrap">
-      <div class="container-fluid">
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
-          <li class="breadcrumb-item active">Đăng nhập giao hàng</li>
+    <div className="breadcrumb-wrap">
+      <div className="container-fluid">
+        <ul className="breadcrumb">
+          <li className="breadcrumb-item"><a href="/">Trang chủ</a></li>
+          <li className="breadcrumb-item active">Đăng nhập giao hàng</li>
         </ul>
       </div>
     </div>
     {/* <!-- Breadcrumb End --> */}
 
     {/* <!-- Login Start --> */}
-    <div class="login">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-6 mx-auto">
-            <div class="login-form">
+    <div className="login">
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-6 mx-auto">
+            <div className="login-form">
               <form action="/users/dang-nhap-giao-hang" method="post">
-                <div class="row">
-                  <legend class="text-center">Đăng nhập giao hàng</legend>
-                  <div class="col-md-6">
+                <div className="row">
+                  <legend className="text-center">Đăng nhập giao hàng</legend>
+                  <div className="col-md-6">
                     <label for="username">Username</label>
                     <input
                       id="username"
                       name="username"
-                      class="form-control"
+                      className="form-control"
                       type="text"
                       placeholder="Username"
                     />
                   </div>
-                  <div class="col-md-6">
+                  <div className="col-md-6">
                     <label for="password">Mật khẩu</label>
                     <input
                       id="password"
                       name="password"
-                      class="form-control"
+                      className="form-control"
                       type="password"
                       placeholder="Mật khẩu"
                     />
                   </div>
-                  <div class="col-md-12">
-                    <div class="custom-control custom-checkbox">
-                      <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
-                                            <label class="custom-control-label" for="newaccount">Lưu đăng nhập</label> -->
+                  <div className="col-md-12">
+                    <div className="custom-control custom-checkbox">
+                      {/* <!-- <input type="checkbox" className="custom-control-input" id="newaccount">
+                                            <label className="custom-control-label" for="newaccount">Lưu đăng nhập</label> --> */}
                       <a href="/users/quen-mat-khau">Quên mật khẩu?</a>
                     </div>
                   </div>
-                  <div class="col-md-12 text-center">
-                    <button class="btn">Đăng nhập</button>
+                  <div className="col-md-12 text-center">
+                    <button className="btn">Đăng nhập</button>
                   </div>
                 </div>
               </form>
@@ -107,7 +108,7 @@ export default function SignInDeliveryPage() {
     {/* <!-- Login End --> */}
 
     {/* <!-- Back to Top --> */}
-    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    <a href="#" className="back-to-top"><i className="fa fa-chevron-up"></i></a>
 
     </div>
   )

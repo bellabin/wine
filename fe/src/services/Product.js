@@ -8,3 +8,14 @@ export const GetListProduct = async () => {
 export const GetProductById = async (id) => {
   return HttpService.get(`winelines/${id}`)
 }
+
+export const GetListWinetype = async () => {
+  return HttpService.get(`winetype`)
+}
+
+export const GetWinetypeById = async (id) => {
+  return HttpService.get(`winetype/${id}`)
+  
+}
+
+

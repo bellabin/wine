@@ -3,29 +3,29 @@ import React from 'react'
 export default function EditCustomerPage() {
   return (
     <div>
-        <div class="container mt-3">
-            <h3 class="text-center">Cập nhật thông tin khách hàng</h3>
+        <div className="container mt-3">
+            <h3 className="text-center">Cập nhật thông tin khách hàng</h3>
             <form action="/quan-tri/editkh" method="post">
               {/* <!-- <label for="name">Mã loại</label> --> */}
               <input
                 type="hidden"
                 name="id"
                 value="<%=data.MAKH%>"
-                class="form-control"
+                className="form-control"
               />
               <label for="age">Họ</label>
               <input
                 type="text"
                 name="surname"
                 value="<%=data.HO%>"
-                class="form-control"
+                className="form-control"
               />
               <label for="age">Tên</label>
               <input
                 type="text"
                 name="name"
                 value="<%=data.TEN%>"
-                class="form-control"
+                className="form-control"
               />
               <label for="age">Giới tính</label>
               <input name="sex" type="radio" value="Nam" />Nam
@@ -43,23 +43,23 @@ export default function EditCustomerPage() {
                 type="text"
                 name="address"
                 value="<%=data.DIACHI%>"
-                class="form-control"
+                className="form-control"
               />
               <label for="age">Email</label>
               <input
                 type="text"
                 name="email"
                 value="<%=data.EMAIL%>"
-                class="form-control"
+                className="form-control"
               />
               <label for="name">Số điện thoại</label>
               <input
                 type="text"
                 name="phone"
                 value="<%=data.SDT%>"
-                class="form-control"
+                className="form-control"
               />
-              <input type="submit" value="Cập nhật" class="btn btn-primary mt-2" />
+              <input type="submit" value="Cập nhật" className="btn btn-primary mt-2" />
               <br />
               <a href="/quan-tri/crud">Quay lại?</a>
             </form>

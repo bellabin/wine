@@ -23,6 +23,8 @@ import { CtPhieutraModule } from './modules/ct_phieutra/ct_phieutra.module';
 import { ChangepriceModule } from './modules/changeprice/changeprice.module';
 import { CtPromotion } from './modules/ct_promotion/entities/ct_promotion.entity';
 import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
+// import { AuthModule } from './auth/auth.module';
+// import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -55,7 +57,9 @@ import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
     CtPhieutraModule,
     ChangepriceModule,
     CtPromotion,
-    CtOrder
+    CtOrder,
+    // AuthModule,
+    // UsersModule
 
   ],
   controllers: [AppController],

@@ -4,35 +4,35 @@ export default function ImportProductPage() {
   return (
     <div>
         <div>
-      <h1 style="background: rgb(177, 177, 177); padding-left: 650px">
+      <h1 style={{background: 'rgb(177, 177, 177)', paddingLeft: '650px'}}>
         Nhập kho
       </h1>
       <p>
         Vui lòng chọn file Excel để tiến hành import. Định dạng file là
-        <span style="color: red">.xlsx</span> hoặc
-        <span style="color: red">.xls</span>
+        <span style={{color: 'red'}}>.xlsx</span> hoặc
+        <span style={{color: 'red'}}>.xls</span>
       </p>
       <input
         type="file"
         id="input"
         accept="application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       />
-      <div class="container" style="max-width: 1100px; margin: 0 auto"></div>
-      <div class="company-name" id="company"></div>
+      <div className="container" style={{maxWidth: '1100px', margin: '0 auto'}}></div>
+      <div className="company-name" id="company"></div>
       <form action="/quan-tri/nhaphang" method="post" onsubmit="checkidorder()">
-        <div class="row" id="list-import">
-          <!-- <div class="col-md-6">
+        <div className="row" id="list-import">
+          {/* <!-- <div className="col-md-6">
             <input
-              class="form-control"
+              className="form-control"
               name="arrImport"
               id="list-import"
               type="text"
               placeholder="list"
               value=""
             />
-          </div> -->
+          </div> --> */}
         </div>
-        <div class="col-sm-12" id="button-confirm"></div>
+        <div className="col-sm-12" id="button-confirm"></div>
       </form>
       <div id="result"></div>
       <table id="grid1"></table>
@@ -53,7 +53,7 @@ export default function ImportProductPage() {
               $(".button-confirm").empty();
               const div = document.getElementById("button-confirm");
               let str = ``;
-              str = `<h3 style="color:red">Mã đơn đặt hàng không tồn tại. Kiểm tra lại thông tin phiếu nhập!!!</h3>`;
+              str = `<h3 style={{color:'red'}}>Mã đơn đặt hàng không tồn tại. Kiểm tra lại thông tin phiếu nhập!!!</h3>`;
               div.innerHTML += str;
               // document.getElementById("confirm-import").style.visibility = "hidden";
             } else {
@@ -237,9 +237,9 @@ export default function ImportProductPage() {
         const div = document.getElementById("list-import");
         let str = ``;
 
-        str = `<div class="col-md-6">
+        str = `<div className="col-md-6">
           <input
-            class="form-control"
+            className="form-control"
             name="arrImport"
             id="list-import"
             type="hidden"
@@ -248,10 +248,10 @@ export default function ImportProductPage() {
 
           />
         </div>
-        <div class="col-md-6" style="margin-top:30px">
+        <div className="col-md-6" style="margin-top:30px">
           <label for="name" style="font-weight: 800">Mã đơn đặt hàng:</label>
           <input
-            class="form-control"
+            className="form-control"
             name="idorder"
             id="maddh"
             type="text"
@@ -260,10 +260,10 @@ export default function ImportProductPage() {
 
           />
         </div>
-        <div class="col-md-6">
+        <div className="col-md-6">
           <label for="name" style="font-weight: 800">Mã phiếu nhập:</label>
           <input
-            class="form-control"
+            className="form-control"
             name="idcoupon"
             id="mapn"
             type="text"
@@ -272,9 +272,9 @@ export default function ImportProductPage() {
             style="margin-left:13px"
           />
         </div>
-        <div class="col-md-6">
+        <div className="col-md-6">
           <input
-            class="form-control"
+            className="form-control"
             name="idnv"
             id="manv"
             type="hidden"
@@ -282,10 +282,10 @@ export default function ImportProductPage() {
             value='${idnv}'
           />
         </div>
-        <div class="col-md-6">
+        <div className="col-md-6">
           <label for="name" style="font-weight: 800">Ngày lập:</label>
           <input
-            class="form-control"
+            className="form-control"
             name="date"
             id="ngaylap"
             type="text"

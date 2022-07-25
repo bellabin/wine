@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function EditCustomerPage() {
+export default function DeleveryMapPage() {
   return (
     <div>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA66KwUrjxcFG5u0exynlJ45CrbrNe3hEc&callback=initMap"
   type="text/javascript"></script>
-  <h1 style="margin-left:600px">Google Map</h1>
+  <h1 style={{marginLeft:'600px'}}>Google Map</h1>
     <div id="panel">    
         <b>Xuất phát: </b>    
         <select id="source">    

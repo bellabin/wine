@@ -1,16 +1,71 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { GetListStaffs, Login } from '../../services/Account'
+import { useNavigate } from 'react-router-dom'
+
+
 
 export default function SignInAdminPage() {
+  const navigate = useNavigate();
+
+  const [listStaffs, setListStaffs] = useState([])
+
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
+  
+
+  
+
+  const showData = async () => {
+    
+    console.log("username", username)
+    console.log("password", password)
+
+    //goi api login
+    const login = (await Login(username, password)).data
+
+    console.log(login)
+  }
+  const [error, setError] = useState();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    console.log("username", username)
+    const login = (await Login(username, password).then(response => {
+      if(response.status === 201) {
+        
+        console.log('hghgjg')
+        navigate('/admin')
+      }
+    },reason => {
+        setError('Sai tên đăng nhập hoặc mật khẩu')
+    }))
+  }
+    
+
+  //demo cach goi api
+  useEffect(() => {
+    async function fetchListStaffs () {
+      const staffs = (await GetListStaffs()).data
+
+      setListStaffs(staffs)
+    }
+    
+    fetchListStaffs()
+  }, [listStaffs])
+  //console.log(username)
+  
+
   return (
     <div>
-        <div class="top-bar">
+      <div class="top-bar">
       <div class="container-fluid">
         <div class="row">
           <div class="col-sm-6">
-            <i class="fa fa-envelope"></i>HoangKhang1999ag@gmail.com
+            <i class="fa fa-envelope"></i>tamtvh96@gmail
           </div>
           <div class="col-sm-6">
-            <i class="fa fa-phone-alt"></i>+0338744192
+            <i class="fa fa-phone-alt"></i>+963548171
           </div>
         </div>
       </div>
@@ -40,6 +95,7 @@ export default function SignInAdminPage() {
             <div class="navbar-nav ml-auto">
             </div>
           </div>
+          </div>
         </nav>
       </div>
     </div>
@@ -64,7 +120,7 @@ export default function SignInAdminPage() {
         <div class="row">
           <div class="col-lg-6 mx-auto">
             <div class="login-form">
-              <form action="/users/dang-nhap-admin" method="post">
+              <form  >
                 <div class="row">
                   <legend class="text-center">Đăng nhập Admin</legend>
                   <div class="col-md-6">
@@ -75,6 +131,7 @@ export default function SignInAdminPage() {
                       class="form-control"
                       type="text"
                       placeholder="Username"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
                   <div class="col-md-6">
@@ -85,17 +142,19 @@ export default function SignInAdminPage() {
                       class="form-control"
                       type="password"
                       placeholder="Mật khẩu"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
                   <div class="col-md-12">
                     <div class="custom-control custom-checkbox">
-                      <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
-                                            <label class="custom-control-label" for="newaccount">Lưu đăng nhập</label> -->
-                      <a href="/users/quen-mat-khau">Quên mật khẩu?</a>
+                      {/* <!-- <input type="checkbox" class="custom-control-input" id="newaccount">
+                                            <label class="custom-control-label" for="newaccount">Lưu đăng nhập</label> --> */}
+                      <a href="">Quên mật khẩu?</a>
                     </div>
                   </div>
                   <div class="col-md-12 text-center">
-                    <button class="btn">Đăng nhập</button>
+                    <button  onClick={handleSubmit}>Đăng nhập</button>
+                    {error?<p style={{color: "red"}}>{ error}</p>:null}
                   </div>
                 </div>
               </form>
