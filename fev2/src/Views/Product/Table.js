@@ -8,11 +8,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { GetListProduct, GetWinetypeById, GetListWinetype } from '../../services/Product'
 import { useState, useEffect } from 'react'
-import { async } from 'q';
-import { identifier } from '@babel/types';
-
-
-
 
 
 export default function DenseTable() {
@@ -36,13 +31,19 @@ export default function DenseTable() {
 
 
     const [listProducts, setListProducts] = useState([])
-
+    const [listWinetypes, setListWinetypes] = useState([])
 
     useEffect(() => {
         async function fetchListProducts() {
-            const products = (await GetListProduct()).data
+            const getListProducts = GetListProduct().then(res => { return res.data })
+            const getListWinetypes = GetListWinetype().then(res => { return res.data })
+
+            const promises = [getListProducts, getListWinetypes]
+            
+            const [products, winetypes] = await Promise.all(promises)
 
             setListProducts(products)
+            setListWinetypes(winetypes)
         }
 
         fetchListProducts()
@@ -83,7 +84,13 @@ export default function DenseTable() {
                             <TableCell align="left">{row.HINHANH}</TableCell>
                             <TableCell align="left">{row.GIA}</TableCell>
                             <TableCell align="left">{row.SOLUONGTON}</TableCell>
-                            <TableCell align="left">{getWinetypeById(row.MALOAI)}</TableCell>
+                            {
+                                listWinetypes && listWinetypes.map(wineType => {
+                                    if (row.MALOAI == wineType.MALOAI) {
+                                        return <TableCell align="left">{wineType.TENLOAI}</TableCell>
+                                    }
+                                })
+                            }
                             <TableCell align="left">{row.MATH}</TableCell>
 
                             {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
