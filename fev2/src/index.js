@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { KeyNavigate } from './helper/KeyNavigate';
+import Login from './Views/Login';
+import LoginAdmin from './Views/LoginAdmin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+    <Routes>
+      <Route index element={<App />} ></Route>
+      <Route path={KeyNavigate.Login} element={<Login />} />
+      <Route path={KeyNavigate.LoginAdmin} element={<LoginAdmin />} />
+    </Routes>
+    
     </BrowserRouter>
   </React.StrictMode>
 );

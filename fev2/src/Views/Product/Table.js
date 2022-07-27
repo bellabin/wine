@@ -10,6 +10,7 @@ import { GetListProduct, GetWinetypeById, GetListWinetype } from '../../services
 import { useState, useEffect } from 'react'
 import { async } from 'q';
 import { identifier } from '@babel/types';
+import { GetListBrand } from '../../services/Brand';
 
 
 
@@ -36,17 +37,30 @@ export default function DenseTable() {
 
 
     const [listProducts, setListProducts] = useState([])
+    const [listWinetypes, setListWinetypes] = useState([])
+    const [listBrands, setListBrands] = useState([])
+
 
 
     useEffect(() => {
         async function fetchListProducts() {
-            const products = (await GetListProduct()).data
+            const getListProducts = GetListProduct().then(res => { return res.data })
+            const getListWinetypes = GetListWinetype().then(res => { return res.data })
+            const getListBrands = GetListBrand().then(res => { return res.data })
+
+
+            const promises = [getListProducts, getListWinetypes,getListBrands]
+
+            const [products, winetypes,brands] = await Promise.all(promises)
 
             setListProducts(products)
+            setListWinetypes(winetypes)
+            setListBrands(brands)
         }
 
         fetchListProducts()
     }, [])
+
 
     /////
 
@@ -80,11 +94,25 @@ export default function DenseTable() {
                         >
                             <TableCell component="th" scope="row">{row.MADONG}</TableCell>
                             <TableCell align="left">{row.TENDONG}</TableCell>
-                            <TableCell align="left">{row.HINHANH}</TableCell>
+                            <TableCell align="left"><img src={row.HINHANH} width={'18%'}  height= {'auto'} /></TableCell>
                             <TableCell align="left">{row.GIA}</TableCell>
                             <TableCell align="left">{row.SOLUONGTON}</TableCell>
-                            <TableCell align="left">{getWinetypeById(row.MALOAI)}</TableCell>
-                            <TableCell align="left">{row.MATH}</TableCell>
+                            {
+                                listWinetypes && listWinetypes.map(wineType => {
+                                    if (row.MALOAI == wineType.MALOAI) {
+                                        return <TableCell align="left">{wineType.TENLOAI}</TableCell>
+                                    }
+                                })
+                            }
+                            {
+                                listBrands && listBrands.map(brand => {
+                                    if (row.MATH == brand.MATH) {
+                                        return <TableCell align="left">{brand.TENTH}</TableCell>
+                                    }
+                                })
+                            }
+
+                            {/* <TableCell align="left">{row.MATH}</TableCell> */}
 
                             {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
                             <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i> */}

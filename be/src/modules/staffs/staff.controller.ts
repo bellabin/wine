@@ -24,6 +24,7 @@ export class StaffController {
 
    @Post('login')
    async login(@Body() payload: LoginStaffDto){
+        console.log('day la ben BE', payload);
         const staff = await this.staffService.findByUsername(payload.USERNAME)
 
         if(!staff) throw new NotFoundException()

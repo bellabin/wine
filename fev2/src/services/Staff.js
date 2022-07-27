@@ -9,6 +9,8 @@ export const GetStaffById = async (id) => {
   return HttpService.get(`staffs/${id}`)
 }
 
-
+export const LoginStaff = async (payload) => {
+  return HttpService.post(`staffs/login`, payload)
+}
 
 

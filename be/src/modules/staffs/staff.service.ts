@@ -31,7 +31,8 @@ export class StaffService {
     }
 
     Login(USERNAME: string, PASSWORD: string){
-        
+        const username = this.findByUsername(USERNAME)
+
     }
 
 

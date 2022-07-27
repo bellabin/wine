@@ -9,7 +9,9 @@ export const KeyNavigate = {
     Revenue: "/Revenue",
     Customer: "/Customer",
     Staff: "/Staff",
-
+    Admin: "/Admin",
+    Login: "/Login",
+    LoginAdmin:"/LoginAdmin",
 
 
 
