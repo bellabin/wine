@@ -12,14 +12,24 @@ export class WinelineService {
     ) {}
 
     findAll() { //function handle get list wineline
-        return this.winelineRepo.find()
+        return this.winelineRepo.find({
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
+          })
     }
 
     findById(MADONG: string) {
-        return this.winelineRepo
-            .createQueryBuilder('wineline')
-            .where('wineline.MADONG = :MADONG', { MADONG })
-            .getOne()
+        return this.winelineRepo.findOne({
+            where: { MADONG: MADONG   },
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
+            
+          })
+        // console.log('123');
+        // const one = this.winelineRepo
+        // .createQueryBuilder('wineline')
+        // .where('wineline.MADONG = :MADONG', { MADONG })
+        // .getOne();
+        // const two = one.then(i => console.log(i.winetype))
+        // return one;
     }
 
     async create(payload: CreateWinelineDto) { //func handle create new wineline

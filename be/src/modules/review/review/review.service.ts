@@ -12,14 +12,16 @@ export class ReviewService {
     ) {}
 
     findAll() { //function handle get list rv
-        return this.reviewRepo.find()
+        return this.reviewRepo.find({
+            relations: ['wineline'],
+          })
     }
 
-    findById(MADANHGIA: string) {
-        return this.reviewRepo
-            .createQueryBuilder('review')
-            .where('review.MADANHGIA = :MADANHGIA', { MADANHGIA })
-            .getOne()
+    findById(MADANHGIA: number) {
+        return this.reviewRepo.findOne({
+            where: { MADANHGIA: MADANHGIA  },
+            relations: ['wineline'],
+          })
     }
 
     async create(payload: CreateReviewDto) { //func handle create new rv
@@ -30,7 +32,7 @@ export class ReviewService {
         return review
     }
 
-    async update(MADANHGIA: string, body: UpdateReviewDto) {
+    async update(MADANHGIA: number, body: UpdateReviewDto) {
         const review = await this.findById(MADANHGIA)
         
         if (!review) throw new NotFoundException('review is not exist')
@@ -38,7 +40,7 @@ export class ReviewService {
         return this.reviewRepo.update(MADANHGIA, body)
     }
 
-    async delete(MADANHGIA: string) {
+    async delete(MADANHGIA: number) {
         const review = await this.findById(MADANHGIA)
 
         if (!review) throw new NotFoundException('review is not exist')

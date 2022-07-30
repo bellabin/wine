@@ -12,14 +12,24 @@ export class CustomerService {
         ) {}
 
     findAll() {
-        return this.customerRepo.find()
+        return this.customerRepo.find({
+            relations: ['role', 'phieudats'],
+          })
     }
     
     findById(MAKH : string) {
+        return this.customerRepo.findOne({
+            where: { MAKH: MAKH  },
+            relations: ['role', 'phieudats'],
+          })
+    }
+
+    findByUsername(USERNAME: string) {
         return this.customerRepo
-        .createQueryBuilder('customers')
-        .where('customers.MAKH = :MAKH', { MAKH })
-        .getOne()
+            .createQueryBuilder('customers')
+            .where('customers.USERNAME = :USERNAME', {USERNAME})
+            .getOne()
+    
     }
 
    async create (payload:CreateCustomerDto)  {

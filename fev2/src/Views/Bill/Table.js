@@ -7,20 +7,59 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState, useEffect } from 'react'
-import { GetListBill } from '../../services/Bill'
+import { GetListBill, GetListPD } from '../../services/Bill'
+import { GetListCustomer } from '../../services/Customer'
+import FormModalEditBill from './FormModal-Edit';
+import FormModalDeleteBill from './FormModal-Delete';
+
 
 
 
 export default function DenseTable() {
 
-    const [listBills, setListBills] = useState([])
+    function Edit(data){
+        
+        //console.log(data)
+        React.refModalEditBill?.open()
+        React.refModalEditBill.Edit( data)
 
+        
+    }
+
+    function Delete(MAHD) {
+        React.refModalDeleteBill?.open()
+        React.refModalDeleteBill.Delete( MAHD)
+
+        const index = listBills.findIndex(x => x.MAHD === MAHD)
+        console.log(index)
+        if(index >= 0) {
+            listBills.splice(index,1)
+            setListBills([...listBills])
+        }
+
+        
+    }
+
+
+
+
+    const [listBills, setListBills] = useState([])
+    const [listPD, setListPD] = useState([])
+
+    const [listCustomers,setListCustomers] = useState([])
 
     useEffect(() => {
         async function fetchListBills() {
-            const bills = (await GetListBill()).data
-            // console.log(bills)
+            const getbills = (await GetListBill()).data
+            const getpds = (await GetListPD()).data
+            const getcustomers = (await GetListCustomer()).data
+
+            const promises = [getbills, getpds, getcustomers]
+
+            const [bills, pds, customers] = await Promise.all(promises)
             setListBills(bills)
+            setListPD(pds)
+            setListCustomers(customers)
         }
 
         fetchListBills()
@@ -46,17 +85,36 @@ export default function DenseTable() {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">{row.MAHD}</TableCell>
-                            <TableCell align="left">{row.TENNCC}</TableCell>
-                            <TableCell align="left">{row.SDT}</TableCell>
+                            <TableCell align="left">{row.NGAY}</TableCell>
+                            {
+                                listPD && listPD.map(PD => {
+
+                                    if (row.phieudat.MAPD == PD.MAPD) {
+                                        //console.log('match')
+                                        return <TableCell align="left">
+                                        <TableRow align="left">Họ & tên: {PD.HONN.concat(PD.TENNN)}</TableRow>
+                                        <TableRow align="left">Địa chỉ: {PD.DIACHINN}</TableRow>
+                                        <TableRow align="left">SĐT: {PD.SDTNN}</TableRow>
+                                        {listCustomers && listCustomers.map(customer => {
+                                            if(PD.MAKH == customer.MAKH) {
+                                                return <TableRow align="left">Email: {customer.EMAIL}</TableRow>
+                                            }
+                                        })}
+                                        </TableCell>
+                                    }
+                                })
+                            }
                             <TableCell align="left">{row.EMAIL}</TableCell>
                             <TableCell align="left">{row.THANHTIEN}</TableCell>
-                            {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
-                            <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i> */}
+                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick={()=>Edit(row)} ></i>
+                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MAHD)} ></i>
                         </TableRow>
                     ))}
                     
                 </TableBody>
             </Table>
+            <FormModalEditBill ref={ref => React.refModalEditBill = ref} />
+            <FormModalDeleteBill ref={ref => React.refModalDeleteBill = ref} />
         </TableContainer>
     );
 }

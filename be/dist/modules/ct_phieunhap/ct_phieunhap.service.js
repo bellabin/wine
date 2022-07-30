@@ -21,15 +21,15 @@ let CtPhieunhapService = class CtPhieunhapService {
         return ct_phieunhap;
     }
     findAll() {
-        return this.ctphieunhapRepo.find();
+        return this.ctphieunhapRepo.find({
+            relations: ['phieunhap', 'wineline'],
+        });
     }
     findOne(MAPN, MADONG) {
-        return this.ctphieunhapRepo.createQueryBuilder('ct_phieunhap')
-            .innerJoinAndSelect('ct_phieunhap.phieunhap', 'phieunhap')
-            .innerJoinAndSelect('ct_phieunhap.wineline', 'dongruou')
-            .where('ct_phieunhap.MAPN = :MAPN', { MAPN })
-            .andWhere('ct_phieunhap.MADONG = :MADONG', { MADONG })
-            .getOne();
+        return this.ctphieunhapRepo.findOne({
+            where: { MADONG: MADONG, MAPN: MAPN },
+            relations: ['phieunhap', 'wineline'],
+        });
     }
     async update(MAPN, MADONG, body) {
         const ct_phieunhap = await this.findOne(MAPN, MADONG);

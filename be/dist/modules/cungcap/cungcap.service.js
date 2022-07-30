@@ -21,15 +21,15 @@ let CungcapService = class CungcapService {
         return cungcap;
     }
     findAll() {
-        return this.cungcapRepo.find();
+        return this.cungcapRepo.find({
+            relations: ['provider', 'wineline'],
+        });
     }
     findOne(MANCC, MADONG) {
-        return this.cungcapRepo.createQueryBuilder('cungcap')
-            .innerJoinAndSelect('cungcap.provider', 'nhacungcap')
-            .innerJoinAndSelect('cungcap.wineline', 'dongruou')
-            .where('cungcap.MANCC = :MANCC', { MANCC })
-            .andWhere('cungcap.MADONG = :MADONG', { MADONG })
-            .getOne();
+        return this.cungcapRepo.findOne({
+            where: { MANCC: MANCC, MADONG: MADONG },
+            relations: ['provider', 'wineline'],
+        });
     }
     async update(MANCC, MADONG, body) {
         const cungcap = await this.findOne(MANCC, MADONG);

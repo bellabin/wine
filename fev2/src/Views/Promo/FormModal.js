@@ -14,19 +14,20 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import { async } from 'q';
-import {CreateProvider} from '../../services/Provider'
+import {CreatePromo} from '../../services/Promo'
 
-export default class FormModal extends React.Component {
+export default class FormModalPromo extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             open: false,
             data: {
-                MANCC:'',
-                TENNCC: '',
-                SDT: '',
-                EMAIL: '',
-                DIACHI: '',
+                MAKM:'',
+                TENKM: '',
+                NGAYBATDAU: '',
+                NGAYKETTHUC: '',
+                LIDO: '',
+                MANV:'',
 
             },
         }
@@ -47,28 +48,30 @@ export default class FormModal extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         console.log(this.state.data)
-        await this.createProvider()
+        await this.createPromo()
         this.close()
         
     }
 
-    async createProvider() {
+    async createPromo() {
         const data = {
-            MANCC: '002',
-            TENNCC: this.state.data.TENNCC,
-            DIACHI: this.state.data.DIACHI,
-            EMAIL: this.state.data.EMAIL,
-            SDT: this.state.data.SDT,
+            MAKM: '050',
+            TENKM: this.state.data.TENKM,
+            NGAYBATDAU: this.state.data.NGAYBATDAU,
+            NGAYKETTHUC: this.state.data.NGAYKETTHUC,
+            LIDO: this.state.data.LIDO,
+            MANV: this.state.data.MANV,
 
         }
         console.log(data)
-        await CreateProvider( data)
+        await CreatePromo( data)
 
     }
 
     render = () => {
         return (
             <Dialog
+                className='dialog create promo'
                 fullWidth
                 maxWidth={'md'}
                 open={this.state.open}
@@ -79,7 +82,7 @@ export default class FormModal extends React.Component {
                     autoComplete="off"
                     onSubmit={this.onSubmit}
                 >
-                    <DialogTitle>Provider form</DialogTitle>
+                    <DialogTitle>Promotion form</DialogTitle>
                     <DialogContent>
                     <Box
                         sx={{
@@ -89,43 +92,53 @@ export default class FormModal extends React.Component {
                     >
                         <FormControl fullWidth >
                             <TextField
-                                label="Tên"
+                                label="Tên KM"
                                 InputProps={{
                                     name: "Ten"
                                 }}
                                 onChange={(e) => {
-                                    this.setState({data: {...this.state.data,TENNCC: e.target.value} })
+                                    this.setState({data: {...this.state.data,TENKM: e.target.value} })
                                 }}
 
                             />
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
-                                label="SĐT"
+                                label="Ngày bắt đầu"
                                 InputProps={{
                                     name: "SDT"
                                 }}
-                                onChange={(e) => this.setState({data:{ ...this.state.data,SDT: e.target.value} })}
+                                onChange={(e) => this.setState({data:{ ...this.state.data,NGAYBATDAU: e.target.value} })}
 
                             />
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
-                                label="Email"
+                                label="Ngày kết thúc"
                                 InputProps={{
                                     name: "Email"
                                 }}
-                                onChange={(e) => this.setState({data: {...this.state.data,EMAIL: e.target.value} })}
+                                onChange={(e) => this.setState({data: {...this.state.data,NGAYKETTHUC: e.target.value} })}
 
                             />
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
-                                label="Địa chỉ"
+                                label="Lí do"
                                 InputProps={{
                                     name: "Diachi"
                                 }}
-                                onChange={(e) => this.setState({data: {...this.state.data,DIACHI: e.target.value} })}
+                                onChange={(e) => this.setState({data: {...this.state.data,LIDO: e.target.value} })}
+
+                            />
+                        </FormControl>
+                        <FormControl fullWidth >
+                            <TextField
+                                label="Mã NV"
+                                InputProps={{
+                                    name: "Diachi"
+                                }}
+                                onChange={(e) => this.setState({data: {...this.state.data,MANV: e.target.value} })}
 
                             />
                         </FormControl>

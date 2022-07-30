@@ -18,17 +18,17 @@ export class CtPhieutraController {
   }
 
   @Get('one')
-  findOne(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string) {
+  findOne(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: number) {
     return this.ctPhieutraService.findOne(MAPT, IDCTPD);
   }
 
   @Patch('')
-  update(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string, @Body() updateCtPhieutraDto: UpdateCtPhieutraDto) {
+  update(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: number, @Body() updateCtPhieutraDto: UpdateCtPhieutraDto) {
     return this.ctPhieutraService.update(MAPT, IDCTPD, updateCtPhieutraDto);
   }
 
   @Delete('')
-  remove(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: string) {
+  remove(@Query('MAPT') MAPT: string, @Query('IDCTPD') IDCTPD: number) {
     return this.ctPhieutraService.remove(MAPT, IDCTPD);
   }
 }

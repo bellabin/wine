@@ -49,6 +49,9 @@ export class Phieudat {
     @OneToMany(() => CtPhieudat, ct_phieudat => ct_phieudat.phieudat)
     ct_phieudats: CtPhieudat[]
 
+    @OneToOne(() => Bill, (bill) => bill.phieudat) // specify inverse side as a second parameter
+    bill: Bill
+
     
 
 

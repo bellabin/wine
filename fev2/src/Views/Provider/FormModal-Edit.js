@@ -17,7 +17,7 @@ import { useState, useEffect } from 'react'
 import { GetListProvider, UpdateProviderById } from '../../services/Provider'
 
 
-export default class FormModalEdit extends React.Component {
+export default class FormModalEditProvider extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -92,6 +92,8 @@ export default class FormModalEdit extends React.Component {
 render = () => {
     return (
         <Dialog
+            className='dialog edit provider'
+
             fullWidth
             maxWidth={'md'}
             open={this.state.open}

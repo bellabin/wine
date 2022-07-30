@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", staff_entity_1.Staff)
 ], Bill.prototype, "staff", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => phieudat_entity_1.Phieudat),
+    (0, typeorm_1.OneToOne)(() => phieudat_entity_1.Phieudat, phieudat => phieudat.bill),
     (0, typeorm_1.JoinColumn)({ name: 'MAPD' }),
     __metadata("design:type", phieudat_entity_1.Phieudat)
 ], Bill.prototype, "phieudat", void 0);

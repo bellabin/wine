@@ -17,14 +17,16 @@ export class OrderService {
   }
 
   findAll() {
-    return this.ordRepo.find()
+    return this.ordRepo.find({
+      relations: ['staff', 'provider','ct_orders'],
+    })
   }
 
   findOne(MADDH: string) {
-    return this.ordRepo
-        .createQueryBuilder('order')
-        .where('order.MADDH = :MADDH', {MADDH})
-        .getOne()
+    return this.ordRepo.findOne({
+      where: { MADDH: MADDH  },
+      relations: ['staff', 'provider','ct_orders'],
+    })
   }
 
   async update(MADDH: string, body: UpdateOrderDto) {

@@ -8,10 +8,37 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {GetListBrand} from '../../services/Brand'
 import { useState, useEffect } from 'react'
+import FormModalEdit from './FormModal-Edit'
+import FormModalDelete from './FormModal-Delete'
 
 
 
 export default function DenseTable() {
+
+    function Edit(data){
+        //console.log(MANCC)
+        // console.log('d',data.EMAIL)
+        React.refModalEditBrand?.open()
+        React.refModalEditBrand.Edit( data)
+
+        
+    }
+
+    function Delete(MATH) {
+        //console.log(MANCC)
+        // console.log('d',data.EMAIL)
+        React.refModalDeleteBrand?.open()
+
+        React.refModalDeleteBrand.Delete( MATH)
+        const index = listBrands.findIndex(x => x.MATH === MATH)
+        console.log(index)
+        if(index >= 0) {
+            listBrands.splice(index,1)
+            setListWineTypes([...listBrands])
+        }
+
+        
+    }
 
 
     const [listBrands, setListWineTypes] = useState([])
@@ -47,13 +74,15 @@ export default function DenseTable() {
                             <TableCell component="th" scope="row">{row.MATH}</TableCell>
                             <TableCell align="left">{row.TENTH}</TableCell>
                             
-                            {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
-                            <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i> */}
+                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
+                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MATH)} ></i>
                         </TableRow>
                     ))}
                     
                 </TableBody>
             </Table>
+            <FormModalEdit ref={ref => React.refModalEditBrand = ref} />
+            <FormModalDelete ref={ref => React.refModalDeleteBrand = ref} />
         </TableContainer>
     );
 }

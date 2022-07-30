@@ -17,19 +17,19 @@ export class CtPhieutraService {
   }
 
   findAll() {
-    return this.ctphieutraRepo.find()
+    return this.ctphieutraRepo.find({
+      relations: ['phieutra'],
+    })
   }
 
-  findOne(MAPT: string, IDCTPD: string) {
-    return this.ctphieutraRepo.createQueryBuilder('ct_phieutra')
-    .innerJoinAndSelect('ct_phieutra.phieutra', 'phieutra')
-    //.innerJoinAndSelect('ct_phieutra.IDCTPD','ct_phieudat')
-    .where('ct_phieutra.MAPT = :MAPT', {MAPT})
-    .andWhere('ct_phieutra.IDCTPD = :IDCTPD', {IDCTPD})
-    .getOne()
+  findOne(MAPT: string, IDCTPD: number) {
+    return this.ctphieutraRepo.findOne({
+      where: { MAPT: MAPT, IDCTPD: IDCTPD   },
+      relations: ['phieutra'],
+    })
   }
 
-  async update(MAPT: string, IDCTPD: string, body: UpdateCtPhieutraDto) {
+  async update(MAPT: string, IDCTPD: number, body: UpdateCtPhieutraDto) {
     const ct_phieutra = await this.findOne(MAPT, IDCTPD)
 
     if(!ct_phieutra) throw new NotFoundException('not found')
@@ -43,7 +43,7 @@ export class CtPhieutraService {
     .execute()
   }
 
-  async remove(MAPT: string, IDCTPD: string) {
+  async remove(MAPT: string, IDCTPD: number) {
     const ct_phieutra = await this.findOne(MAPT,IDCTPD)
 
     return this.ctphieutraRepo.remove(ct_phieutra)

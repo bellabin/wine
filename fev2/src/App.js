@@ -21,16 +21,24 @@ import React from 'react';
 import { KeyNavigate } from './helper/KeyNavigate';
 import Login from './Views/Login';
 import LoginAdmin from './Views/LoginAdmin';
+import ProductCus from './Views/ProductCus';
 function App() {
   return (
     <React.Fragment>
       <LayoutIndex>
-        
-          <Route path={KeyNavigate.Login} exact element={<Login />} />
-          <Route path={KeyNavigate.LoginAdmin} exact element={<LoginAdmin />} />
 
-        
+        <Route path={KeyNavigate.Login} exact element={<Login />} />
+
+
+
+        <Route path={KeyNavigate.LoginAdmin} exact element={<LoginAdmin>
+          <Route path={KeyNavigate.Layout} exact element={<Layout />} />
+        </LoginAdmin>} />
+
+
+        <Route path={KeyNavigate.Layout} exact element={<Layout/>} />
       </LayoutIndex>
+
 
       {/* <Layout>
         <Route path={KeyNavigate.Provider} exact element={<Provider />} />
@@ -43,8 +51,9 @@ function App() {
         <Route path={KeyNavigate.Revenue} element={<Revenue />} />
         <Route path={KeyNavigate.Customer} element={<Customer />} />
         <Route path={KeyNavigate.Staff} element={<Staff />} />
-
       </Layout> */}
+
+
     </React.Fragment>
 
 

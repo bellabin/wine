@@ -55,10 +55,6 @@ __decorate([
     __metadata("design:type", Number)
 ], Wineline.prototype, "SOLUONGTON", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
-    __metadata("design:type", String)
-], Wineline.prototype, "MALOAI", void 0);
-__decorate([
     (0, typeorm_1.ManyToOne)(() => winetype_entity_1.Winetype, winetype => winetype.winelines),
     (0, typeorm_1.JoinColumn)({ name: 'MALOAI' }),
     __metadata("design:type", winetype_entity_1.Winetype)

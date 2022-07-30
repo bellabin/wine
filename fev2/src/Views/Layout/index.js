@@ -85,7 +85,7 @@ export default class Layout extends Component {
                                     aria-orientation="vertical"
                                 >
                                     <Link
-                                        to={KeyNavigate.Provider}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Provider)}
                                         className="nav-link"
                                         id="address-nav"
                                         data-toggle="pill"
@@ -93,7 +93,7 @@ export default class Layout extends Component {
                                         role="tab"
                                     ><i className="fa fa-user-tie"></i>Nhà cung cấp</Link>
                                     <Link
-                                        to={KeyNavigate.ProductType}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.ProductType)}
                                         className="nav-link"
                                         id="payment-nav"
                                         data-toggle="pill"
@@ -101,7 +101,7 @@ export default class Layout extends Component {
                                         role="tab"
                                     ><i className="fa fa-wine-bottle"></i>Loại sản phẩm</Link>
                                     <Link
-                                        to={KeyNavigate.Brand}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Brand)}
                                         className="nav-link"
                                         id="payment-nav"
                                         data-toggle="pill"
@@ -110,7 +110,7 @@ export default class Layout extends Component {
                                     ><i className="fa fa-wine-glass"></i>Thương hiệu</Link>
 
                                     <Link
-                                        to={KeyNavigate.Product}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Product)}
                                         className="nav-link"
                                         id="payment-nav"
                                         data-toggle="pill"
@@ -120,7 +120,7 @@ export default class Layout extends Component {
 
 
                                     <Link
-                                        to={KeyNavigate.Bill}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Bill)}
                                         className="nav-link"
                                         id="orders-nav"
                                         data-toggle="pill"
@@ -130,7 +130,7 @@ export default class Layout extends Component {
 
 
                                     <Link
-                                        to={KeyNavigate.Promo}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Promo)}
                                         className="nav-link"
                                         id="orders-nav"
                                         data-toggle="pill"
@@ -138,7 +138,7 @@ export default class Layout extends Component {
                                         role="tab"
                                     ><i className="fa fa-percentage"></i>Khuyến mãi</Link>
                                     <Link
-                                        to={KeyNavigate.PromoProduct}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.PromoProduct)}
                                         className="nav-link"
                                         id="orders-nav"
                                         data-toggle="pill"
@@ -147,7 +147,7 @@ export default class Layout extends Component {
                                     ><i className="fa fa-percentage"></i>Sản phẩm khuyến mãi</Link>
 
                                     <Link
-                                        to={KeyNavigate.Revenue}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Revenue)}
                                         className="nav-link"
                                         id="orders-nav"
                                         data-toggle="pill"
@@ -156,7 +156,7 @@ export default class Layout extends Component {
                                     ><i className="fa fa-chart-bar"></i>Thống kê</Link>
 
                                     <Link
-                                        to={KeyNavigate.Customer}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Customer)}
                                         className="nav-link"
                                         id="account-nav"
                                         data-toggle="pill"
@@ -165,7 +165,7 @@ export default class Layout extends Component {
                                     ><i className="fa fa-user"></i>Khách hàng</Link>
 
                                     <Link
-                                        to={KeyNavigate.Staff}
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.Staff)}
                                         className="nav-link"
                                         id="account-nav"
                                         data-toggle="pill"

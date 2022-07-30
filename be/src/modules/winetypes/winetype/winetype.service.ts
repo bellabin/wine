@@ -12,14 +12,17 @@ export class WinetypeService {
     ) {}
 
     findAll() { //function handle get list winetype
-        return this.winetypeRepo.find()
+        return this.winetypeRepo.find({
+            relations: ['winelines'],
+            
+          })
     }
 
     findById(MALOAI: string) {
-        return this.winetypeRepo
-            .createQueryBuilder('winetypes')
-            .where('winetypes.MALOAI = :MALOAI', { MALOAI })
-            .getOne()
+        return this.winetypeRepo.findOne({
+            where: { MALOAI: MALOAI   },
+            relations: ['winelines'],
+          })
     }
 
     async create(payload: CreateWinetypeDto) { //func handle create new winetype

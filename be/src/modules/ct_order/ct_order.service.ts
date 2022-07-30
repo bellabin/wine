@@ -18,16 +18,16 @@ export class CtOrderService {
   }
 
   findAll() {
-    return this.ctorderRepo.find()
+    return this.ctorderRepo.find({
+      relations: ['wineline', 'order'],
+    })
   }
 
   findOne(MADONG: string, MADDH: string) {
-    return this.ctorderRepo.createQueryBuilder('ct_order')
-    .innerJoinAndSelect('ct_order.wineline', 'dongruou')
-    .innerJoinAndSelect('ct_order.order','dondathang')
-    .where('ct_order.MADONG = :MADONG', {MADONG})
-    .andWhere('ct_order.MADDH = :MADDH', {MADDH})
-    .getOne()
+    return this.ctorderRepo.findOne({
+      where: { MADONG: MADONG, MADDH: MADDH   },
+      relations: ['wineline', 'order'],
+    })
   }
 
   async update(MADONG: string, MADDH: string, body: UpdateCtOrderDto) {

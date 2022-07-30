@@ -1,8 +1,13 @@
 import { Box, Button } from '@mui/material'
 import React, { Component } from 'react'
 import Table from './Table'
+import FormModal from './FormModal'
 
 export default class Product extends Component {
+    onCreate = () => {
+        this.refModal?.open()
+        //this.refModal.Create()
+    }
     render() {
         return (
             <div className='container'>
@@ -10,7 +15,7 @@ export default class Product extends Component {
                     <Box className='col-6' sx={{ display: 'flex' }}>
                     </Box>
                     <Box className='col-6' sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="contained">Create</Button>
+                        <Button onClick={this.onCreate} variant="contained">Create</Button>
                     </Box>
                 </div>
                 <div className='row mt-2'>
@@ -18,6 +23,7 @@ export default class Product extends Component {
                         <Table/>
                     </div>
                 </div>
+                <FormModal ref={ref => this.refModal = ref} />
             </div>
         )
     }

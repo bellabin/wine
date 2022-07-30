@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Phieudat = void 0;
+const bill_entity_1 = require("../../bills/entities/bill.entity");
 const ct_phieudat_entity_1 = require("../../ct_phieudat/entities/ct_phieudat.entity");
 const customer_entity_1 = require("../../customers/entities/customer.entity");
 const staff_entity_1 = require("../../staffs/entities/staff.entity");
@@ -70,6 +71,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => ct_phieudat_entity_1.CtPhieudat, ct_phieudat => ct_phieudat.phieudat),
     __metadata("design:type", Array)
 ], Phieudat.prototype, "ct_phieudats", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => bill_entity_1.Bill, (bill) => bill.phieudat),
+    __metadata("design:type", bill_entity_1.Bill)
+], Phieudat.prototype, "bill", void 0);
 Phieudat = __decorate([
     (0, typeorm_1.Entity)('phieudat')
 ], Phieudat);

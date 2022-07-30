@@ -6,7 +6,7 @@ export declare class CtPhieutraController {
     constructor(ctPhieutraService: CtPhieutraService);
     create(createCtPhieutraDto: CreateCtPhieutraDto): Promise<import("./entities/ct_phieutra.entity").CtPhieutra>;
     findAll(): Promise<import("./entities/ct_phieutra.entity").CtPhieutra[]>;
-    findOne(MAPT: string, IDCTPD: string): Promise<import("./entities/ct_phieutra.entity").CtPhieutra>;
-    update(MAPT: string, IDCTPD: string, updateCtPhieutraDto: UpdateCtPhieutraDto): Promise<import("typeorm").UpdateResult>;
-    remove(MAPT: string, IDCTPD: string): Promise<import("./entities/ct_phieutra.entity").CtPhieutra>;
+    findOne(MAPT: string, IDCTPD: number): Promise<import("./entities/ct_phieutra.entity").CtPhieutra>;
+    update(MAPT: string, IDCTPD: number, updateCtPhieutraDto: UpdateCtPhieutraDto): Promise<import("typeorm").UpdateResult>;
+    remove(MAPT: string, IDCTPD: number): Promise<import("./entities/ct_phieutra.entity").CtPhieutra>;
 }

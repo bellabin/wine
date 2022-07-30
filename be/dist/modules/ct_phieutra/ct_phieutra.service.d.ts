@@ -5,7 +5,7 @@ export declare class CtPhieutraService {
     private ctphieutraRepo;
     create(payload: CreateCtPhieutraDto): Promise<CtPhieutra>;
     findAll(): Promise<CtPhieutra[]>;
-    findOne(MAPT: string, IDCTPD: string): Promise<CtPhieutra>;
-    update(MAPT: string, IDCTPD: string, body: UpdateCtPhieutraDto): Promise<import("typeorm").UpdateResult>;
-    remove(MAPT: string, IDCTPD: string): Promise<CtPhieutra>;
+    findOne(MAPT: string, IDCTPD: number): Promise<CtPhieutra>;
+    update(MAPT: string, IDCTPD: number, body: UpdateCtPhieutraDto): Promise<import("typeorm").UpdateResult>;
+    remove(MAPT: string, IDCTPD: number): Promise<CtPhieutra>;
 }

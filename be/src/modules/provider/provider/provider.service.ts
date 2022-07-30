@@ -12,14 +12,16 @@ export class ProviderService {
     ) {}
 
     findAll() { //function handle get list 
-        return this.providerRepo.find()
+        return this.providerRepo.find({
+            relations: ['orders', 'cungcaps'],
+          })
     }
 
     findById(MANCC: string) {
-        return this.providerRepo
-            .createQueryBuilder('provider')
-            .where('provider.MANCC = :MANCC', { MANCC })
-            .getOne()
+        return this.providerRepo.findOne({
+            where: { MANCC: MANCC  },
+            relations: ['orders', 'cungcaps'],
+          })
     }
 
     async create(payload: CreateProviderDto) { //func handle create new provider

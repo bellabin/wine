@@ -27,7 +27,7 @@ export class Bill {
     //@Column({type:'char'})
     //MAPD!: string
 
-    @OneToOne(() => Phieudat)
+    @OneToOne(() => Phieudat , phieudat => phieudat.bill)
     @JoinColumn({name:'MAPD'})
     phieudat: Phieudat
 

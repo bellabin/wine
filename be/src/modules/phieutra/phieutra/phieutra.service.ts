@@ -12,14 +12,16 @@ export class PhieutraService {
     ) {}
 
     findAll() { //function handle get list phieutra
-        return this.phieutraRepo.find()
+        return this.phieutraRepo.find({
+            relations: ['bill', 'staff','ct_phieutras'],
+          })
     }
 
     findById(MAPT: string) {
-        return this.phieutraRepo
-            .createQueryBuilder('phieutra')
-            .where('phieutra.MAPT = :MAPT', { MAPT })
-            .getOne()
+        return this.phieutraRepo.findOne({
+            where: { MAPT: MAPT  },
+            relations: ['bill', 'staff','ct_phieutras'],
+          })
     }
 
     async create(payload: CreatePhieutraDto) { //func handle create new phieutra

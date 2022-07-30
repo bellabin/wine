@@ -12,14 +12,16 @@ export class PhieunhapService {
     ) {}
 
     findAll() { //function handle get list phieunhap
-        return this.phieunhapRepo.find()
+        return this.phieunhapRepo.find({
+            relations: ['staff', 'order','ct_phieunhaps'],
+          })
     }
 
     findById(MAPN: string) {
-        return this.phieunhapRepo
-            .createQueryBuilder('phieunhap')
-            .where('phieunhap.MAPN = :MAPN', { MAPN })
-            .getOne()
+        return this.phieunhapRepo.findOne({
+            where: { MAPN: MAPN  },
+            relations: ['staff', 'order','ct_phieunhaps'],
+          })
     }
 
     async create(payload: CreatePhieunhapDto) { //func handle create new phieunhap

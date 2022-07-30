@@ -12,14 +12,16 @@ export class PhieudatService {
     ) {}
 
     findAll() { //function handle get list pd
-        return this.phieudatRepo.find()
+        return this.phieudatRepo.find({
+            relations: ['staff', 'customer', 'ct_phieudats','bill'],
+          })
     }
 
     findById(MAPD: string) {
-        return this.phieudatRepo
-            .createQueryBuilder('phieudat')
-            .where('phieudat.MAPD = :MAPD', { MAPD })
-            .getOne()
+        return this.phieudatRepo.findOne({
+            where: { MAPD: MAPD   },
+            relations: ['staff', 'customer','ct_phieudats','bill'],
+          })
     }
 
     async create(payload: CreatePhieudatDto) { //func handle create new pd

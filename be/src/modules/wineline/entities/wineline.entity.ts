@@ -36,8 +36,8 @@ export class Wineline {
     @Column({type:'int'})
     SOLUONGTON!: number
 
-    @Column({type:'char'})
-    MALOAI!: string
+    // @Column({type:'char'})
+    // MALOAI!: string
 
     @ManyToOne(() => Winetype, winetype => winetype.winelines)
     @JoinColumn({name:'MALOAI'})
@@ -57,7 +57,7 @@ export class Wineline {
     ct_phieudats: CtPhieudat[]
 
     @OneToMany(() => CtPhieunhap, ct_phieunhap => ct_phieunhap.wineline)
-    ct_phieunhaps: CtPhieudat[]
+    ct_phieunhaps: CtPhieunhap[]
 
     @OneToMany(() => Changeprice, changeprice => changeprice.wineline)
     changeprices: Changeprice[]
@@ -69,7 +69,7 @@ export class Wineline {
     ct_khuyenmais: CtPromotion[]
 
     @OneToMany(() => CtOrder, (ct_dondathang) => ct_dondathang.wineline)
-    ct_orders: CtPromotion[]
+    ct_orders: CtOrder[]
 
     @OneToMany(() => Review, (review) => review.wineline)
     reviews: Review[]

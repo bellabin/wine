@@ -6,37 +6,44 @@ import { KeyNavigate } from '../../helper/KeyNavigate';
 
 
 export default class LayoutIndex extends Component {
-    
+
     render() {
         return (
-            
             <div>
-            
-
                 <div className="header">
                     <div className="container">
-                        <div className="logo">
-                            <a href=""><img src="/img/logoReport.PNG" alt="" /></a>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <a href=""><img src="/img/logoReport.PNG" alt="" /></a>
+                            </div>
+
+                            <div className="col-md-9">
+                                <nav>
+                                    <ul>
+                                        <li><a href="">Trang chủ</a></li>
+                                        <li>
+                                            <Link to={KeyNavigate.ProductCus}>Sản phẩm</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={KeyNavigate.Cart}>Giỏ hàng</Link>
+                                        </li>
+                                        <li>
+                                            <Link to={KeyNavigate.Account}>Tài khoản</Link>
+                                        </li>
+
+                                        <li className="sign-in">
+                                            <Link to={KeyNavigate.Login} >Sign in</Link>
+
+                                        </li>
+                                        <li>
+                                            <Link to={KeyNavigate.LoginAdmin}>Admin</Link>
+
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
 
-                        <div className="center-bar">
-                            <nav>
-                                <ul>
-                                    <li><a href="">Trang chủ</a></li>
-                                    <li><a href="/product">Sản phẩm</a></li>
-                                    <li><a href="/gio-hang">Giỏ hàng</a></li>
-                                    <li><a href="users/tai-khoan">Tài khoản</a></li>
-                                    <li><a href="">Blog</a></li>
-
-                                    <li className="sign-in">
-                                        <Link to={KeyNavigate.Login} >Sign in</Link>
-                                        
-                                    </li>
-                                    <li><Link to={KeyNavigate.LoginAdmin}>Admin</Link></li>
-                                </ul>
-                            </nav>
-                        </div>
-                        
                     </div>
                 </div>
 
@@ -432,8 +439,8 @@ export default class LayoutIndex extends Component {
                                     <h2>Liên Hệ</h2>
                                     <div className="contact-info">
                                         <p><i className="fa fa-map-marker"></i>Thành phố Hồ Chí Minh</p>
-                                        <p><i className="fa fa-envelope"></i>HoangKhang1999ag</p>
-                                        <p><i className="fa fa-phone"></i>+0333 744 192</p>
+                                        <p><i className="fa fa-envelope"></i>tamtvh96@gmail.com</p>
+                                        <p><i className="fa fa-phone"></i>+963548171</p>
                                     </div>
                                 </div>
                             </div>
@@ -498,8 +505,8 @@ export default class LayoutIndex extends Component {
                 {/* <!-- Footer End --> */}
 
                 {/* <!-- Back to Top --> */}
-                
-                
+
+
                 <a href="#" className="back-to-top"><i className="fa fa-chevron-up"></i></a>
 
             </div>

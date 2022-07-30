@@ -21,14 +21,15 @@ let CtPhieutraService = class CtPhieutraService {
         return ct_phieutra;
     }
     findAll() {
-        return this.ctphieutraRepo.find();
+        return this.ctphieutraRepo.find({
+            relations: ['phieutra'],
+        });
     }
     findOne(MAPT, IDCTPD) {
-        return this.ctphieutraRepo.createQueryBuilder('ct_phieutra')
-            .innerJoinAndSelect('ct_phieutra.phieutra', 'phieutra')
-            .where('ct_phieutra.MAPT = :MAPT', { MAPT })
-            .andWhere('ct_phieutra.IDCTPD = :IDCTPD', { IDCTPD })
-            .getOne();
+        return this.ctphieutraRepo.findOne({
+            where: { MAPT: MAPT, IDCTPD: IDCTPD },
+            relations: ['phieutra'],
+        });
     }
     async update(MAPT, IDCTPD, body) {
         const ct_phieutra = await this.findOne(MAPT, IDCTPD);

@@ -15,7 +15,7 @@ export class ReviewController {
     }
 
     @Get(':id')
-    findById(@Param('id') id: string) {
+    findById(@Param('id') id: number) {
         return this.reviewService.findById(id)
     }
 
@@ -25,12 +25,12 @@ export class ReviewController {
     }
 
     @Put(':id') //update rv
-    update(@Param('id') id: string, @Body() body: UpdateReviewDto) {
+    update(@Param('id') id: number, @Body() body: UpdateReviewDto) {
         return this.reviewService.update(id, body)
     }
 
     @Delete(':id') //remove rv
-    delete(@Param('id') id: string) {
+    delete(@Param('id') id: number) {
         return this.reviewService.delete(id)
     }
 }

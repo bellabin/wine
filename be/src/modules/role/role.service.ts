@@ -17,14 +17,16 @@ export class RoleService {
   }
 
   findAll() {
-    return this.roleRepo.find()
+    return this.roleRepo.find({
+      relations: ['staffs','customers'],
+    })
   }
 
   findOne(MANQ: string) {
-    return this.roleRepo
-        .createQueryBuilder('role')
-        .where('role.MANQ = :MANQ', {MANQ})
-        .getOne()
+    return this.roleRepo.findOne({
+      where: { MANQ: MANQ  },
+      relations: ['staffs','customers'],
+    })
   }
 
   async update(MANQ: string, body: UpdateRoleDto) {

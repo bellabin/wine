@@ -17,14 +17,16 @@ export class PromotionService {
   }
 
   findAll() {
-    return this.promotionRepo.find()
+    return this.promotionRepo.find({
+      relations: ['staff', 'ct_khuyenmais'],
+    })
   }
 
   findOne(MAKM: string) {
-    return this.promotionRepo
-        .createQueryBuilder('promotion')
-        .where('promotion.MAKM = :MAKM', {MAKM})
-        .getOne()
+    return this.promotionRepo.findOne({
+      where: { MAKM: MAKM  },
+      relations: ['staff', 'ct_khuyenmais'],
+    })
   }
 
   async update(MAKM: string, body: UpdatePromotionDto) {

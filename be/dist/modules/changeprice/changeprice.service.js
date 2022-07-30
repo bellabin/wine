@@ -21,16 +21,15 @@ let ChangepriceService = class ChangepriceService {
         return changeprice;
     }
     findAll() {
-        return this.changepriceRepo.find();
+        return this.changepriceRepo.find({
+            relations: ['wineline', 'staff'],
+        });
     }
     findOne(MADONG, NGAYTHAYDOI, MANV) {
-        return this.changepriceRepo.createQueryBuilder('changeprice')
-            .innerJoinAndSelect('changeprice.wineline', 'dongruou')
-            .innerJoinAndSelect('changeprice.staff', 'nhanvien')
-            .where('changeprice.MADONG = :MADONG', { MADONG })
-            .andWhere('ct_phieudat.NGAYTHAYDOI = :NGAYTHAYDOI', { NGAYTHAYDOI })
-            .andWhere('ct_phieudat.MANV = :MANV', { MANV })
-            .getOne();
+        return this.changepriceRepo.findOne({
+            where: { MADONG: MADONG, NGAYTHAYDOI: NGAYTHAYDOI, MANV: MANV },
+            relations: ['wineline', 'staff'],
+        });
     }
     async update(MADONG, NGAYTHAYDOI, MANV, body) {
         const changeprice = await this.findOne(MADONG, NGAYTHAYDOI, MANV);

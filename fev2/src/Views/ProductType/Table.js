@@ -8,11 +8,37 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { GetListWinetype } from '../../services/Product';
 import { useState, useEffect } from 'react'
+import FormModalEdit from './FormModal-Edit'
+import FormModalDelete from './FormModal-Delete'
 
 
 
 
 export default function DenseTable() {
+    function Edit(data){
+        //console.log(MANCC)
+        // console.log('d',data.EMAIL)
+        React.refModalEditProductType?.open()
+        React.refModalEditProductType.Edit( data)
+
+        
+    }
+
+    function Delete(MALOAI) {
+        //console.log(MANCC)
+        // console.log('d',data.EMAIL)
+        React.refModalDeleteProductType?.open()
+
+        React.refModalDeleteProductType.Delete( MALOAI)
+        const index = listWineTypes.findIndex(x => x.MALOAI === MALOAI)
+        console.log(index)
+        if(index >= 0) {
+            listWineTypes.splice(index,1)
+            setListWineTypes([...listWineTypes])
+        }
+
+        
+    }
 
     const [listWineTypes, setListWineTypes] = useState([])
 
@@ -47,13 +73,15 @@ export default function DenseTable() {
                             <TableCell component="th" scope="row">{row.MALOAI}</TableCell>
                             <TableCell align="left">{row.TENLOAI}</TableCell>
                             
-                            {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
-                            <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i> */}
+                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
+                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MALOAI)} ></i>
                         </TableRow>
                     ))}
                     
                 </TableBody>
             </Table>
+            <FormModalEdit ref={ref => React.refModalEditProductType = ref} />
+            <FormModalDelete ref={ref => React.refModalDeleteProductType = ref} />
         </TableContainer>
     );
 }

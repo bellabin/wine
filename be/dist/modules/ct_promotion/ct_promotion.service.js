@@ -21,15 +21,15 @@ let CtPromotionService = class CtPromotionService {
         return ct_promotion;
     }
     findAll() {
-        return this.ctpromoRepo.find();
+        return this.ctpromoRepo.find({
+            relations: ['promotion', 'wineline'],
+        });
     }
     findOne(MAKM, MADONG) {
-        return this.ctpromoRepo.createQueryBuilder('ct_promotion')
-            .innerJoinAndSelect('ct_promotion.promotion', 'khuyenmai')
-            .innerJoinAndSelect('ct_promotion.wineline', 'dongruou')
-            .where('ct_promotion.MAKM = :MAKM', { MAKM })
-            .andWhere('ct_promotion.MADONG = :MADONG', { MADONG })
-            .getOne();
+        return this.ctpromoRepo.findOne({
+            where: { MADONG: MADONG, MAKM: MAKM },
+            relations: ['promotion', 'wineline'],
+        });
     }
     async update(MAKM, MADONG, body) {
         const ct_promotion = await this.findOne(MAKM, MADONG);

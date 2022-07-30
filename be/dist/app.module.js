@@ -30,8 +30,8 @@ const ct_phieudat_module_1 = require("./modules/ct_phieudat/ct_phieudat.module")
 const ct_phieunhap_module_1 = require("./modules/ct_phieunhap/ct_phieunhap.module");
 const ct_phieutra_module_1 = require("./modules/ct_phieutra/ct_phieutra.module");
 const changeprice_module_1 = require("./modules/changeprice/changeprice.module");
-const ct_promotion_entity_1 = require("./modules/ct_promotion/entities/ct_promotion.entity");
-const ct_order_entity_1 = require("./modules/ct_order/entities/ct_order.entity");
+const ct_order_module_1 = require("./modules/ct_order/ct_order.module");
+const ct_promotion_module_1 = require("./modules/ct_promotion/ct_promotion.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -65,8 +65,8 @@ AppModule = __decorate([
             ct_phieunhap_module_1.CtPhieunhapModule,
             ct_phieutra_module_1.CtPhieutraModule,
             changeprice_module_1.ChangepriceModule,
-            ct_promotion_entity_1.CtPromotion,
-            ct_order_entity_1.CtOrder,
+            ct_promotion_module_1.CtPromotionModule,
+            ct_order_module_1.CtOrderModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

@@ -10,22 +10,13 @@ import { useState, useEffect } from 'react'
 import { GetListProvider } from '../../services/Provider'
 import FormModalEdit from './FormModal-Edit'
 import FormModalDelete from './FormModal-Delete'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { ENUMBODY_TYPES } from '@babel/types';
 
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
 
 
 
@@ -36,8 +27,8 @@ export default function DenseTable() {
     function Edit(data){
         //console.log(MANCC)
         // console.log('d',data.EMAIL)
-        React.refModal?.open()
-        React.refModal.Edit( data)
+        React.refModalEditProvider?.open()
+        React.refModalEditProvider.Edit( data)
 
         
     }
@@ -45,9 +36,9 @@ export default function DenseTable() {
     function Delete(MANCC) {
         //console.log(MANCC)
         // console.log('d',data.EMAIL)
-        React.refModal?.open()
+        React.refModalDeleteProvider?.open()
 
-        React.refModal.Delete( MANCC)
+        React.refModalDeleteProvider.Delete( MANCC)
         const index = listProviders.findIndex(x => x.MANCC === MANCC)
         console.log(index)
         if(index >= 0) {
@@ -102,15 +93,15 @@ export default function DenseTable() {
                             <TableCell align="left">{row.SDT}</TableCell>
                             <TableCell align="left">{row.EMAIL}</TableCell>
                             <TableCell align="left">{row.DIACHI}</TableCell>
-                            <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
-                            <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i>
+                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
+                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MANCC)} ></i>
                         </TableRow>
                     ))}
                     
                 </TableBody>
             </Table>
-            <FormModalEdit ref={ref => React.refModal = ref} />
-            <FormModalDelete ref={ref => React.refModal = ref} />
+            <FormModalEdit ref={ref => React.refModalEditProvider = ref} />
+            <FormModalDelete ref={ref => React.refModalDeleteProvider = ref} />
             
         </TableContainer>
     );

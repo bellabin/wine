@@ -17,16 +17,16 @@ export class CtPromotionService {
   }
 
   findAll() {
-    return this.ctpromoRepo.find()
+    return this.ctpromoRepo.find({
+      relations: ['promotion', 'wineline'],
+    })
   }
 
   findOne(MAKM: string, MADONG: string) {
-    return this.ctpromoRepo.createQueryBuilder('ct_promotion')
-    .innerJoinAndSelect('ct_promotion.promotion', 'khuyenmai')
-    .innerJoinAndSelect('ct_promotion.wineline','dongruou')
-    .where('ct_promotion.MAKM = :MAKM', {MAKM})
-    .andWhere('ct_promotion.MADONG = :MADONG', {MADONG})
-    .getOne()
+    return this.ctpromoRepo.findOne({
+      where: { MADONG: MADONG, MAKM: MAKM   },
+      relations: ['promotion', 'wineline'],
+    })
   }
 
   async update(MAKM: string, MADONG: string, body: UpdateCtPromotionDto) {

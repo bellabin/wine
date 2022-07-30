@@ -17,17 +17,24 @@ export class ChangepriceService {
   }
 
   findAll() {
-    return this.changepriceRepo.find()
+    return this.changepriceRepo.find({
+      relations: ['wineline', 'staff'],
+    }
+    )
   }
 
   findOne(MADONG: string, NGAYTHAYDOI: Date, MANV: string) {
-    return this.changepriceRepo.createQueryBuilder('changeprice')
-    .innerJoinAndSelect('changeprice.wineline', 'dongruou')
-    .innerJoinAndSelect('changeprice.staff','nhanvien')
-    .where('changeprice.MADONG = :MADONG', {MADONG})
-    .andWhere('ct_phieudat.NGAYTHAYDOI = :NGAYTHAYDOI', {NGAYTHAYDOI})
-    .andWhere('ct_phieudat.MANV = :MANV', {MANV})
-    .getOne()
+    return this.changepriceRepo.findOne({
+      where: { MADONG: MADONG , NGAYTHAYDOI:NGAYTHAYDOI, MANV:MANV  },
+      relations: ['wineline', 'staff'],
+    })
+    // return this.changepriceRepo.createQueryBuilder('changeprice')
+    // .innerJoinAndSelect('changeprice.wineline', 'dongruou')
+    // .innerJoinAndSelect('changeprice.staff','nhanvien')
+    // .where('changeprice.MADONG = :MADONG', {MADONG})
+    // .andWhere('ct_phieudat.NGAYTHAYDOI = :NGAYTHAYDOI', {NGAYTHAYDOI})
+    // .andWhere('ct_phieudat.MANV = :MANV', {MANV})
+    // .getOne()
   }
 
   async update(MADONG: string, NGAYTHAYDOI: Date, MANV: string, body: UpdateChangepriceDto) {

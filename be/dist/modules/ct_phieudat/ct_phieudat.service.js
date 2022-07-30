@@ -21,16 +21,15 @@ let CtPhieudatService = class CtPhieudatService {
         return ct_phieudat;
     }
     findAll() {
-        return this.ctphieudatRepo.find();
+        return this.ctphieudatRepo.find({
+            relations: ['phieudat', 'wineline'],
+        });
     }
     findOne(IDCTPD, MAPD, MADONG) {
-        return this.ctphieudatRepo.createQueryBuilder('ct_phieudat')
-            .innerJoinAndSelect('ct_phieudat.phieudat', 'phieudat')
-            .innerJoinAndSelect('ct_phieudat.wineline', 'dongruou')
-            .where('ct_phieudat.IDCTPD = :IDCTPD', { IDCTPD })
-            .andWhere('ct_phieudat.MAPD = :MAPD', { MAPD })
-            .andWhere('ct_phieudat.MADONG = :MADONG', { MADONG })
-            .getOne();
+        return this.ctphieudatRepo.findOne({
+            where: { MADONG: MADONG, IDCTPD: IDCTPD, MAPD: MAPD },
+            relations: ['phieudat', 'wineline'],
+        });
     }
     async update(IDCTPD, MAPD, MADONG, body) {
         const ct_phieudat = await this.findOne(IDCTPD, MAPD, MADONG);

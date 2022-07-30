@@ -12,14 +12,17 @@ export class BillService {
     ) {}
 
     findAll() { //function handle get list bill
-        return this.billRepo.find()
+        return this.billRepo.find({
+            
+            relations: ['staff', 'phieudat', 'phieutras'],
+          })
     }
 
     findById(MAHD: string) {
-        return this.billRepo
-            .createQueryBuilder('bills')
-            .where('bills.MAHD = :MAHD', { MAHD })
-            .getOne()
+        return this.billRepo.findOne({
+            where: { MAHD: MAHD   },
+            relations: ['staff', 'phieudat', 'phieutras'],
+          })
     }
 
     async create(payload: CreateBillDto) { //func handle create new bill

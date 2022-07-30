@@ -17,16 +17,16 @@ export class CtPhieunhapService {
   }
 
   findAll() {
-    return this.ctphieunhapRepo.find()
+    return this.ctphieunhapRepo.find({
+      relations: ['phieunhap', 'wineline'],
+    })
   }
 
   findOne(MAPN: string, MADONG: string) {
-    return this.ctphieunhapRepo.createQueryBuilder('ct_phieunhap')
-    .innerJoinAndSelect('ct_phieunhap.phieunhap', 'phieunhap')
-    .innerJoinAndSelect('ct_phieunhap.wineline','dongruou')
-    .where('ct_phieunhap.MAPN = :MAPN', {MAPN})
-    .andWhere('ct_phieunhap.MADONG = :MADONG', {MADONG})
-    .getOne()
+    return this.ctphieunhapRepo.findOne({
+      where: { MADONG: MADONG , MAPN: MAPN  },
+      relations: ['phieunhap', 'wineline'],
+    })
   }
 
   async update(MAPN: string, MADONG: string, body: UpdateCtPhieunhapDto) {

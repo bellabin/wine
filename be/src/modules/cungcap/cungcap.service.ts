@@ -34,16 +34,16 @@ export class CungcapService {
   }
 
   findAll() {
-    return  this.cungcapRepo.find()
+    return  this.cungcapRepo.find({
+      relations: ['provider', 'wineline'],
+    })
   }
 
   findOne(MANCC: string, MADONG:string) {
-    return this.cungcapRepo.createQueryBuilder('cungcap')
-    .innerJoinAndSelect('cungcap.provider', 'nhacungcap')
-    .innerJoinAndSelect('cungcap.wineline', 'dongruou')
-    .where('cungcap.MANCC = :MANCC', {MANCC})
-    .andWhere('cungcap.MADONG = :MADONG', {MADONG})
-    .getOne() 
+    return this.cungcapRepo.findOne({
+      where: { MANCC: MANCC, MADONG: MADONG   },
+      relations: ['provider', 'wineline'],
+    })
   }
 
   

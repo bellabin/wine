@@ -16,7 +16,7 @@ import Switch from '@mui/material/Switch';
 import { GetListProvider, DeleteProviderById } from '../../services/Provider'
 
 
-export default class FormModalDelete extends React.Component {
+export default class FormModalDeleteProvider extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -45,6 +45,7 @@ export default class FormModalDelete extends React.Component {
     render = () => {
         return (
             <Dialog
+                className='dialog delete provider'
                 fullWidth
                 maxWidth={'md'}
                 open={this.state.open}

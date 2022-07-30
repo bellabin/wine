@@ -49,7 +49,7 @@ export default function DenseTable() {
                         >
                             <TableCell component="th" scope="row">{row.MADONG}</TableCell>
                             <TableCell align="left">{row.TENDONG}</TableCell>
-                            <TableCell align="left">{row.HINHANH}</TableCell>
+                            <TableCell align="left"><img src={'../../../'.concat(row.HINHANH)} width={'18%'}  height= {'auto'} /></TableCell>
                             <TableCell align="left">{row.GIA}</TableCell>
                             <TableCell align="left">{row.SOLUONGTON}</TableCell>
                             <TableCell align="left">{row.MALOAI}</TableCell>

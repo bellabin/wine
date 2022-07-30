@@ -12,14 +12,16 @@ export class TrademarksService {
     ) {}
 
     findAll() { //function handle get list trademark
-        return this.trademarkRepo.find()
+        return this.trademarkRepo.find({
+            relations: ['winelines'],
+          })
     }
 
     findById(MATH: string) {
-        return this.trademarkRepo
-            .createQueryBuilder('trademarks')
-            .where('trademarks.MATH = :MATH', { MATH })
-            .getOne()
+        return this.trademarkRepo.findOne({
+            where: { MATH: MATH  },
+            relations: ['winelines'],
+          })
     }
 
     async create(payload: CreateTrademarksDto) { //func handle create new trademark

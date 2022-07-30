@@ -12,14 +12,16 @@ export class StaffService {
     ) {}
 
     findAll() { //function handle get list staff
-        return this.staffRepo.find()
+        return this.staffRepo.find({
+            relations: ['role','phieudats','phieunhaps','phieutras','changeprices','bills','promotions','orders'],
+          })
     }
 
     findById(MANV: string) {
-        return this.staffRepo
-            .createQueryBuilder('staffs')
-            .where('staffs.MANV = :MANV', { MANV })
-            .getOne()
+        return this.staffRepo.findOne({
+            where: { MANV: MANV  },
+            relations: ['role','phieudats','phieunhaps','phieutras','changeprices','bills','promotions','orders'],
+          })
     }
 
     findByUsername(USERNAME: string) {

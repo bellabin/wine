@@ -8,9 +8,34 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { GetListPromo, GetPromoById } from '../../services/Promo';
 import { useState, useEffect } from 'react'
+import FormModalEditPromo from './FormModal-Edit';
+import FormModalDeletePromo from './FormModal-Delete';
 
 
 export default function DenseTable() {
+    function Edit(data){
+        
+        //console.log(data)
+        
+        React.refModalEditPromo?.open()
+        React.refModalEditPromo.Edit( data)
+
+        
+    }
+
+    function Delete(MAKM) {
+        React.refModalDeletePromo?.open()
+
+        React.refModalDeletePromo.Delete( MAKM)
+        const index = listPromos.findIndex(x => x.MAKM === MAKM)
+        console.log(index)
+        if(index >= 0) {
+            listPromos.splice(index,1)
+            setListPromos([...listPromos])
+        }
+
+        
+    }
 
     const [listPromos, setListPromos] = useState([])
 
@@ -53,13 +78,15 @@ export default function DenseTable() {
                             <TableCell align="left">{row.LIDO}</TableCell>
                             <TableCell align="left">{row.MANV}</TableCell>
 
-                            {/* <i className="fa fa-user-tie" onClick= {() => Edit(row)} ></i>
-                            <i className="fa fa-user-tie" onClick= {() => Delete(row.MANCC)} ></i> */}
+                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick={()=>Edit(row)} ></i>
+                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MAKM)} ></i>
                         </TableRow>
                     ))}
 
                 </TableBody>
             </Table>
+            <FormModalEditPromo ref={ref => React.refModalEditPromo = ref} />
+            <FormModalDeletePromo ref={ref => React.refModalDeletePromo = ref} />
         </TableContainer>
     );
 }

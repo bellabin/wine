@@ -55,7 +55,7 @@ __decorate([
     __param(0, (0, common_1.Query)('MAPT')),
     __param(1, (0, common_1.Query)('IDCTPD')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "findOne", null);
 __decorate([
@@ -64,7 +64,7 @@ __decorate([
     __param(1, (0, common_1.Query)('IDCTPD')),
     __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String, update_ct_phieutra_dto_1.UpdateCtPhieutraDto]),
+    __metadata("design:paramtypes", [String, Number, update_ct_phieutra_dto_1.UpdateCtPhieutraDto]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "update", null);
 __decorate([
@@ -72,7 +72,7 @@ __decorate([
     __param(0, (0, common_1.Query)('MAPT')),
     __param(1, (0, common_1.Query)('IDCTPD')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", void 0)
 ], CtPhieutraController.prototype, "remove", null);
 CtPhieutraController = __decorate([

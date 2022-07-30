@@ -23,6 +23,8 @@ import { CtPhieutraModule } from './modules/ct_phieutra/ct_phieutra.module';
 import { ChangepriceModule } from './modules/changeprice/changeprice.module';
 import { CtPromotion } from './modules/ct_promotion/entities/ct_promotion.entity';
 import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
+import { CtOrderModule } from './modules/ct_order/ct_order.module';
+import { CtPromotionModule } from './modules/ct_promotion/ct_promotion.module';
 // import { AuthModule } from './auth/auth.module';
 // import { UsersModule } from './users/users.module';
 
@@ -56,8 +58,8 @@ import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
     CtPhieunhapModule,
     CtPhieutraModule,
     ChangepriceModule,
-    CtPromotion,
-    CtOrder,
+    CtPromotionModule,
+    CtOrderModule,
     // AuthModule,
     // UsersModule
 
