@@ -19,7 +19,8 @@ const CustomePagination = (props) => {
 
   return (
       <div className="row">
-        <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"} shape={"rounded"} onChange={handleChange}
+        <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"}
+                    shape={"circular"} showFirstButton showLastButton onChange={handleChange}
           style={{margin: 20}}/>
         <div className="row">
           {
@@ -30,7 +31,8 @@ const CustomePagination = (props) => {
             })
           }
         </div>
-        <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"} shape={"rounded"} onChange={handleChange}/>
+        <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"}
+                    shape={"circular"} showFirstButton showLastButton onChange={handleChange}/>
       </div>
   );
 };
