@@ -116,6 +116,7 @@ export default class BodyProduct extends Component {
                   <h2 className="title">San pham ne</h2>
                   <nav className="navbar bg-light">
                     <ul className="navbar-nav">
+                    
                       <CustomePagination data={this.state.data}>
                         {/* {this.state.products.map((product) => {
                           console.log(product.ct_khuyenmais);

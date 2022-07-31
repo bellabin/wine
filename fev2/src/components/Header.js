@@ -11,36 +11,43 @@ export default class Header extends Component {
   render() {
     return (
       <>
-        <div className="header">
+        <div className="header" style={{backgroundColor:'black'}}>
           <div className="container">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-5">
                 <a href="">
                   <img src="/img/logoReport.PNG" alt="" />
                 </a>
               </div>
 
-              <div className="col-md-9">
+              <div className="col-md-7">
+                
                 <nav>
-                  <ul>
-                    <li>
-                      <Link to={'/'}>Trang chủ</Link>
+                  <ul style={{backgroundColor:'#dddddd'}}>
+                    <li style={{display: 'inline', float: 'left'}}>
+                      <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}} 
+                      to={'/'}>Trang chủ</Link>
                     </li>
-                    <li>
-                      <Link to={KeyNavigate.ProductCus}>Sản phẩm</Link>
+                    <li style={{display: 'inline', float: 'left'}}>
+                    <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}} 
+                      to={KeyNavigate.ProductCus}>Sản phẩm</Link>
                     </li>
-                    <li>
-                      <Link to={KeyNavigate.Cart}>Giỏ hàng</Link>
+                    <li style={{display: 'inline', float: 'left'}}>
+                    <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}} 
+                      to={KeyNavigate.Cart}>Giỏ hàng</Link>
                     </li>
-                    <li>
-                      <Link to={KeyNavigate.Account}>Tài khoản</Link>
+                    <li style={{display: 'inline', float: 'left'}}>
+                    <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}}
+                      to={KeyNavigate.Account}>Tài khoản</Link>
                     </li>
 
-                    <li className="sign-in">
-                      <Link to={KeyNavigate.Login}>Sign in</Link>
+                    <li className="sign-in" style={{display: 'inline', float: 'left'}}>
+                    <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}} 
+                      to={KeyNavigate.Login}>Sign in</Link>
                     </li>
-                    <li>
-                      <Link to={KeyNavigate.LoginAdmin}>Admin</Link>
+                    <li style={{display: 'inline', float: 'left'}}>
+                    <Link style={{display:'block',padding:'8px', textAlign:'center',padding: '14px 16px', textDecoration: 'none'}} 
+                      to={KeyNavigate.LoginAdmin}>Admin</Link>
                     </li>
                   </ul>
                 </nav>
@@ -58,19 +65,10 @@ export default class Header extends Component {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="search">
-                  <input type="text" placeholder="Search" />
-                  <button>
-                    <i className="fa fa-search"></i>
-                  </button>
-                </div>
+                
               </div>
               <div className="col-md-3">
                 <div className="user">
-                  <a href="/wishlist" className="btn wishlist">
-                    <i className="fa fa-heart"></i>
-                    <span>(0)</span>
-                  </a>
                   <a href="/gio-hang" className="btn cart">
                     <i className="fa fa-shopping-cart"></i>
                     <span className="cart-number">(0)</span>
@@ -80,6 +78,8 @@ export default class Header extends Component {
             </div>
           </div>
         </div>
+      
+
       </>
     );
   }
