@@ -11,9 +11,7 @@ export default class BodyProduct extends Component {
         super(props);
         this.state = {
           brands: [],
-          products: [],
-          page: 1,
-          count: 10,
+          products: []
         };
       }
 
@@ -113,21 +111,26 @@ export default class BodyProduct extends Component {
                 </div>
 
                 <div className="sidebar-widget category">
-                  <h2 className="title">San pham ne</h2>
-                  <nav className="navbar bg-light">
-                    <ul className="navbar-nav">
-                    
-                      <CustomePagination data={this.state.data}>
-                        {/* {this.state.products.map((product) => {
-                          console.log(product.ct_khuyenmais);
-                          return (
-                            <CustomCardProduct data={product}/>
+                    {/*<div className="row">*/}
+                    {/*  /!*<CustomePagination data={this.state.products}/>*!/*/}
+                    {/*    /!* {this.state.products.map((product) => {*/}
+                    {/*      console.log(product.ct_khuyenmais);*/}
+                    {/*      return (*/}
+                    {/*        <CustomCardProduct data={product}/>*/}
 
-                          );
-                        })} */}
-                      </CustomePagination>
-                    </ul>
-                  </nav>
+                    {/*      );*/}
+                    {/*    })} *!/*/}
+                    {/*  /!*<div className="row">*!/*/}
+                    {/*  /!*  {*!/*/}
+                    {/*  /!*    this.state.products.map((product) => {*!/*/}
+                    {/*  /!*      return (*!/*/}
+                    {/*  /!*          <CustomCardProduct data={product}></CustomCardProduct>*!/*/}
+                    {/*  /!*      )*!/*/}
+                    {/*  /!*    })*!/*/}
+                    {/*  /!*  }*!/*/}
+                    {/*  /!*</div>*!/*/}
+                    {/*</div>*/}
+                  <CustomePagination data={this.state.products}></CustomePagination>
                 </div>
               </div>
 
