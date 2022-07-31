@@ -40,7 +40,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({ type: 'float' }),
     __metadata("design:type", Number)
-], Changeprice.prototype, "BIENDONGGIA", void 0);
+], Changeprice.prototype, "GIA", void 0);
 Changeprice = __decorate([
     (0, typeorm_1.Entity)('thaydoigia')
 ], Changeprice);

@@ -38,7 +38,7 @@ let ChangepriceService = class ChangepriceService {
         return this.changepriceRepo
             .createQueryBuilder()
             .update(changeprice_entity_1.Changeprice)
-            .set({ BIENDONGGIA: body.BIENDONGGIA })
+            .set({ GIA: body.GIA })
             .where('MADONG = :MADONG', { MADONG })
             .andWhere('NGAYTHAYDOI = :NGAYTHAYDOI', { NGAYTHAYDOI })
             .andWhere('MANV = :MANV', { MANV })

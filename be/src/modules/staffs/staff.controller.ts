@@ -29,7 +29,10 @@ export class StaffController {
 
         if(!staff) throw new NotFoundException()
 
-        if(payload.PASSWORD != staff.PASSWORD) throw new HttpException ('invalid credential', HttpStatus.UNAUTHORIZED)
+        var CryptoJS = require("crypto-js/SHA256");
+        const pass = CryptoJS(payload.PASSWORD);
+        console.log('day la password ma hoa: ', pass.toString());
+        if(pass.toString() != staff.PASSWORD) throw new HttpException ('invalid credential', HttpStatus.UNAUTHORIZED)
 
         return staff
 

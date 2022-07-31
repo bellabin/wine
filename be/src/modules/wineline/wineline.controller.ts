@@ -1,9 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
+import { ApiTags } from "@nestjs/swagger"
 import { CreateWinelineDto } from "./dto/create-wineline.dto"
 import { UpdateWinelineDto } from "./dto/update-wineline.dto"
 import { WinelineService } from "./wineline.service"
 
 @Controller('winelines')
+@ApiTags('Wine Lines')
 export class WinelineController {
     constructor(
         private winelineService: WinelineService //import staff service
@@ -17,6 +19,11 @@ export class WinelineController {
     @Get(':id')
     findById(@Param('id') id: string) {
         return this.winelineService.findById(id)
+    }
+
+    @Get('/product/hot')
+    getHotProducts() {
+        return this.winelineService.getHotProducts()
     }
 
     @Post() //create new winelines

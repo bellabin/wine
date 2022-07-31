@@ -1,3 +1,3 @@
 export declare class UpdateChangepriceDto {
-    BIENDONGGIA: number;
+    GIA: number;
 }

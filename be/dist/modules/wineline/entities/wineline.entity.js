@@ -14,6 +14,7 @@ const changeprice_entity_1 = require("../../changeprice/entities/changeprice.ent
 const ct_order_entity_1 = require("../../ct_order/entities/ct_order.entity");
 const ct_phieudat_entity_1 = require("../../ct_phieudat/entities/ct_phieudat.entity");
 const ct_phieunhap_entity_1 = require("../../ct_phieunhap/entities/ct_phieunhap.entity");
+const ct_phieutra_entity_1 = require("../../ct_phieutra/entities/ct_phieutra.entity");
 const ct_promotion_entity_1 = require("../../ct_promotion/entities/ct_promotion.entity");
 const cungcap_entity_1 = require("../../cungcap/entities/cungcap.entity");
 const review_entity_1 = require("../../review/entities/review.entity");
@@ -100,6 +101,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => review_entity_1.Review, (review) => review.wineline),
     __metadata("design:type", Array)
 ], Wineline.prototype, "reviews", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => ct_phieutra_entity_1.CtPhieutra, (ct_phieutra) => ct_phieutra.wineline),
+    __metadata("design:type", Array)
+], Wineline.prototype, "ct_phieutras", void 0);
 Wineline = __decorate([
     (0, typeorm_1.Entity)('dongruou')
 ], Wineline);

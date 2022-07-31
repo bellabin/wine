@@ -23,6 +23,7 @@ import Staff from './Views/Staff'
 import ProductCus from './Views/ProductCus';
 import Cart from './Views/Cart';
 import Account from './Views/Account';
+import ProductOnType from './Views/Product-on-type-cus';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,9 +33,12 @@ root.render(
         <Route index element={<App />} ></Route>
         <Route path={KeyNavigate.Login} element={<Login />} />
         <Route path={KeyNavigate.LoginAdmin} element={<LoginAdmin />} />
-        <Route path={KeyNavigate.ProductCus} exact element={<ProductCus />} />
+        <Route path={KeyNavigate.ProductCus.concat('/*')} exact element={<ProductCus>
+          <Route path={KeyNavigate.Brand} exact element={<ProductOnType />} />
+        </ProductCus>} />
         <Route path={KeyNavigate.Cart} exact element={<Cart />} />
         <Route path={KeyNavigate.Account} exact element={<Account />} />
+
 
 
 

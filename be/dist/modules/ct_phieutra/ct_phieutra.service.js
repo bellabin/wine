@@ -22,13 +22,13 @@ let CtPhieutraService = class CtPhieutraService {
     }
     findAll() {
         return this.ctphieutraRepo.find({
-            relations: ['phieutra'],
+            relations: ['phieutra', 'wineline'],
         });
     }
     findOne(MAPT, IDCTPD) {
         return this.ctphieutraRepo.findOne({
             where: { MAPT: MAPT, IDCTPD: IDCTPD },
-            relations: ['phieutra'],
+            relations: ['phieutra', 'wineline'],
         });
     }
     async update(MAPT, IDCTPD, body) {

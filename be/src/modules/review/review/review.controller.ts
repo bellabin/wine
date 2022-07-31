@@ -15,8 +15,8 @@ export class ReviewController {
     }
 
     @Get(':id')
-    findById(@Param('id') id: number) {
-        return this.reviewService.findById(id)
+    findById(@Param('id') MAKH: string, MADONG: string, NGAYDANHGIA: Date) {
+        return this.reviewService.findById(MAKH,MADONG,NGAYDANHGIA)
     }
 
     @Post() //create new review
@@ -24,13 +24,10 @@ export class ReviewController {
         return this.reviewService.create(payload)
     }
 
-    @Put(':id') //update rv
-    update(@Param('id') id: number, @Body() body: UpdateReviewDto) {
-        return this.reviewService.update(id, body)
-    }
+    
 
     @Delete(':id') //remove rv
-    delete(@Param('id') id: number) {
-        return this.reviewService.delete(id)
+    delete(@Param('id') MAKH: string, MADONG: string, NGAYDANHGIA: Date) {
+        return this.reviewService.delete(MAKH,MADONG,NGAYDANHGIA)
     }
 }

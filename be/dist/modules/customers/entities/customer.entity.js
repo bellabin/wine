@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Customer = void 0;
 const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
+const review_entity_1 = require("../../review/entities/review.entity");
 const role_entity_1 = require("../../role/entities/role.entity");
 const typeorm_1 = require("typeorm");
 let Customer = class Customer {
@@ -68,6 +69,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => phieudat_entity_1.Phieudat, (phieudat) => phieudat.customer),
     __metadata("design:type", Array)
 ], Customer.prototype, "phieudats", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => review_entity_1.Review, (review) => review.customer),
+    __metadata("design:type", Array)
+], Customer.prototype, "reviews", void 0);
 Customer = __decorate([
     (0, typeorm_1.Entity)('khachhang')
 ], Customer);

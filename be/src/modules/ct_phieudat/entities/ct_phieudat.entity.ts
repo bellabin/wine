@@ -7,7 +7,7 @@ export class CtPhieudat {
     @Column({type:'int', primary:true})
     IDCTPD!: number
 
-    @Column({type:'char', primary:true})
+    @Column({type:'char'})
     MAPD!: string
     
     @ManyToOne(() => Phieudat, phieudat => phieudat.ct_phieudats)
@@ -15,7 +15,7 @@ export class CtPhieudat {
     phieudat: Phieudat
     
 
-    @Column({type:'char', primary:true})
+    @Column({type:'char'})
     MADONG!: string
 
     @ManyToOne(() => Wineline, wineline => wineline.ct_phieudats)

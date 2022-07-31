@@ -19,5 +19,5 @@ export class CreateChangepriceDto {
 
     @ApiProperty()
     @IsNumber()
-    BIENDONGGIA!: number
+    GIA!: number
 }

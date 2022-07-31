@@ -1,4 +1,5 @@
 import { Phieudat } from "src/modules/phieudat/entities/phieudat.entity";
+import { Review } from "src/modules/review/entities/review.entity";
 import { Role } from "src/modules/role/entities/role.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
@@ -43,4 +44,7 @@ export class Customer {
 
     @OneToMany(() => Phieudat, (phieudat) => phieudat.customer)
     phieudats: Phieudat[]
+
+    @OneToMany(() => Review, (review) => review.customer)
+    reviews: Review[]
 }

@@ -18,7 +18,7 @@ export class PromotionService {
 
   findAll() {
     return this.promotionRepo.find({
-      relations: ['staff', 'ct_khuyenmais'],
+      relations: ['staff', 'ct_khuyenmais', 'ct_khuyenmais.wineline'],
     })
   }
 

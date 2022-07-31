@@ -1,10 +1,11 @@
+import { Customer } from "src/modules/customers/entities/customer.entity";
 import { Wineline } from "src/modules/wineline/entities/wineline.entity";
 export declare class Review {
-    MADANHGIA: number;
+    MAKH: string;
+    customer: Customer;
     NOIDUNG: string;
-    TEN: string;
-    EMAIL: string;
-    DATE: Date;
+    RATING: number;
+    NGAYDANHGIA: Date;
     MADONG: string;
     wineline: Wineline;
 }

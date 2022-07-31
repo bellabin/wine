@@ -7,5 +7,5 @@ export class UpdateChangepriceDto  {
     @ApiProperty()
     @IsNumber()
     @IsOptional()
-    BIENDONGGIA!: number
+    GIA!: number
 }

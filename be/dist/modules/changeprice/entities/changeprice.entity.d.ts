@@ -6,5 +6,5 @@ export declare class Changeprice {
     NGAYTHAYDOI: Date;
     MANV: string;
     staff: Staff;
-    BIENDONGGIA: number;
+    GIA: number;
 }

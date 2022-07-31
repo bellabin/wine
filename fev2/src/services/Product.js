@@ -40,6 +40,10 @@ export const CreateProductType = async (data) => {
   })
 }
 
+export const GetListHotProducts =  async () => {
+  return HttpService.get('winelines/product/hot')
+}
+
 
 
 //////

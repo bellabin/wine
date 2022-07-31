@@ -45,7 +45,7 @@ export class ChangepriceService {
     return this.changepriceRepo
     .createQueryBuilder()
     .update(Changeprice)
-    .set({BIENDONGGIA: body.BIENDONGGIA})
+    .set({GIA: body.GIA})
     .where('MADONG = :MADONG', {MADONG})
     .andWhere('NGAYTHAYDOI = :NGAYTHAYDOI', {NGAYTHAYDOI})
     .andWhere('MANV = :MANV', {MANV})

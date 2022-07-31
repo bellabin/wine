@@ -22,5 +22,5 @@ export class Changeprice {
     staff: Staff
 
     @Column({type:'float'})
-    BIENDONGGIA!: number
+    GIA!: number
 }

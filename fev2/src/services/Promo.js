@@ -53,3 +53,26 @@ export const GetListCtPromo = async () => {
 export const GetCtPromoById = async (id) => {
   return HttpService.get(`ct-promotion/${id}`)
 }
+
+export const UpdateCtPromoById = async (id, data) => {
+  return HttpService.put(`ct-promotion/${id}`,{
+    MAKM: data.MAKM,
+    MADONG: data.MADONG,
+    PHANTRAMGIAM: data.PHANTRAMGIAM,
+    
+
+  })
+}
+
+export const DeleteCtPromoById = async (id) => {
+  return HttpService.delete(`ct-promotion/${id}`)
+}
+
+export const CreateCtPromo = async (data) => {
+  return HttpService.post(`ct-promotion`,{
+    MAKM: data.MAKM,
+    MADONG: data.MADONG,
+    PHANTRAMGIAM: data.PHANTRAMGIAM,
+
+  })
+}

@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { CreateWinelineDto } from './dto/create-wineline.dto'
 import { UpdateWinelineDto } from './dto/update-wineline.dto'
 import { Wineline } from './entities/wineline.entity'
+import HotProductQuery from './queries/hot-products.query'
 
 @Injectable()
 export class WinelineService {
@@ -13,14 +14,14 @@ export class WinelineService {
 
     findAll() { //function handle get list wineline
         return this.winelineRepo.find({
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras'],
           })
     }
 
     findById(MADONG: string) {
         return this.winelineRepo.findOne({
             where: { MADONG: MADONG   },
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras'],
             
           })
         // console.log('123');
@@ -54,5 +55,9 @@ export class WinelineService {
         if (!wineline) throw new NotFoundException('Wineline is not exist')
 
         return this.winelineRepo.remove(wineline)
+    }
+
+    async getHotProducts() {
+        return this.winelineRepo.query(HotProductQuery)
     }
 }

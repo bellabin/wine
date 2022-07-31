@@ -19,6 +19,6 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], UpdateChangepriceDto.prototype, "BIENDONGGIA", void 0);
+], UpdateChangepriceDto.prototype, "GIA", void 0);
 exports.UpdateChangepriceDto = UpdateChangepriceDto;
 //# sourceMappingURL=update-changeprice.dto.js.map

@@ -20,7 +20,7 @@ __decorate([
     __metadata("design:type", Number)
 ], CtPhieudat.prototype, "IDCTPD", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char', primary: true }),
+    (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MAPD", void 0);
 __decorate([
@@ -29,7 +29,7 @@ __decorate([
     __metadata("design:type", phieudat_entity_1.Phieudat)
 ], CtPhieudat.prototype, "phieudat", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'char', primary: true }),
+    (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MADONG", void 0);
 __decorate([
