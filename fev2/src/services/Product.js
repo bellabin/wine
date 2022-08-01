@@ -40,9 +40,6 @@ export const CreateProductType = async (data) => {
   })
 }
 
-export const GetListHotProducts =  async () => {
-  return HttpService.get('winelines/product/hot')
-}
 
 
 
@@ -73,4 +70,13 @@ export const CreateProduct = async (data) => {
     MATH: data.MATH,
     MANCC: data.MANCC,
   })
+}
+
+
+export const GetListHotProducts =  async () => {
+  return HttpService.get('winelines/product/hot')
+}
+
+export const GetListProductByType = async (MALOAI) => {
+  return HttpService.get('winelines/product/'.concat(MALOAI))
 }

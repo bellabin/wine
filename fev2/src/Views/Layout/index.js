@@ -4,7 +4,7 @@ import { Link, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
 
 
-export default class Layout extends Component {
+export default class LayoutAdmin extends Component {
     
     render() {
         

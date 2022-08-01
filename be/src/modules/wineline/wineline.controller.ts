@@ -26,6 +26,12 @@ export class WinelineController {
         return this.winelineService.getHotProducts()
     }
 
+    @Get('/product/:MALOAI')
+    getProductsOnType(@Param('MALOAI') MALOAI: string) {
+        return this.winelineService.getProductsByType(MALOAI)
+    }
+
+
     @Post() //create new winelines
     create(@Body() payload: CreateWinelineDto) {
         return this.winelineService.create(payload)

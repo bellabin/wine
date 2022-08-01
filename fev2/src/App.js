@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route, Router } from 'react-router';
+import { Route, Router, Routes } from 'react-router';
 import Layout from './Views/Layout'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/asset.css"
@@ -22,39 +22,45 @@ import { KeyNavigate } from './helper/KeyNavigate';
 import Login from './Views/Login';
 import LoginAdmin from './Views/LoginAdmin';
 import ProductCus from './Views/ProductCus';
+import Account from './Views/Account';
+import Cart from './Views/Cart';
+import LayoutAdmin from './Views/Layout';
+import ProductCusDetail from './Views/ProductCus-Detail';
+import BodyProductDetail from './Views/ProductCus-Detail/Body';
 function App() {
   return (
-    <React.Fragment>
-      <LayoutIndex>
+    <Routes>
+      <Route path={'/'} element={<LayoutIndex></LayoutIndex>}></Route>
+      <Route path={KeyNavigate.LoginAdmin} element={<LoginAdmin></LoginAdmin>}></Route>
+      <Route path={KeyNavigate.ProductCus.concat('/*')} element={<ProductCus>
+        <Route path={KeyNavigate.Detail} element={<BodyProductDetail />} />
+        
+      </ProductCus>}></Route>
+      <Route path={KeyNavigate.Login} element={<Login></Login>}></Route>
+      <Route path={KeyNavigate.Account} element={<Account></Account>}></Route>
+      <Route path={KeyNavigate.Cart} element={<Cart></Cart>}></Route>
 
-        <Route path={KeyNavigate.Login} exact element={<Login />} />
-
-
-
-        <Route path={KeyNavigate.LoginAdmin} exact element={<LoginAdmin>
-          <Route path={KeyNavigate.Layout} exact element={<Layout />} />
-        </LoginAdmin>} />
-
-
-        <Route path={KeyNavigate.Layout} exact element={<Layout/>} />
-      </LayoutIndex>
+      <Route path={KeyNavigate.Detail} element={<BodyProductDetail />} />
 
 
-      {/* <Layout>
+      <Route path={KeyNavigate.Layout.concat('/*')} element={<LayoutAdmin>
         <Route path={KeyNavigate.Provider} exact element={<Provider />} />
-        <Route path={KeyNavigate.ProductType} element={<ProductType />} />
-        <Route path={KeyNavigate.Brand} element={<Brand />} />
-        <Route path={KeyNavigate.Product} element={<Product />} />
-        <Route path={KeyNavigate.Bill} element={<Bill />} />
-        <Route path={KeyNavigate.Promo} element={<Promo />} />
-        <Route path={KeyNavigate.PromoProduct} element={<PromoProduct />} />
-        <Route path={KeyNavigate.Revenue} element={<Revenue />} />
-        <Route path={KeyNavigate.Customer} element={<Customer />} />
-        <Route path={KeyNavigate.Staff} element={<Staff />} />
-      </Layout> */}
+          <Route path={KeyNavigate.ProductType} element={<ProductType />} />
+          <Route path={KeyNavigate.Brand} element={<Brand />} />
+          <Route path={KeyNavigate.Product} element={<Product />} />
+          <Route path={KeyNavigate.Bill} element={<Bill />} />
+          <Route path={KeyNavigate.Promo} element={<Promo />} />
+          <Route path={KeyNavigate.PromoProduct} element={<PromoProduct />} />
+          <Route path={KeyNavigate.Revenue} element={<Revenue />} />
+          <Route path={KeyNavigate.Customer} element={<Customer />} />
+          <Route path={KeyNavigate.Staff} element={<Staff />} />
+      </LayoutAdmin>}></Route>
 
+      
 
-    </React.Fragment>
+      
+
+    </Routes>
 
 
   );

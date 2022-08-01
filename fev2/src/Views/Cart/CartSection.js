@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Item from "./Item"
 import { getListCartItemsFromLocalStorage } from "../../helper/addToCart";
+import { Box, Button } from "@mui/material";
 
 export default class CartSection extends Component {
     constructor(props) {
@@ -69,13 +70,20 @@ export default class CartSection extends Component {
                   <table className="table table-bordered">
                     <thead className="thead-dark">
                       <tr>
-                        <th>Tổng tiền: {this.totalAmount()}$
+                        <th>Tổng tiền: {this.totalAmount()}${'   '}
                         </th>
                       </tr>
                     </thead>
                   </table>
+                  <div class="container">
+                    <div class="center">
+                      <button type="button" class="btn btn-primary p-4">Thanh toán</button>    
                   </div>
+                </div>
+                </div>
             </div>
+            
+            
             {/* <div className="col-lg-4">
               <div className="cart-page-inner">
                 <div className="row">
@@ -102,6 +110,7 @@ export default class CartSection extends Component {
               </div>
             </div> */}
           </div>
+          
         </div>
       </div>
     );

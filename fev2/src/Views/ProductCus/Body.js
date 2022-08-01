@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom'
+import { Routes,Route } from "react-router-dom";
+import BodyProductDetail from "../ProductCus-Detail/Body";
 import { KeyNavigate } from '../../helper/KeyNavigate'
 import { CustomCardProduct } from '../../components/CardProduct'
-import { GetListWinetype, GetListProduct } from "../../services/Product";
+import { GetListWinetype, GetListProduct, GetListProductByType } from "../../services/Product";
 import CustomePagination from '../../components/Pagination'
 
 
@@ -11,11 +13,13 @@ export default class BodyProduct extends Component {
         super(props);
         this.state = {
           brands: [],
-          products: []
+          products: [],
+          selectedBrand:'',
         };
+        this.handleClick = this.handleClick.bind(this)
       }
 
-    componentDidMount(){
+    componentDidMount() {
         GetListWinetype()
         .then(res => {
             const brand = []
@@ -39,6 +43,24 @@ export default class BodyProduct extends Component {
         .catch(err => console.log(err))
 
         }
+
+
+
+    handleClick(data) {
+        this.setState({
+            selectedBrand: data.MALOAI,
+        })
+        GetListProductByType(data.MALOAI)
+            .then(res => {
+                this.setState({products: res.data})
+            })
+            .catch(err => console.log(err))
+        return(
+            <CustomePagination data={this.state.products}></CustomePagination>
+
+        )
+        
+    }
   render() {
     return (
       <div>
@@ -50,10 +72,10 @@ export default class BodyProduct extends Component {
           <div className="container-fluid">
             <ul className="breadcrumb">
               <li className="breadcrumb-item">
-                <a href="/">Trang chủ</a>
+                <Link to={'/'}>Trang chủ</Link>
               </li>
               <li className="breadcrumb-item">
-                <a href="/san-pham">Sản phẩm</a>
+                <Link to={KeyNavigate.ProductCus}>Sản phẩm</Link>
               </li>
               {/* <li className="breadcrumb-item active"><%=breadcrumb%></li> */}
             </ul>
@@ -67,6 +89,7 @@ export default class BodyProduct extends Component {
             <div className="row">
               <div className="col-lg-8">
                 <div className="row">
+                
                   <div className="col-md-12">
                     <div className="product-view-top">
                       <div className="row">
@@ -111,6 +134,7 @@ export default class BodyProduct extends Component {
                 </div>
 
                 <div className="sidebar-widget category">
+                
                     {/*<div className="row">*/}
                     {/*  /!*<CustomePagination data={this.state.products}/>*!/*/}
                     {/*    /!* {this.state.products.map((product) => {*/}
@@ -131,6 +155,7 @@ export default class BodyProduct extends Component {
                     {/*  /!*</div>*!/*/}
                     {/*</div>*/}
                   <CustomePagination data={this.state.products}></CustomePagination>
+                  
                 </div>
               </div>
 
@@ -145,14 +170,13 @@ export default class BodyProduct extends Component {
                           //on click sua this.state.prodcuts
                           <li>
                             <Link
-                              to={KeyNavigate.ProductCus.concat(
-                                KeyNavigate.Brand
+                              to={KeyNavigate.ProductCus.concat('/',
+                                brand.item.TENLOAI
                               )}
+                              onClick={() => {this.handleClick(brand.item)}}
                             >
                               {brand.item.TENLOAI}{" "}
                             </Link>
-                            {/* <ProductCus></ProductCus> */}
-                            {/* <Route path={KeyNavigate.Brand} exact element={<ProductOnType />} /> */}
                           </li>
                         );
                       })}
@@ -229,133 +253,7 @@ export default class BodyProduct extends Component {
         </div>
         {/* <!-- Brand End --> */}
 
-        {/* <!-- Footer Start --> */}
-        <div className="footer">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-3 col-md-6">
-                <div className="footer-widget">
-                  <h2>Liên Hệ</h2>
-                  <div className="contact-info">
-                    <p>
-                      <i className="fa fa-map-marker"></i>Thành Phố Hồ Chí Minh
-                    </p>
-                    <p>
-                      <i className="fa fa-envelope"></i>tamtvh96@gmail.com
-                    </p>
-                    <p>
-                      <i className="fa fa-phone"></i>+963548171
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="footer-widget">
-                  <h2>Theo Dõi Tôi</h2>
-                  <div className="contact-info">
-                    <div className="social">
-                      <a href="">
-                        <i className="fab fa-twitter"></i>
-                      </a>
-                      <a href="https://www.facebook.com/ybx1802">
-                        <i className="fab fa-facebook-f"></i>
-                      </a>
-                      <a href="https://www.linkedin.com/in/huy-tran-57777b202/">
-                        <i className="fab fa-linkedin-in"></i>
-                      </a>
-                      <a href="https://www.instagram.com/huy_jr18">
-                        <i className="fab fa-instagram"></i>
-                      </a>
-                      <a href="https://www.youtube.com/channel/UCctcteJFmH4Wxc8npHW9Cog">
-                        <i className="fab fa-youtube"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="footer-widget">
-                  <h2>Thông Tin Cửa Hàng</h2>
-                  <ul>
-                    <li>
-                      <a href="#">Giới thiệu</a>
-                    </li>
-                    <li>
-                      <a href="#">Chính sách bảo mật</a>
-                    </li>
-                    <li>
-                      <a href="#">Hình thức vận chuyển</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="col-lg-3 col-md-6">
-                <div className="footer-widget">
-                  <h2>Thông Tin Mua Hàng</h2>
-                  <ul>
-                    <li>
-                      <a href="#">Chính sách thanh toán</a>
-                    </li>
-                    <li>
-                      <a href="#">Chính sách vận chuyển</a>
-                    </li>
-                    <li>
-                      <a href="#">Chính sách hoàn trả</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="row payment align-items-center">
-              <div className="col-md-6">
-                <div className="payment-method">
-                  <h2>Nhận thanh toán bằng:</h2>
-                  <img src="../img/payment-method.png" alt="Payment Method" />
-                </div>
-              </div>
-              <div className="col-md-6">
-                <div className="payment-security">
-                  <h2>Chứng chỉ bảo mật:</h2>
-                  <img src="../img/godaddy.svg" alt="Payment Security" />
-                  <img src="../img/norton.svg" alt="Payment Security" />
-                  <img src="../img/ssl.svg" alt="Payment Security" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- Footer End --> */}
-
-        {/* <!-- Footer Bottom Start --> */}
-        <div className="footer-bottom">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-6 copyright">
-                <p>
-                  Copyright &copy;
-                  <a href="https:www.facebook.com/ybx1802">Ruou Ngon Store</a>.
-                  All Rights Reserved
-                </p>
-              </div>
-
-              <div className="col-md-6 template-by">
-                <p>
-                  Developed By <a href="https://htmlcodex.com">Hoang Tam</a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- Footer Bottom End --> */}
-
-        {/* <!-- Back to Top --> */}
-        <a href="#" className="back-to-top">
-          <i className="fa fa-chevron-up"></i>
-        </a>
+       
       </div>
     );
   }

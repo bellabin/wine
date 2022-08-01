@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { GetProductById, GetListProduct } from "../../services/Product";
 import { removeCartItemToLocalStorage } from "../../helper/addToCart";
+import { GetCtPromoById } from "../../services/Promo";
+import { Button } from "@mui/material";
 
 export default class Item extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: []
+      products: [],
     }
   }
 
@@ -18,6 +20,8 @@ export default class Item extends Component {
             this.setState({ products: res.data })
         })
         .catch(err => console.log(err))
+    console.log('id: ', this.props.data)
+
   }
 
 
@@ -44,8 +48,8 @@ export default class Item extends Component {
         }
         <th>{this.props.data.price} $</th>
         <th>{this.props.data.quantity}</th>
-        <th>{this.props.data.price * this.props.data.quantity} $</th>
-        <th><i className="fas fa-trash-alt"  onClick={this.onSubmit} ></i></th>
+        <th>{(this.props.data.price - this.props.data.price * this.props.data.PHANTRAMGIAM) * this.props.data.quantity} $</th>
+        <th><i className="fas fa-trash-alt"  onClick={() => this.onSubmit} ></i></th>
       </tr>
     );
   }

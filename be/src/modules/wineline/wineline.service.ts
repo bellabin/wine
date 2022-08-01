@@ -60,4 +60,14 @@ export class WinelineService {
     async getHotProducts() {
         return this.winelineRepo.query(HotProductQuery)
     }
+
+
+    async getProductsByType(MALOAI: string) {
+    
+        return this.winelineRepo.createQueryBuilder('wineline')
+        .innerJoinAndSelect('wineline.winetype', 'winetype')
+        .where('wineline.winetype.MALOAI =:MALOAI',{MALOAI:MALOAI})
+        .getMany()
+        //.where('winetypes.MALOAI =:MALOAI', {MALOAI})
+    }
 }

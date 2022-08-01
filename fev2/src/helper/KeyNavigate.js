@@ -18,6 +18,7 @@ export const KeyNavigate = {
     Account:"/Account",
     Cart:"/Cart",
     ProductCus:"/ProductCus",
+    Detail:"/Detail",
 
 
 

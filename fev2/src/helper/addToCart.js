@@ -17,13 +17,12 @@ export const addCartItemToLocalStorage = (productId, price, quantity) => {
 export const removeCartItemToLocalStorage = (productId) => {
     let carts = JSON.parse(sessionStorage.getItem('carts'))
 
-    
-    carts.filter(item => item.productId != productId)
-    console.log('carts:', carts)
+    let newcarts = carts.filter(item => item.productId != productId)
+    //console.log('carts:', newcarts)
 
     
     
-    sessionStorage.setItem('carts', JSON.stringify(carts))
+    sessionStorage.setItem('carts', JSON.stringify(newcarts))
 }
 
 export const getListCartItemsFromLocalStorage = () => {

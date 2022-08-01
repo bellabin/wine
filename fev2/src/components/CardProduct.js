@@ -1,4 +1,5 @@
 import React from "react";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,6 +7,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {checkKm, convertKm, convertPrice, fixedPrice} from "../helper/convertPrice";
 import { addCartItemToLocalStorage } from "../helper/addToCart"
+import { Link } from "react-router-dom";
+import { KeyNavigate } from "../helper/KeyNavigate";
 
 
 export const CustomCardProduct = (props) => {
@@ -29,10 +32,11 @@ export const CustomCardProduct = (props) => {
 
   return (
       <div className="col-md-4">
+      
         <figure className="card card-product-grid">
           <div className="img-wrap">
             <span style={styleBadge}>{checkKm(props.data.ct_khuyenmais)}</span>
-            <img src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} width={"100%"} height={"auto"}/>
+            <Link to={KeyNavigate.ProductCus.concat(KeyNavigate.Detail)}><img src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} width={"100%"} height={"auto"}/></Link>
           </div>
           <figcaption className="info-wrap">
             <div className="fix-height">
@@ -48,6 +52,7 @@ export const CustomCardProduct = (props) => {
             </div>
             <a className="btn btn-block btn-primary" onClick={() => addToCart(props.data.MADONG, props.data.GIA)}>Add to cart </a>
           </figcaption>
+          
         </figure>
       </div>
   );

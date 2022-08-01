@@ -1,4 +1,5 @@
 import React, {Component, useState} from "react";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {dividerClasses, Pagination} from "@mui/material";
@@ -32,7 +33,7 @@ const CustomePagination = (props) => {
           }
         </div>
         <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"}
-                    shape={"circular"} showFirstButton showLastButton onChange={handleChange}/>
+                    shape={"circular"} showFirstButton showLastButton onChange={handleChange}/>            
       </div>
   );
 };

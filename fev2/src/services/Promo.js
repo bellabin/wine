@@ -50,8 +50,8 @@ export const GetListCtPromo = async () => {
   return HttpService.get(`ct-promotion`)
 }
 
-export const GetCtPromoById = async (id) => {
-  return HttpService.get(`ct-promotion/${id}`)
+export const GetCtPromoById = async (MAKM, MADONG) => {
+  return HttpService.get(`ct-promotion/one`, MAKM, MADONG)
 }
 
 export const UpdateCtPromoById = async (id, data) => {
