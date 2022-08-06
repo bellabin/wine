@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Link, Route } from 'react-router-dom';
 import { KeyNavigate } from '../helper/KeyNavigate';
-import { GetListProductByName } from "../services/Product";
+import {GetListProduct, GetListProductByName} from "../services/Product";
 import ProductCus from '../Views/ProductCus/index'
+import SearchBar from "./SearchBar";
+import SearchBar2 from "./SearchBar";
 
 export default class Header extends Component {
   constructor(props) {
@@ -12,17 +14,13 @@ export default class Header extends Component {
     };
   }
 
-  _handleKeyDown = (e, text) => {
-    if (e.key === 'Enter') {
-      const textValue = text.trim()
-      console.log('text:', textValue);
-      GetListProductByName(textValue).then(res => {
-        this.setState({products: res.data})
-      })
-      return (
-        <ProductCus data={this.state.products}></ProductCus>
-      )
-    }
+  componentDidMount() {
+    GetListProduct()
+        .then(res => {
+          this.setState({ products: res.data});
+          console.log('product header',this.state.products);
+        })
+        .catch(err => console.log(err))
   }
 
   render() {
@@ -81,14 +79,8 @@ export default class Header extends Component {
                   <a href="/"> </a>
                 </div>
               </div>
-              <div className="col-md-6">
-                <div className="search">
-                  <input type="text" placeholder="Search" onKeyDown={(e) => this._handleKeyDown(e, e.target.value)}/>
-                  {/* {console.log('product:', this.state.products)} */}
-                  <button>
-                    {/* <i className="fa fa-search"></i> */}
-                  </button>
-                </div>
+              <div className="col-md-6" style={{zIndex: 10}}>
+                  <SearchBar placeholder={"Search..."} data={this.state.products}></SearchBar>
               </div>
               <div className="col-md-3">
                 <div className="user">
@@ -101,8 +93,6 @@ export default class Header extends Component {
             </div>
           </div>
         </div>
-      
-
       </>
     );
   }
