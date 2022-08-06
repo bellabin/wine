@@ -77,17 +77,18 @@ export default class BodyProduct extends Component {
               <li className="breadcrumb-item">
                 <Link to={KeyNavigate.ProductCus}>Sản phẩm</Link>
               </li>
-              {/* <li className="breadcrumb-item active"><%=breadcrumb%></li> */}
             </ul>
           </div>
         </div>
         {/* <!-- Breadcrumb End --> */}
-
+        
         {/* <!-- Product List Start --> */}
         <div className="product-view">
           <div className="container-fluid">
+                
             <div className="row">
               <div className="col-lg-8">
+              
                 <div className="row">
                 
                   <div className="col-md-12">
@@ -106,19 +107,7 @@ export default class BodyProduct extends Component {
                           </div>
                         </div>
 
-                        {/* <!-- <div className="col-md-4">
-              <div className="product-price-range">
-                <div className="dropdown" style="display: flex">
-                  <p>Mức giá</p>
-                  <select>
-                    <option>0$ - 20$</option>
-                    <option>20$ - 50$</option>
-                    <option>50$ - 100$</option>
-                    <option>Trên 100$</option>
-                  </select>
-                </div>
-              </div>
-            </div> --> */}
+                        
                         <div className="col-md-4"></div>
                         <div className="col-md-4">
                           <div className="product-price-range"></div>
@@ -134,26 +123,6 @@ export default class BodyProduct extends Component {
                 </div>
 
                 <div className="sidebar-widget category">
-                
-                    {/*<div className="row">*/}
-                    {/*  /!*<CustomePagination data={this.state.products}/>*!/*/}
-                    {/*    /!* {this.state.products.map((product) => {*/}
-                    {/*      console.log(product.ct_khuyenmais);*/}
-                    {/*      return (*/}
-                    {/*        <CustomCardProduct data={product}/>*/}
-
-                    {/*      );*/}
-                    {/*    })} *!/*/}
-                    {/*  /!*<div className="row">*!/*/}
-                    {/*  /!*  {*!/*/}
-                    {/*  /!*    this.state.products.map((product) => {*!/*/}
-                    {/*  /!*      return (*!/*/}
-                    {/*  /!*          <CustomCardProduct data={product}></CustomCardProduct>*!/*/}
-                    {/*  /!*      )*!/*/}
-                    {/*  /!*    })*!/*/}
-                    {/*  /!*  }*!/*/}
-                    {/*  /!*</div>*!/*/}
-                    {/*</div>*/}
                   <CustomePagination data={this.state.products}></CustomePagination>
                   
                 </div>
@@ -184,29 +153,14 @@ export default class BodyProduct extends Component {
                   </nav>
                 </div>
 
-                {/* <div className="sidebar-widget widget-slider">
-                            <h3 style={{ textAlign: 'center', color: '#ff6f61' }}>RƯỢU HOT!!!</h3>
-                            <div className="sidebar-slider normal-slider">
-                   
-                            </div>
-                        </div> */}
-
-                {/* <div className="sidebar-widget brands">
-                            <h2 className="title">Our Brands</h2>
-                            <ul>
-                                <li><a href="#">Nulla </a><span>(45)</span></li>
-                                <li><a href="#">Curabitur </a><span>(34)</span></li>
-                                <li><a href="#">Nunc </a><span>(67)</span></li>
-                                <li><a href="#">Ullamcorper</a><span>(74)</span></li>
-                                <li><a href="#">Fusce </a><span>(89)</span></li>
-                                <li><a href="#">Sagittis</a><span>(28)</span></li>
-                            </ul>
-                        </div> */}
+                
               </div>
               {/* <!-- Side Bar End --> */}
             </div>
+            
           </div>
         </div>
+        
         {/* <!-- Product List End --> */}
 
         {/* <!-- Brand Start --> */}

@@ -33,14 +33,17 @@ function App() {
       <Route path={'/'} element={<LayoutIndex></LayoutIndex>}></Route>
       <Route path={KeyNavigate.LoginAdmin} element={<LoginAdmin></LoginAdmin>}></Route>
       <Route path={KeyNavigate.ProductCus.concat('/*')} element={<ProductCus>
-        <Route path={KeyNavigate.Detail} element={<BodyProductDetail />} />
+        {/* <Route path={KeyNavigate.Detail} element={<BodyProductDetail />} /> */}
+        {/* <Route path={':id'} element={<BodyProductDetail />} /> */}
+
         
       </ProductCus>}></Route>
       <Route path={KeyNavigate.Login} element={<Login></Login>}></Route>
       <Route path={KeyNavigate.Account} element={<Account></Account>}></Route>
       <Route path={KeyNavigate.Cart} element={<Cart></Cart>}></Route>
 
-      <Route path={KeyNavigate.Detail} element={<BodyProductDetail />} />
+      <Route path={KeyNavigate.Detail.concat('/:id')} element={<ProductCusDetail/>} />
+      
 
 
       <Route path={KeyNavigate.Layout.concat('/*')} element={<LayoutAdmin>

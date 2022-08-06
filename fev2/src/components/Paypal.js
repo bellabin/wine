@@ -21,7 +21,8 @@ export default class Paypal extends Component {
 
   render() {
     return (
-      <PayPalButton
+      <>
+        <PayPalButton
         amount="0.01"
         createOrder={(data, actions) => {
           return actions.order.create({
@@ -35,6 +36,9 @@ export default class Paypal extends Component {
         }}
         onSuccess={(details, data) => this.handleSaveOrder(details, data)}
       />
+        
+
+      </>
     )
   }
 }

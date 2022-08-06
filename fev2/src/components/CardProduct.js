@@ -36,7 +36,7 @@ export const CustomCardProduct = (props) => {
         <figure className="card card-product-grid">
           <div className="img-wrap">
             <span style={styleBadge}>{checkKm(props.data.ct_khuyenmais)}</span>
-            <Link to={KeyNavigate.ProductCus.concat(KeyNavigate.Detail)}><img src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} width={"100%"} height={"auto"}/></Link>
+            <Link to={KeyNavigate.Detail.concat('/').concat(props.data.MADONG)}><img src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} width={"100%"} height={"auto"}/></Link>
           </div>
           <figcaption className="info-wrap">
             <div className="fix-height">
