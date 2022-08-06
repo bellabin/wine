@@ -1,11 +1,15 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { KeyNavigate } from "../../helper/KeyNavigate";
 import { GetProductById } from "../../services/Product";
+import { addCartItemToLocalStorage } from "../../helper/addToCart";
 
 export default class BodyProductDetail extends Component {
   constructor (props) {
     super(props)
     this.state={
-      product: {}
+      product: {},
+      quantity: 1,
     }
   }
   
@@ -14,6 +18,25 @@ export default class BodyProductDetail extends Component {
     GetProductById(this.props.params.id).then(res => {
       console.log(res.data)
       this.setState({product: res.data})})
+  }
+
+  addToCart = (productId, price, quantity) => {
+    addCartItemToLocalStorage(productId, price, quantity)
+  };
+
+  handleClick = () => {
+    let currentQuantity = this.state.quantity
+    this.addToCart(this.state.product.MADONG, this.state.product.GIA, currentQuantity)
+  }
+
+  handleClickMinus = () => {
+    if (this.state.quantity > 1) {
+      this.setState({quantity: this.state.quantity - 1})
+    }
+  }
+
+  handleClickPlus = () => {
+    this.setState({quantity: this.state.quantity + 1})
   }
 
   render() {
@@ -63,11 +86,11 @@ export default class BodyProductDetail extends Component {
                     <div className="quantity">
                       <h4>Số lượng:</h4>
                       <div className="qty">
-                        <button className="btn-minus">
+                        <button className="btn-minus" onClick={this.handleClickMinus}>
                           <i className="fa fa-minus"></i>
                         </button>
-                        <input type="text" value="1" />
-                        <button className="btn-plus">
+                        <input type="text" value={this.state.quantity} />
+                        <button className="btn-plus" onClick={this.handleClickPlus}>
                           <i className="fa fa-plus"></i>
                         </button>
                       </div>
@@ -75,10 +98,11 @@ export default class BodyProductDetail extends Component {
                     
                     
                     <div className="action">
-                      <a className="btn" href="#"
-                        ><i className="fa fa-shopping-bag"></i>Mua Ngay</a>
-                      <a className="btn" href="#"
-                        ><i className="fa fa-shopping-cart"></i>Thêm vào giỏ</a>
+                      <Link className="btn" to={KeyNavigate.Cart}><i className="fa fa-shopping-bag"></i>Mua Ngay</Link>
+                      <a className="btn" onClick={e => this.handleClick()}>
+                        <i className="fa fa-shopping-cart"></i>
+                        Thêm vào giỏ
+                      </a>
                     </div>
                   </div>
                 </div>
