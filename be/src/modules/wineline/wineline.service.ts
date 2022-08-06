@@ -4,6 +4,7 @@ import { Repository } from 'typeorm'
 import { CreateWinelineDto } from './dto/create-wineline.dto'
 import { UpdateWinelineDto } from './dto/update-wineline.dto'
 import { Wineline } from './entities/wineline.entity'
+import findProductByNameQuery from './queries/findProductByName'
 import HotProductQuery from './queries/hot-products.query'
 
 @Injectable()
@@ -69,5 +70,35 @@ export class WinelineService {
         .where('wineline.winetype.MALOAI =:MALOAI',{MALOAI:MALOAI})
         .getMany()
         //.where('winetypes.MALOAI =:MALOAI', {MALOAI})
+    }
+    async findProductByName(name: string) {
+        // const query = this.winelineRepo.createQueryBuilder('wineline')
+        //     .where('INSTR(wineline.TENDONG, :name) > 0', {name: name})
+        //     .setFindOptions({
+        //         relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+        //     }).getQuery();
+        // console.log('query ne', query);
+        return this.winelineRepo.createQueryBuilder('wineline')
+            .where('INSTR(wineline.TENDONG, :name) > 0', {name: name})
+            .setFindOptions({
+                relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+            })
+            .getMany();
+    }
+
+    async getTopPromoProduct(){
+        // const query = this.winelineRepo.createQueryBuilder('wineline')
+        // .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
+        // .setFindOptions({
+        //     relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+        // }).getQuery()
+        // console.log('qr:', query)
+        return this.winelineRepo.createQueryBuilder('wineline')
+        .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
+        .setFindOptions({
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+        })
+        .getMany();
+        //chua update ngay
     }
 }

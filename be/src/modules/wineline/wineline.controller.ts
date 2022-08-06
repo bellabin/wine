@@ -31,6 +31,17 @@ export class WinelineController {
         return this.winelineService.getProductsByType(MALOAI)
     }
 
+    @Get('product/name/:name')
+    getProductByName(@Param('name') name: string){
+        //console.log(name);
+        return this.winelineService.findProductByName(name)
+    }
+
+    @Get('product/promo/top')
+    getTopPromoProduct(){
+        return this.winelineService.getTopPromoProduct()
+    }
+
 
     @Post() //create new winelines
     create(@Body() payload: CreateWinelineDto) {

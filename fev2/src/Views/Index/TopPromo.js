@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { GetListPromo } from "../../services/Promo";
+import { GetListTopPromo } from "../../services/Product";
 import CustomeSlider from "../../components/Slider";
 
 export default class TopPromo extends Component {
@@ -11,22 +11,21 @@ export default class TopPromo extends Component {
   }
 
   componentDidMount() {
-    GetListPromo()
+    GetListTopPromo()
       .then((res) => {
-        const promo = []
-        res.data.forEach(item => {
-            const { ct_khuyenmais } = item
+        // res.data.forEach(item => {
+        //     const { ct_khuyenmais } = item
             
-            if (ct_khuyenmais && ct_khuyenmais.length) {
-                ct_khuyenmais.forEach(km => {
-                    ///if(>=50)
-                    const { wineline } = km
-                    promo.push({...wineline, PHANTRAMGIAM: km.PHANTRAMGIAM})
-                })
-            }
-        })
+        //     if (ct_khuyenmais && ct_khuyenmais.length) {
+        //         ct_khuyenmais.forEach(km => {
+        //             ///if(>=50)
+        //             const { wineline } = km
+        //             promo.push({...wineline, PHANTRAMGIAM: km.PHANTRAMGIAM})
+        //         })
+        //     }
+        // })
 
-        this.setState({ promos: promo });
+        this.setState({ promos: res.data });
       })
       .catch((err) => console.log(err));
   }

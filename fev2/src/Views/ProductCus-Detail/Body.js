@@ -105,7 +105,7 @@ export default class BodyProductDetail extends Component {
                 <div className="tab-content">
                   <div id="description" className="container tab-pane active">
                     <h4>Mô tả sản phẩm</h4>
-                    <p id="desProduct"></p>
+                    <p id="desProduct">{this.state.product.MOTA}</p>
                   </div>
                   <div id="specification" className="container tab-pane fade">
                     <h4>Chi tiết sản phẩm</h4>

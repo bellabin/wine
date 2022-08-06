@@ -80,3 +80,11 @@ export const GetListHotProducts =  async () => {
 export const GetListProductByType = async (MALOAI) => {
   return HttpService.get('winelines/product/'.concat(MALOAI))
 }
+
+export const GetListProductByName = async (name) => {
+  return HttpService.get('winelines/product/name/'.concat(name))
+}
+
+export const GetListTopPromo = async () => {
+  return HttpService.get('winelines/product/promo/top')
+}

@@ -1,11 +1,28 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { KeyNavigate } from '../helper/KeyNavigate';
+import { GetListProductByName } from "../services/Product";
+import ProductCus from '../Views/ProductCus/index'
 
 export default class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      products: [],
+    };
+  }
+
+  _handleKeyDown = (e, text) => {
+    if (e.key === 'Enter') {
+      const textValue = text.trim()
+      console.log('text:', textValue);
+      GetListProductByName(textValue).then(res => {
+        this.setState({products: res.data})
+      })
+      return (
+        <ProductCus data={this.state.products}></ProductCus>
+      )
+    }
   }
 
   render() {
@@ -66,7 +83,8 @@ export default class Header extends Component {
               </div>
               <div className="col-md-6">
                 <div className="search">
-                  <input type="text" placeholder="Search" />
+                  <input type="text" placeholder="Search" onKeyDown={(e) => this._handleKeyDown(e, e.target.value)}/>
+                  {/* {console.log('product:', this.state.products)} */}
                   <button>
                     {/* <i className="fa fa-search"></i> */}
                   </button>
