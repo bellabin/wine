@@ -10,13 +10,20 @@ import { addSearchWordToLocalStorage } from "../helper/searchWord";
 function SearchBar({ placeholder, data }) {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+//   const [wordResult, setWordResult] = useState("")
 
   let navigate = useNavigate();
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
-    fixWordEntered(searchWord)
+    console.log(searchWord)
+    //  fixWordEntered(searchWord)
+
     setWordEntered(searchWord);
+    // setWordResult(fixWordEntered(searchWord))
+    // console.log(searchWord)
+    addSearchWordToLocalStorage(searchWord.trim())
+
     const newFilter = data.filter((value) => {
       return value.TENDONG.toLowerCase().includes(searchWord.toLowerCase());
     });
@@ -54,18 +61,18 @@ function SearchBar({ placeholder, data }) {
             kq += temp + ' '
         }
       }
-      setWordEntered(kq.trim())
+      return kq.trim()
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log('do navigate')
-      //fixWordEntered()
+      let temp = fixWordEntered(wordEntered)
 
     //   console.log(wordEntered)
         
-      addSearchWordToLocalStorage(wordEntered.trim())
-      navigate(KeyNavigate.Search.concat('/').concat(wordEntered))
+      addSearchWordToLocalStorage(temp.trim())
+      navigate(KeyNavigate.Search.concat('/').concat(temp.trim()))
     
     }
   }
