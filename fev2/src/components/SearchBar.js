@@ -15,6 +15,7 @@ function SearchBar({ placeholder, data }) {
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
+    fixWordEntered(searchWord)
     setWordEntered(searchWord);
     const newFilter = data.filter((value) => {
       return value.TENDONG.toLowerCase().includes(searchWord.toLowerCase());
@@ -44,10 +45,26 @@ function SearchBar({ placeholder, data }) {
   };
 
 
+  const fixWordEntered = (text) => {
+    let arr = text.split(" ")
+      let i, kq='',temp
+      for(i=0;i<arr.length;i++){
+        temp = arr[i].trim().toLowerCase()
+        if(temp != ''){
+            kq += temp + ' '
+        }
+      }
+      setWordEntered(kq.trim())
+  }
+
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       console.log('do navigate')
-      addSearchWordToLocalStorage(wordEntered)
+      //fixWordEntered()
+
+    //   console.log(wordEntered)
+        
+      addSearchWordToLocalStorage(wordEntered.trim())
       navigate(KeyNavigate.Search.concat('/').concat(wordEntered))
     
     }
