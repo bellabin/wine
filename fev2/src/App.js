@@ -27,6 +27,7 @@ import Cart from './Views/Cart';
 import LayoutAdmin from './Views/Layout';
 import ProductCusDetail from './Views/ProductCus-Detail';
 import BodyProductDetail from './Views/ProductCus-Detail/Body';
+import ProductSearch from './Views/SearchPage';
 function App() {
   return (
     <Routes>
@@ -43,6 +44,8 @@ function App() {
       <Route path={KeyNavigate.Cart} element={<Cart></Cart>}></Route>
 
       <Route path={KeyNavigate.Detail.concat('/:id')} element={<ProductCusDetail/>} />
+      <Route path={KeyNavigate.Search.concat('/:text')} element={<ProductSearch/>} />
+      
       
 
 

@@ -18,7 +18,7 @@ export default class Header extends Component {
     GetListProduct()
         .then(res => {
           this.setState({ products: res.data});
-          console.log('product header',this.state.products);
+          // console.log('product header',this.state.products);
         })
         .catch(err => console.log(err))
   }

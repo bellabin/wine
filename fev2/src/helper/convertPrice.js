@@ -14,3 +14,7 @@ export const convertKm = (listKm) => {
 export const fixedPrice = (price) => {
     return price.toFixed(2);
 }
+
+export const toDecimal = (percent) => {
+    return parseFloat(percent) / 100;
+  }

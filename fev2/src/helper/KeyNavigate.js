@@ -12,6 +12,7 @@ export const KeyNavigate = {
     Login: "/Login",
     LoginAdmin:"/LoginAdmin",
     Layout: "/Admin",
+    Search:'/Search',
 
 
 

@@ -1,74 +1,104 @@
-import React, {Component, useState} from "react";
+import React, { Component, useState } from "react";
 import "./../assets/css/SearchBar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import { Link, Route } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { KeyNavigate } from "../helper/KeyNavigate";
+import { addSearchWordToLocalStorage } from "../helper/searchWord";
 
 function SearchBar({ placeholder, data }) {
-    const [filteredData, setFilteredData] = useState([]);
-    const [wordEntered, setWordEntered] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
 
-    const handleFilter = (event) => {
-        const searchWord = event.target.value;
-        setWordEntered(searchWord);
-        const newFilter = data.filter((value) => {
-            return value.TENDONG.toLowerCase().includes(searchWord.toLowerCase());
-        });
+  let navigate = useNavigate();
 
-        if (searchWord === "") {
-            setFilteredData([]);
-        } else {
-            setFilteredData(newFilter);
-        }
-    };
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      return value.TENDONG.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-    const clearInput = () => {
-        setFilteredData([]);
-        setWordEntered("");
-    };
-
-    const getHighlightedText = (text, highlight) => {
-        const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
-        return <p>{parts.map(part => part.toLowerCase() === highlight.toLowerCase() ? <b>{part}</b> : part)}</p>;
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
     }
+  };
 
+  const clearInput = () => {
+    setFilteredData([]);
+    setWordEntered("");
+  };
+
+  const getHighlightedText = (text, highlight) => {
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
     return (
-        <div className="search-bar">
-            <div className="searchInputs">
-                <input
-                    type="text"
-                    placeholder={placeholder}
-                    value={wordEntered}
-                    onChange={handleFilter}
-                />
-                <div className="searchIcon">
-                    {filteredData.length === 0 ? (
-                        <SearchIcon />
-                    ) : (
-                        <CloseIcon id="clearBtn" onClick={clearInput} />
-                    )}
-                </div>
-            </div>
-            {filteredData.length !== 0 && (
-                <div className="dataResult">
-                    {filteredData.slice(0, 15).map((value, key) => {
-                        return (
-                            <div className="row">
-                                <div className="col-md-2">
-                                    <img src={"../../../".concat(value.HINHANH && value.HINHANH)} width={"auto"} height={"100px"}/>
-                                </div>
-                                <div className="col-md-10">
-                                    <a className="dataItem" href={value.link} target="_blank">
-                                        {/*<p>{value.TENDONG} </p>*/}
-                                        {getHighlightedText(value.TENDONG, wordEntered)}
-                                    </a>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
-            )}
-        </div>
+      <p>
+        {parts.map((part) =>
+          part.toLowerCase() === highlight.toLowerCase() ? <b>{part}</b> : part
+        )}
+      </p>
     );
+  };
+
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      console.log('do navigate')
+      addSearchWordToLocalStorage(wordEntered)
+      navigate(KeyNavigate.Search.concat('/').concat(wordEntered))
+    
+    }
+  }
+
+  return (
+    <div className="search-bar">
+      <div className="searchInputs">
+        <input
+          type="text"
+          placeholder={placeholder}
+          value={wordEntered}
+          onChange={handleFilter}
+          onKeyDown={handleKeyDown}
+        />
+        <div className="searchIcon">
+          {filteredData.length === 0 ? (
+            <SearchIcon />
+          ) : (
+            <CloseIcon id="clearBtn" onClick={clearInput} />
+          )}
+        </div>
+      </div>
+      {filteredData.length !== 0 && (
+        <div className="dataResult">
+          {/* {console.log('filer:', filteredData)} */}
+          {filteredData.slice(0, 15).map((value, key) => {
+            return (
+              <Link to={KeyNavigate.Detail.concat("/").concat(value.MADONG)}>
+                <div className="row">
+                  <div className="col-md-2">
+                    <img
+                      src={"../../../".concat(value.HINHANH && value.HINHANH)}
+                      width={"auto"}
+                      height={"100px"}
+                    />
+                  </div>
+                  <div className="col-md-10">
+                    <a className="dataItem" href={value.link} target="_blank">
+                      {/*<p>{value.TENDONG} </p>*/}
+                      {getHighlightedText(value.TENDONG, wordEntered)}
+                    </a>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default SearchBar;
