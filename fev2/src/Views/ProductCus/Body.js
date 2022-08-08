@@ -24,21 +24,16 @@ export default class BodyProduct extends Component {
         .then(res => {
             const brand = []
             res.data.forEach(item => {
-              //console.log('item:',item)
               const { product } = item
               brand.push({item})
             })
-            //console.log('hot:', brand)
             this.setState({ brands: brand })
-            //console.log(this.state.brands);
           })
           .catch(err => console.log(err))    
-          //console.log('brands', this.state.brands)
         
         GetListProduct()
         .then(res => {
             this.setState({ products: res.data});
-            //console.log(this.state.products);
         })
         .catch(err => console.log(err))
 
@@ -47,20 +42,16 @@ export default class BodyProduct extends Component {
 
 
     handleClick(data) {
-      console.log(data.MALOAI)
         // this.setState({
         //     selectedBrand: data.MALOAI,
         // })
         GetListProductByType(data.MALOAI)
             .then(res => {
                 this.setState({products: res.data})
-                console.log(this.state.products)
             })
             .catch(err => console.log(err))
-        console.log(this.state.selectedBrand)
         return(
             <CustomePagination data={this.state.products}></CustomePagination>
-
         )
         
     }

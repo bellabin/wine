@@ -66,8 +66,10 @@ export class WinelineService {
     async getProductsByType(MALOAI: string) {
     
         return this.winelineRepo.createQueryBuilder('wineline')
-        .innerJoinAndSelect('wineline.winetype', 'winetype')
         .where('wineline.winetype.MALOAI =:MALOAI',{MALOAI:MALOAI})
+        .setFindOptions({
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews']
+        })
         .getMany()
         //.where('winetypes.MALOAI =:MALOAI', {MALOAI})
     }

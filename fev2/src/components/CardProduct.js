@@ -32,7 +32,6 @@ export const CustomCardProduct = (props) => {
 
   return (
       <div className="col-md-4">
-      {console.log(props.data)}
         <figure className="card card-product-grid">
           <div className="img-wrap">
             <span style={styleBadge}>{checkKm(props.data.ct_khuyenmais)}</span>

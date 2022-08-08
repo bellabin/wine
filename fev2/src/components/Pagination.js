@@ -20,7 +20,6 @@ const CustomePagination = (props) => {
 
   return (
       <div className="row">
-      {console.log(props.data)}
         <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"}
                     shape={"circular"} showFirstButton showLastButton onChange={handleChange}
           style={{margin: 20}}/>
@@ -44,11 +43,18 @@ export default CustomePagination;
 function usePagination(data, itemsPerPage) {
   const [currentPage, setCurrentPage] = useState(1);
   const maxPage = Math.ceil(data.length / itemsPerPage);
+  
 
   function currentData() {
     const begin = (currentPage - 1) * itemsPerPage;
     const end = begin + itemsPerPage;
-    return data.slice(begin, end);
+
+    console.log('begin, end', begin, end)
+    if(end > data.length) {
+      console.log('match')
+      return data.slice(begin,data.length - 1)
+    }
+    else return data.slice(begin, end);
   }
 
   function next() {

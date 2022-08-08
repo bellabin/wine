@@ -5,6 +5,7 @@ import { GetCtPromoById } from "../../services/Promo";
 import { Button } from "@mui/material";
 import { toDecimal } from "../../helper/convertPrice";
 
+
 export default class Item extends Component {
   constructor(props) {
     super(props);
@@ -30,9 +31,6 @@ export default class Item extends Component {
       this.setState({product: res.data, promos: res.data.ct_khuyenmais})
     })
     .catch(err => console.log(err))
-
-    
-
 
   }
 

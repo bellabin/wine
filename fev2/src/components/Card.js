@@ -27,7 +27,7 @@ export const CustomCard = (props) => {
         <Typography
           sx={{ fontSize: 14 }}
           noWrap={true}
-          style={{ "text-over-flow": "ellipsis !important" }}
+          style={{ "textOverFlow": "ellipsis !important" }}
         >
           {props.data.TENDONG && props.data.TENDONG}
         </Typography>
