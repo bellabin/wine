@@ -45,3 +45,5 @@ export const checkRating = (list) => {
     // console.log('numb:',numB/count)
     return numB/count
 }
+
+

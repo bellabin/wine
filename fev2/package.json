@@ -12,7 +12,7 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/material": "^5.9.1",
     "@mui/styled-engine-sc": "^5.8.0",
-    "@paypal/paypal-js": "2.1.5",
+    "@paypal/paypal-js": "^5.1.1",
     "@paypal/react-paypal-js": "4.0.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
