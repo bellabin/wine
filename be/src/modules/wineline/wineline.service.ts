@@ -15,14 +15,14 @@ export class WinelineService {
 
     findAll() { //function handle get list wineline
         return this.winelineRepo.find({
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras'],
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
           })
     }
 
     findById(MADONG: string) {
         return this.winelineRepo.findOne({
             where: { MADONG: MADONG   },
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras'],
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews'],
             
           })
         // console.log('123');
@@ -81,7 +81,7 @@ export class WinelineService {
         return this.winelineRepo.createQueryBuilder('wineline')
             .where('INSTR(wineline.TENDONG, :name) > 0', {name: name})
             .setFindOptions({
-                relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+                relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews']
             })
             .getMany();
     }
@@ -96,7 +96,7 @@ export class WinelineService {
         return this.winelineRepo.createQueryBuilder('wineline')
         .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
         .setFindOptions({
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews']
         })
         .getMany();
         //chua update ngay

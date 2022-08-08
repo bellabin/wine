@@ -1,6 +1,7 @@
+import { CtPhieutra } from "src/modules/ct_phieutra/entities/ct_phieutra.entity";
 import { Phieudat } from "src/modules/phieudat/entities/phieudat.entity";
 import { Wineline } from "src/modules/wineline/entities/wineline.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 
 @Entity('ct_phieudat')
 export class CtPhieudat {
@@ -28,14 +29,10 @@ export class CtPhieudat {
     @Column({type:'float'})
     GIA!: number
 
-    @Column({type:'varchar'})
-    TRANGTHAI!: string
+    @OneToMany(() => CtPhieutra, ct_phieudat => ct_phieudat.ct_phieudat)
+    ct_phieutras: CtPhieutra[]
 
-    @Column({type:'char'})
-    MANVDH!: string
-
-    @Column({type:'char'})
-    MANVGH!: string
-
+   
+    
 
 }

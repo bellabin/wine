@@ -25,9 +25,7 @@ export class CreateCtPhieudatDto {
     @IsNumber()
     GIA!: number
 
-    @ApiProperty()
-    @IsString()
-    TRANGTHAI!: string
+    
 
     @ApiProperty()
     @IsString()

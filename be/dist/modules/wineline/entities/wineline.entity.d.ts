@@ -2,7 +2,6 @@ import { Changeprice } from "src/modules/changeprice/entities/changeprice.entity
 import { CtOrder } from "src/modules/ct_order/entities/ct_order.entity";
 import { CtPhieudat } from "src/modules/ct_phieudat/entities/ct_phieudat.entity";
 import { CtPhieunhap } from "src/modules/ct_phieunhap/entities/ct_phieunhap.entity";
-import { CtPhieutra } from "src/modules/ct_phieutra/entities/ct_phieutra.entity";
 import { CtPromotion } from "src/modules/ct_promotion/entities/ct_promotion.entity";
 import { Cungcap } from "src/modules/cungcap/entities/cungcap.entity";
 import { Review } from "src/modules/review/entities/review.entity";
@@ -11,7 +10,6 @@ import { Winetype } from "src/modules/winetypes/entities/winetype.entity";
 export declare class Wineline {
     MADONG: string;
     TENDONG: string;
-    GIA: number;
     TRANGTHAI: string;
     HINHANH: string;
     MOTA: string;
@@ -28,5 +26,4 @@ export declare class Wineline {
     ct_khuyenmais: CtPromotion[];
     ct_orders: CtOrder[];
     reviews: Review[];
-    ct_phieutras: CtPhieutra[];
 }

@@ -18,14 +18,14 @@ export class CtPhieudatService {
 
   findAll() {
     return this.ctphieudatRepo.find({
-      relations: ['phieudat', 'wineline'],
+      relations: ['phieudat', 'wineline', 'ct_phieutras'],
     })
   }
 
   findOne(IDCTPD: number, MAPD: string, MADONG: string) {
     return this.ctphieudatRepo.findOne({
       where: { MADONG: MADONG  , IDCTPD: IDCTPD, MAPD: MAPD },
-      relations: ['phieudat', 'wineline'],
+      relations: ['phieudat', 'wineline', 'ct_phieutras'],
     })
   }
 
@@ -37,7 +37,7 @@ export class CtPhieudatService {
     return this.ctphieudatRepo
     .createQueryBuilder()
     .update(CtPhieudat) //Entity Cung cap
-    .set({SOLUONG: body.SOLUONG, GIA: body.GIA, TRANGTHAI: body.TRANGTHAI, MANVDH: body.MANVDH, MANVGH: body.MANVGH})
+    .set({SOLUONG: body.SOLUONG, GIA: body.GIA})
     .where('IDCTPD = :IDCTPD', { IDCTPD })
     .andWhere('MAPD = :MAPD', {MAPD})
     .andWhere('MADONG = :MADONG', { MADONG })

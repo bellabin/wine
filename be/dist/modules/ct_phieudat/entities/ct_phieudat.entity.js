@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CtPhieudat = void 0;
+const ct_phieutra_entity_1 = require("../../ct_phieutra/entities/ct_phieutra.entity");
 const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
 const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
 const typeorm_1 = require("typeorm");
@@ -46,17 +47,9 @@ __decorate([
     __metadata("design:type", Number)
 ], CtPhieudat.prototype, "GIA", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'varchar' }),
-    __metadata("design:type", String)
-], CtPhieudat.prototype, "TRANGTHAI", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
-    __metadata("design:type", String)
-], CtPhieudat.prototype, "MANVDH", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'char' }),
-    __metadata("design:type", String)
-], CtPhieudat.prototype, "MANVGH", void 0);
+    (0, typeorm_1.OneToMany)(() => ct_phieutra_entity_1.CtPhieutra, ct_phieudat => ct_phieudat.ct_phieudat),
+    __metadata("design:type", Array)
+], CtPhieudat.prototype, "ct_phieutras", void 0);
 CtPhieudat = __decorate([
     (0, typeorm_1.Entity)('ct_phieudat')
 ], CtPhieudat);

@@ -22,13 +22,13 @@ let CtPhieudatService = class CtPhieudatService {
     }
     findAll() {
         return this.ctphieudatRepo.find({
-            relations: ['phieudat', 'wineline'],
+            relations: ['phieudat', 'wineline', 'ct_phieutras'],
         });
     }
     findOne(IDCTPD, MAPD, MADONG) {
         return this.ctphieudatRepo.findOne({
             where: { MADONG: MADONG, IDCTPD: IDCTPD, MAPD: MAPD },
-            relations: ['phieudat', 'wineline'],
+            relations: ['phieudat', 'wineline', 'ct_phieutras'],
         });
     }
     async update(IDCTPD, MAPD, MADONG, body) {
@@ -38,7 +38,7 @@ let CtPhieudatService = class CtPhieudatService {
         return this.ctphieudatRepo
             .createQueryBuilder()
             .update(ct_phieudat_entity_1.CtPhieudat)
-            .set({ SOLUONG: body.SOLUONG, GIA: body.GIA, TRANGTHAI: body.TRANGTHAI, MANVDH: body.MANVDH, MANVGH: body.MANVGH })
+            .set({ SOLUONG: body.SOLUONG, GIA: body.GIA })
             .where('IDCTPD = :IDCTPD', { IDCTPD })
             .andWhere('MAPD = :MAPD', { MAPD })
             .andWhere('MADONG = :MADONG', { MADONG })

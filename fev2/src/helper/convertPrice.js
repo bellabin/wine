@@ -1,4 +1,5 @@
 export const convertPrice = (gia, percent) => {
+    
     return (gia - gia*percent ).toFixed(2)
 }
 
@@ -18,3 +19,29 @@ export const fixedPrice = (price) => {
 export const toDecimal = (percent) => {
     return parseFloat(percent) / 100;
   }
+
+
+
+export const checkPrice = (list) => {
+    
+    let NGAY = list[0].NGAYTHAYDOI
+    let GIA = list[0].GIA
+    list.forEach(cPrice => {
+        if(cPrice.NGAYTHAYDOI > NGAY){
+            NGAY = cPrice.NGAYTHAYDOI
+            GIA = cPrice.GIA
+        }
+    })
+    return GIA
+};
+
+export const checkRating = (list) => {
+    let numB = 0
+    let count = 0
+    list.map(cur => {
+        numB += cur.RATING
+        count++
+    })
+    // console.log('numb:',numB/count)
+    return numB/count
+}

@@ -4,7 +4,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {checkKm, convertKm, convertPrice, fixedPrice} from "../helper/convertPrice";
+import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA} from "../helper/convertPrice";
 import { addCartItemToLocalStorage } from "../helper/addToCart"
 
 
@@ -40,17 +40,18 @@ export const CustomCard = (props) => {
           width={"25%"}
           height={"auto"}
         />
+        {/* {console.log('ngay:', new Date() > new Date(props.data.changeprices[0].NGAYTHAYDOI))} */}
         <Typography variant="body2">
           {convertPrice(
-            props.data.GIA && props.data.GIA,
+            checkPrice(props.data.changeprices),
             convertKm(props.data.ct_khuyenmais)/100 || 0
           )}
           $
         </Typography>
-        <del>{fixedPrice(props.data.GIA && props.data.GIA)}$</del>
+        <del>{fixedPrice(checkPrice(props.data.changeprices) && checkPrice(props.data.changeprices))}$</del>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => addToCart(props.data.MADONG, props.data.GIA)}>
+        <Button size="small" onClick={() => addToCart(props.data.MADONG, checkPrice(props.data.changeprices))}>
           Add to cart
         </Button>
       </CardActions>

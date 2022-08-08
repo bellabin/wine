@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { KeyNavigate } from "../../helper/KeyNavigate";
 import { GetProductById } from "../../services/Product";
 import { addCartItemToLocalStorage } from "../../helper/addToCart";
+import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA, checkRating} from "../../helper/convertPrice";
+
 
 export default class BodyProductDetail extends Component {
   constructor (props) {
@@ -10,14 +12,25 @@ export default class BodyProductDetail extends Component {
     this.state={
       product: {},
       quantity: 1,
+      oldPrice:0,
+      newPrice:0,
+      rating:0,
     }
   }
   
   componentDidMount(){
     //console.log('body',this.props.params)
     GetProductById(this.props.params.id).then(res => {
-      console.log(res.data)
-      this.setState({product: res.data})})
+      //console.log(res.data)
+      this.setState({product: res.data, 
+        oldPrice: convertPrice(
+          checkPrice(res.data.changeprices),
+          convertKm(0)),
+        newPrice: convertPrice(
+          checkPrice(res.data.changeprices),
+          convertKm(res.data.ct_khuyenmais)/100 || 0),
+        rating: checkRating(res.data.reviews),
+        })})
   }
 
   addToCart = (productId, price, quantity) => {
@@ -38,6 +51,8 @@ export default class BodyProductDetail extends Component {
   handleClickPlus = () => {
     this.setState({quantity: this.state.quantity + 1})
   }
+
+  
 
   render() {
     return (
@@ -78,9 +93,14 @@ export default class BodyProductDetail extends Component {
                       <i className="fa fa-star"></i>
                       <i className="fa fa-star"></i>
                       <i className="fa fa-star"></i>
+                    
+                      
                     </div>
                     <div className="price">
-                      <h4>Giá: {this.state.product.GIA}</h4>
+                      {/* {console.log(this.state.product.changeprices)} */}
+                      <h4 width={'50px'}>Giá: ${this.state.newPrice}
+                          <del> ${this.state.oldPrice} </del>
+                      </h4>
                       <p id="priceProduct"></p>
                     </div>
                     <div className="quantity">

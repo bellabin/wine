@@ -47,14 +47,17 @@ export default class BodyProduct extends Component {
 
 
     handleClick(data) {
-        this.setState({
-            selectedBrand: data.MALOAI,
-        })
+      console.log(data.MALOAI)
+        // this.setState({
+        //     selectedBrand: data.MALOAI,
+        // })
         GetListProductByType(data.MALOAI)
             .then(res => {
                 this.setState({products: res.data})
+                console.log(this.state.products)
             })
             .catch(err => console.log(err))
+        console.log(this.state.selectedBrand)
         return(
             <CustomePagination data={this.state.products}></CustomePagination>
 

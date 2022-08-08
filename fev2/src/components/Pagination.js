@@ -20,6 +20,7 @@ const CustomePagination = (props) => {
 
   return (
       <div className="row">
+      {console.log(props.data)}
         <Pagination count={count} page={page} color={"primary"} size={"large"} variant={"outlined"}
                     shape={"circular"} showFirstButton showLastButton onChange={handleChange}
           style={{margin: 20}}/>

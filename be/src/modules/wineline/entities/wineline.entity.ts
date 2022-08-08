@@ -9,7 +9,7 @@ import { Cungcap } from "src/modules/cungcap/entities/cungcap.entity";
 import { Review } from "src/modules/review/entities/review.entity";
 import { Trademarks } from "src/modules/trademarks/entities/trademarks.entity";
 import { Winetype } from "src/modules/winetypes/entities/winetype.entity";
-import { Column,Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { Column,Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
 
 @Entity('dongruou')
 export class Wineline {
@@ -19,8 +19,10 @@ export class Wineline {
     @Column({type: 'varchar'})
     TENDONG!: string
 
-    @Column({type:'float'})
-    GIA!: number
+    // @Column({type:'float'})
+    // GIA!: number
+
+    
 
     @Column({type:'varchar'})
     TRANGTHAI!: string
@@ -75,7 +77,6 @@ export class Wineline {
     @OneToMany(() => Review, (review) => review.wineline)
     reviews: Review[]
 
-    @OneToMany(() => CtPhieutra, (ct_phieutra) => ct_phieutra.wineline)
-    ct_phieutras: CtPhieutra[]
+    
 
 }

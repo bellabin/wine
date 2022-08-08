@@ -18,14 +18,14 @@ export class CtPhieutraService {
 
   findAll() {
     return this.ctphieutraRepo.find({
-      relations: ['phieutra','wineline'],
+      relations: ['phieutra','ct_phieudat'],
     })
   }
 
   findOne(MAPT: string, IDCTPD: number) {
     return this.ctphieutraRepo.findOne({
       where: { MAPT: MAPT, IDCTPD: IDCTPD   },
-      relations: ['phieutra','wineline'],
+      relations: ['phieutra','ct_phieudat'],
     })
   }
 
