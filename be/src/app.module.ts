@@ -27,6 +27,7 @@ import { CtOrderModule } from './modules/ct_order/ct_order.module';
 import { CtPromotionModule } from './modules/ct_promotion/ct_promotion.module';
 // import { AuthModule } from './auth/auth.module';
 // import { UsersModule } from './users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [

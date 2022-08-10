@@ -18,7 +18,7 @@ export const removeCartItemToLocalStorage = (productId) => {
     let carts = JSON.parse(sessionStorage.getItem('carts'))
 
     let newcarts = carts.filter(item => item.productId != productId)
-    //console.log('carts:', newcarts)
+    console.log('carts:', newcarts)
 
     
     

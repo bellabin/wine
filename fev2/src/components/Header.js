@@ -30,9 +30,9 @@ export default class Header extends Component {
           <div className="container">
             <div className="row">
               <div className="col-md-5">
-                <a href="">
+                <Link to={'/'}>
                   <img src="/img/logoReport.PNG" alt="" />
-                </a>
+                </Link>
               </div>
 
               <div className="col-md-7">
@@ -84,10 +84,10 @@ export default class Header extends Component {
               </div>
               <div className="col-md-3">
                 <div className="user">
-                  <a href="/gio-hang" className="btn cart">
+                  <Link to={KeyNavigate.Cart} className="btn cart">
                     <i className="fa fa-shopping-cart"></i>
                     <span className="cart-number">(0)</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

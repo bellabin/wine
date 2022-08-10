@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Button from '@mui/material/Button';
-import { Link, Routes } from 'react-router-dom';
+import { Link, NavLink, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
 
 
@@ -78,7 +78,7 @@ export default class LayoutAdmin extends Component {
                 <div className="my-account">
                     <div className="container-fluid">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-2">
                                 <div
                                     className="nav flex-column nav-pills"
                                     role="tablist"
@@ -144,7 +144,7 @@ export default class LayoutAdmin extends Component {
                                         data-toggle="pill"
                                         href="#sp-khuyen-mai"
                                         role="tab"
-                                    ><i className="fa fa-percentage"></i>Sản phẩm khuyến mãi</Link>
+                                    ><i className="fa fa-percentage"></i>Sản phẩm KM</Link>
 
                                     <Link
                                         to={KeyNavigate.Layout.concat(KeyNavigate.Revenue)}
@@ -186,12 +186,12 @@ export default class LayoutAdmin extends Component {
                                         role="tab"
                                     ><i className="fas fa-file-pdf"></i>Report</a> */}
 
-                                    <a className="nav-link" href="/Sign-in-admin"
-                                    ><i className="fa fa-sign-out-alt"></i>Đăng Xuất</a>
+                                    <NavLink className="nav-link" to={KeyNavigate.LoginAdmin}
+                                    ><i className="fa fa-sign-out-alt"></i>Đăng Xuất</NavLink>
                                 </div>
                             </div>
 
-                            <div className="col-md-9">
+                            <div className="col-md-10">
                                 <Routes>
                                     {this.props.children}
                                 </Routes>

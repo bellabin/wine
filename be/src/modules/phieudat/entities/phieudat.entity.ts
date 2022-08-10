@@ -9,7 +9,7 @@ export class Phieudat {
     @Column({type:'char', primary:true})
     MAPD!: string
 
-    @Column({type:'date'})
+    @Column({type:'date', default: Date.now() })
     NGAYDAT!: Date
 
     @Column({type:'varchar'})

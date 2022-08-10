@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common'
 import { CreatePhieudatDto } from '../dto/create-phieudat.dto';
 import { UpdatePhieudatDto } from '../dto/update-phieudat.dto';
 import { PhieudatService } from './phieudat.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('phieudat')
 export class PhieudatController {
@@ -21,6 +22,8 @@ export class PhieudatController {
 
     @Post() //create new pd
     create(@Body() payload: CreatePhieudatDto) {
+        const MAPD = uuidv4().slice(0, 19)
+        payload.MAPD = MAPD
         return this.phieudatService.create(payload)
     }
 

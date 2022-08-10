@@ -22,28 +22,22 @@ export default class BodyProductSearch extends Component {
       }
 
     componentDidMount() {
-        // const searchWord = getSearchWordFromLocalStorage()
-        // this.setState({searchWord: searchWord})
+        
 
         GetListWinetype()
         .then(res => {
             const brand = []
             res.data.forEach(item => {
-              //console.log('item:',item)
               const { product } = item
               brand.push({item})
             })
-            //console.log('hot:', brand)
             this.setState({ brands: brand })
-            //console.log(this.state.brands);
           })
           .catch(err => console.log(err))    
-          //console.log('brands', this.state.brands)
         
         GetListProductByName(this.state.searchWord)
         .then(res => {
             this.setState({ products: res.data});
-            // console.log(this.state.searchWord);
         })
         .catch(err => console.log(err))
 

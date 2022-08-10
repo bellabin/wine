@@ -22,7 +22,7 @@ __decorate([
     __metadata("design:type", String)
 ], Phieudat.prototype, "MAPD", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'date' }),
+    (0, typeorm_1.Column)({ type: 'date', default: Date.now() }),
     __metadata("design:type", Date)
 ], Phieudat.prototype, "NGAYDAT", void 0);
 __decorate([

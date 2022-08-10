@@ -15,6 +15,8 @@ import { useState, useEffect } from "react";
 import { GetListBrand } from "../../services/Brand";
 import FormModalEditProduct from "./FormModal-Edit";
 import FormModalDeleteProduct from "./FormModal-Delete";
+import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice} from "../../helper/convertPrice";
+
 
 export default function DenseTable() {
   function Edit(data) {
@@ -88,14 +90,14 @@ export default function DenseTable() {
                 {row.MADONG}
               </TableCell>
               <TableCell align="left">{row.TENDONG}</TableCell>
-              <TableCell align="left">
+              <TableCell align="left" >
                 <img
                   src={"../../../".concat(row.HINHANH)}
-                  width={"18%"}
-                  height={"auto"}
+                  width={"15%"}
+                  height={"15%"}
                 />
               </TableCell>
-              <TableCell align="left">{row.GIA}</TableCell>
+              <TableCell align="left">{checkPrice(row.changeprices)}$</TableCell>
               <TableCell align="left">{row.SOLUONGTON}</TableCell>
               {listWinetypes &&
                 listWinetypes.map((wineType) => {

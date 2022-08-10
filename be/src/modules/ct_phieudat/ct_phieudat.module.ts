@@ -7,6 +7,7 @@ import { CtPhieudat } from './entities/ct_phieudat.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([CtPhieudat])],
   controllers: [CtPhieudatController],
-  providers: [CtPhieudatService]
+  providers: [CtPhieudatService],
+  exports: [CtPhieudatService],
 })
 export class CtPhieudatModule {}

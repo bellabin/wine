@@ -2,12 +2,6 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateCtPhieudatDto {
-    @ApiProperty()
-    @IsNumber()
-    @IsNotEmpty()
-    IDCTPD!: number
-
-    @ApiProperty()
     @IsString()
     @IsNotEmpty()
     MAPD!: string
@@ -25,15 +19,11 @@ export class CreateCtPhieudatDto {
     @IsNumber()
     GIA!: number
 
-    
+    @ApiProperty()
+    @IsString()
+    MANVD!: string
 
     @ApiProperty()
     @IsString()
-    MANVDH!: string
-
-    @ApiProperty()
-    @IsString()
-    MANVGH!: string
-
-
+    MANVGH?: string
 }

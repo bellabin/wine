@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CtPhieudat = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const ct_phieutra_entity_1 = require("../../ct_phieutra/entities/ct_phieutra.entity");
 const phieudat_entity_1 = require("../../phieudat/entities/phieudat.entity");
 const wineline_entity_1 = require("../../wineline/entities/wineline.entity");
@@ -17,10 +18,11 @@ const typeorm_1 = require("typeorm");
 let CtPhieudat = class CtPhieudat {
 };
 __decorate([
-    (0, typeorm_1.Column)({ type: 'int', primary: true }),
+    (0, typeorm_1.Column)({ type: 'int', generated: true, primary: true }),
     __metadata("design:type", Number)
 ], CtPhieudat.prototype, "IDCTPD", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MAPD", void 0);
@@ -30,6 +32,7 @@ __decorate([
     __metadata("design:type", phieudat_entity_1.Phieudat)
 ], CtPhieudat.prototype, "phieudat", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'char' }),
     __metadata("design:type", String)
 ], CtPhieudat.prototype, "MADONG", void 0);
@@ -39,10 +42,12 @@ __decorate([
     __metadata("design:type", wineline_entity_1.Wineline)
 ], CtPhieudat.prototype, "wineline", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'int' }),
     __metadata("design:type", Number)
 ], CtPhieudat.prototype, "SOLUONG", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)(),
     (0, typeorm_1.Column)({ type: 'float' }),
     __metadata("design:type", Number)
 ], CtPhieudat.prototype, "GIA", void 0);

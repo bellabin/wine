@@ -35,6 +35,7 @@ export default class FormModalProvider extends React.Component {
     
 
     Close = () => {
+        console.log('dad')
         this.setState({ open: false })
     }
     open = () => {
@@ -134,7 +135,7 @@ export default class FormModalProvider extends React.Component {
                     </DialogContent>
                     <DialogActions>
                         <Button type='submit' color='success' variant='contained'>Submit</Button>
-                        <Button onClick={this.close}>Close</Button>
+                        <Button onClick={this.Close}>Close</Button>
                     </DialogActions>
                 </form>
             </Dialog>

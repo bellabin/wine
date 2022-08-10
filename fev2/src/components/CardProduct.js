@@ -39,9 +39,16 @@ export const CustomCardProduct = (props) => {
           </div>
           <figcaption className="info-wrap">
             <div className="fix-height">
-              <a className="title">{props.data.TENDONG && props.data.TENDONG}</a>
+            <Typography
+            
+          sx={{ fontSize: 20 }}
+          noWrap={true}
+          style={{ textOverFlow: "ellipsis", marginLeft: "10px" }}
+        >
+          {props.data.TENDONG && props.data.TENDONG}
+        </Typography>
               <div className="price-wrap mt-2">
-                <span className="price">{convertPrice(
+                <span className="price" style={{marginLeft: 10}}>{convertPrice(
                             checkPrice(props.data.changeprices && props.data.changeprices ),
                             convertKm(props.data.ct_khuyenmais)/100 || 0
                           )}$</span>

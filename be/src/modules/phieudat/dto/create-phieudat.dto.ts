@@ -1,13 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDate, IsNotEmpty, IsString } from "class-validator";
+import { DEFAULT_MAKH, DEFAULT_MANV, TRANG_THAI_PHIEU_DAT } from "src/constants/constant";
+import { CtPhieudat } from "src/modules/ct_phieudat/entities/ct_phieudat.entity";
+import { Type } from 'class-transformer'
 
 export class CreatePhieudatDto {
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
     MAPD!: string
 
-    @ApiProperty()
+    @ApiProperty({ default: new Date() })
     @IsDate()
     NGAYDAT!: Date
 
@@ -31,21 +31,25 @@ export class CreatePhieudatDto {
     @IsString()
     GHICHU!: string
 
-    @ApiProperty()
+    @ApiProperty({ default: TRANG_THAI_PHIEU_DAT.CHUA_DUYET })
     @IsString()
     TRANGTHAI!: string
 
-    @ApiProperty()
+    @ApiProperty({ default: DEFAULT_MANV })
     @IsString()
     MANVD!: string
 
     @ApiProperty()
     @IsString()
-    MANVGH!: string
+    MANVGH?: string
 
-    @ApiProperty()
+    @ApiProperty({ default: DEFAULT_MAKH })
     @IsString()
     MAKH!: string
 
-
+    @IsArray()
+    @IsNotEmpty()
+    @ApiProperty({ type: [CtPhieudat] })
+    @Type(() => CtPhieudat)
+    CTPDS!: CtPhieudat[]
 }

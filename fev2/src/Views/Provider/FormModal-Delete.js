@@ -60,7 +60,7 @@ export default class FormModalDeleteProvider extends React.Component {
                     
                     <DialogActions>
                         <Button type='submit' color='success' variant='contained' onClick={this.onSubmit} >Submit</Button>
-                        <Button onClick={this.close}>Close</Button>
+                        <Button onClick={this.Close}>Close</Button>
                     </DialogActions>
                 </form>
             </Dialog>

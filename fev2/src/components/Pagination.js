@@ -49,12 +49,7 @@ function usePagination(data, itemsPerPage) {
     const begin = (currentPage - 1) * itemsPerPage;
     const end = begin + itemsPerPage;
 
-    console.log('begin, end', begin, end)
-    if(end > data.length) {
-      console.log('match')
-      return data.slice(begin,data.length - 1)
-    }
-    else return data.slice(begin, end);
+    return data.slice(begin, end);
   }
 
   function next() {

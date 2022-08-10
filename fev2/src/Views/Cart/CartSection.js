@@ -1,31 +1,81 @@
 import React, { Component } from "react";
-import Item from "./Item"
+import Item from "./Item";
 import { getListCartItemsFromLocalStorage } from "../../helper/addToCart";
+import { GetProductById, GetListProduct } from "../../services/Product";
+
 import { Box, Button } from "@mui/material";
-
+import { createPhieuDat } from "../../services/Phieudat";
+import * as moment from "moment";
+import {
+  checkKm,
+  convertKm,
+  convertPrice,
+  fixedPrice,
+  checkPrice,
+  toDecimal,
+} from "../../helper/convertPrice";
 export default class CartSection extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            carts: [],
-            total:0,
-        }
-     }
+  constructor(props) {
+    super(props);
+    this.state = {
+      carts: [],
+      total: 0,
+    };
 
-     componentDidMount() {
-        const carts = JSON.parse(getListCartItemsFromLocalStorage())
-        //console.log("carts", carts)
-        this.setState({ carts })
-     }
+    this.removeItem = this.removeItem.bind(this);
+    this.totalAmount = this.totalAmount.bind(this);
+  }
 
-    totalAmount(){
-      let amount = 0
-      this.state.carts && this.state.carts.map((prod) => {
-        amount += prod.price*prod.quantity
+  componentDidMount() {
+    const carts = JSON.parse(getListCartItemsFromLocalStorage());
+    this.setState({ carts });
+    let totalAmountTemp = 0;
+    carts.map((cur) => {
+      GetProductById(cur.productId)
+        .then((res) => {
+          let price = checkPrice(res.data.changeprices)
+          let promoPrice = checkPrice(res.data.changeprices) * toDecimal(checkKm(res.data.ct_khuyenmais))
+          let totalTemp = price - promoPrice
+          totalAmountTemp += totalTemp * cur.quantity
+          this.setState({total: totalAmountTemp.toFixed(2)}) 
+        })
+        .catch((err) => console.log(err));
+    });
+
+  }
+
+  totalAmount() {
     
-      })
-      return amount.toFixed(2)
-    }
+    const carts = JSON.parse(getListCartItemsFromLocalStorage());
+    let totalAmountTemp = 0;
+    carts.map((cur) => {
+      GetProductById(cur.productId)
+        .then((res) => {
+          let price = checkPrice(res.data.changeprices)
+          let promoPrice = checkPrice(res.data.changeprices) * toDecimal(checkKm(res.data.ct_khuyenmais))
+          let totalTemp = price - promoPrice
+          totalAmountTemp += totalTemp * cur.quantity
+          this.setState({total: totalAmountTemp.toFixed(2)}) 
+        })
+        .catch((err) => console.log(err));
+    })
+    
+  }
+
+  removeItem(productId) {
+    const carts = JSON.parse(getListCartItemsFromLocalStorage());
+
+    const newCarts = carts.filter((product) => product.productId != productId);
+    this.setState({ carts: newCarts });
+
+    //this.setState({total: })
+  }
+
+  async checkout() {
+    console.log(moment(new Date()).format("YYYY-MM-DD"));
+    //goi api de tao phieu dat = tat ca data trong gio hang
+    //const data = await createPhieuDat()
+  }
 
   render() {
     return (
@@ -51,66 +101,45 @@ export default class CartSection extends Component {
                       </tr>
                     </thead>
                     <tbody className="align-middle" id="cart">
-                        {
-                            this.state.carts && this.state.carts.map((item, index) => {
-                                //console.log("item", {item})
-                                {/* let tong = 0
-                                tong += item.price*item.quantity
-                                this.setState({total: tong}) */}
-                                return <Item id={index} data={item}/>
-                            })
-                        }
+                      {this.state.carts &&
+                        this.state.carts.map((item, index) => {
+                          return (
+                            <Item
+                              id={item.productId}
+                              data={item}
+                              removeItem={this.removeItem}
+                              totalAmount={this.totalAmount}
+                            />
+                          );
+                        })}
                     </tbody>
                   </table>
-                  
-                  
                 </div>
               </div>
               <div>
-                  <table className="table table-bordered">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th>Tổng tiền: {this.totalAmount()}${'   '}
-                        </th>
-                      </tr>
-                    </thead>
-                  </table>
-                  <div class="container">
-                    <div class="center">
-                      <button type="button" class="btn btn-primary p-4">Thanh toán</button>    
-                  </div>
-                </div>
-                </div>
-            </div>
-            
-            
-            {/* <div className="col-lg-4">
-              <div className="cart-page-inner">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="coupon">
-                      <input type="text" placeholder="Mã giảm giá" />
-                      <button>Áp dụng</button>
-                    </div>
-                  </div>
-                  <div className="col-md-12 cart-sum" id="sum_cart">
-                    <!-- <div className="cart-summary">
-                  <div className="cart-content">
-                    <h1>Thống kê giỏ hàng</h1>
-                    <p>Tổng tiền sản phẩm<span>$99</span></p>
-                    <p>Phí ship<span>$1</span></p>
-                    <h2>Tổng cộng<span>$100</span></h2>
-                  </div>
-                  <div className="cart-btn">
-                    <button>Thanh Toán</button>
-                  </div>
-                </div> -->
+                <table className="table table-bordered">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th>
+                        Tổng tiền: {this.state.total}${"   "}
+                      </th>
+                    </tr>
+                  </thead>
+                </table>
+                <div class="container">
+                  <div class="center">
+                    <button
+                      type="button"
+                      class="btn btn-primary p-4"
+                      onClick={this.checkout}
+                    >
+                      Thanh toán
+                    </button>
                   </div>
                 </div>
               </div>
-            </div> */}
+            </div>
           </div>
-          
         </div>
       </div>
     );
