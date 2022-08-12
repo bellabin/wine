@@ -36,6 +36,9 @@ let CtPhieudatController = class CtPhieudatController {
     remove(IDCTPD, MAPD, MADONG) {
         return this.ctPhieudatService.remove(IDCTPD, MAPD, MADONG);
     }
+    getRevProduct(from, to) {
+        return this.ctPhieudatService.getRevenueProduct(from, to);
+    }
 };
 __decorate([
     (0, common_1.Post)(),
@@ -78,6 +81,14 @@ __decorate([
     __metadata("design:paramtypes", [Number, String, String]),
     __metadata("design:returntype", void 0)
 ], CtPhieudatController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Get)('/:from,:to'),
+    __param(0, (0, common_1.Param)('from')),
+    __param(1, (0, common_1.Param)('to')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], CtPhieudatController.prototype, "getRevProduct", null);
 CtPhieudatController = __decorate([
     (0, common_1.Controller)('ct-phieudat'),
     __metadata("design:paramtypes", [ct_phieudat_service_1.CtPhieudatService])

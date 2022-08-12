@@ -11,11 +11,9 @@ export default class Revenue extends Component {
                 <div className='row'>
                     <Box className='col-6' sx={{ display: 'flex' }}>
                     </Box>
-                    <Box className='col-6' sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button variant="contained">Create</Button>
-                    </Box>
+                    
                 </div>
-                <div className='row mt-2'>
+                <div className='row mt-2' >
                     <div className='col-12'>
                         <Table/>
                     </div>

@@ -25,7 +25,7 @@ import {
   toDecimal,
 } from "../../helper/convertPrice";
 import { KeyNavigate } from "../../helper/KeyNavigate";
-export default class CartSection extends Component {
+export default class Section extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -106,7 +106,7 @@ export default class CartSection extends Component {
                       <TableHead>
                         <TableRow>
                           <TableCell>Sản phẩm</TableCell>
-                          <TableCell>Hình ảnh</TableCell>
+                          <TableCell style={{width: '25%'}}>Hình ảnh</TableCell>
                           <TableCell>Giá</TableCell>
                           <TableCell>Số lượng</TableCell>
                           <TableCell>Tổng</TableCell>
@@ -132,17 +132,6 @@ export default class CartSection extends Component {
                         style={{ textAlign: "center", fontSize: "30px" }}
                       >
                         Tổng tiền: {this.state.total}${"   "}
-                      </TableRow>
-                      <TableRow style={{textAlign:'center'}}>
-                        <Link  to={KeyNavigate.CheckOut}>
-                          <Button
-                            variant="outlined"
-                            style={{ textAlign: "center", fontSize: "20px", color:'#FF5733', borderColor: "#FF5733"}}
-                            onClick={this.checkout}
-                          >
-                            Thanh toán
-                          </Button>
-                        </Link>
                       </TableRow>
                     </Table>
                   </TableContainer>

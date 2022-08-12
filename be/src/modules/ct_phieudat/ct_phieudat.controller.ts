@@ -31,4 +31,9 @@ export class CtPhieudatController {
   remove(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string) {
     return this.ctPhieudatService.remove(IDCTPD, MAPD, MADONG);
   }
+
+  @Get('/:from,:to')
+  getRevProduct(@Param('from') from: string, @Param('to')to: string){
+    return this.ctPhieudatService.getRevenueProduct(from,to)
+  }
 }

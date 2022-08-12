@@ -214,103 +214,15 @@ export default class Body extends Component {
 
         
 
-        {/* <!-- Featured Product Start BY API --> */}
-        <HotProducts/>
-        {/* <!-- Featured Product End BY API --> */}
-
-        {/* <!-- Newsletter Start --> */}
-        {/* <div className="newsletter">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-md-6">
-                <h1>Đăng ký để nhận tin tức mới nhất</h1>
-              </div>
-              <div className="col-md-6">
-                <div className="form">
-                  <input type="email" placeholder="Nhập email..." />
-                  <button>Gửi</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
+        
+        {/* <HotProducts/> */}
+       
 
         <TopPromo/>
 
-        {/* <!--End of Khuyen mai--> */}
+       
 
-        {/* <!--Banner--> */}
-        <div className="Liqueur-spirit">
-          <div className="container">
-            <div className="content">
-              <h1>Liqueur & Spirits</h1>
-              <span>
-                In addition to the 2 large categories of Wine and Whiskey, you
-                will quickly discover the world of other drinks in this category
-                with just one click.
-              </span>
-            </div>
-
-            <div className="wine-list">
-              <div className="items">
-                <a href="/danh-muc/Vodka">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/2020/11/img-drinks-1.png.webp"
-                    alt=""
-                  />
-                </a>
-                <span>Vodka</span>
-              </div>
-              <div className="items">
-                <a href="/danh-muc/Cognag">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/2020/11/img-drinks-2.png.webp"
-                    alt=""
-                  />
-                </a>
-                <span>Cognac</span>
-              </div>
-              <div className="items">
-                <a href="/danh-muc/Grappa">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/elementor/thumbs/img-drinks-3-p3rffircgjwa94zlmt189ah13wa2vgxao261ketli8.png"
-                    alt=""
-                  />
-                </a>
-                <span>Grappa</span>
-              </div>
-              <div className="items">
-                <a href="/danh-muc/Scotch">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/2020/11/img-drinks-4.png.webp"
-                    alt=""
-                  />
-                </a>
-                <span>Scotch</span>
-              </div>
-              <div className="items">
-                <a href="/danh-muc/Tequilla">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/2020/11/img-drinks-5.png.webp"
-                    alt=""
-                  />
-                </a>
-                <span>Tequila</span>
-              </div>
-              <div className="items">
-                <a href="/danh-muc/Rum">
-                  <img
-                    src="https://hn.arrowpress.net/lusion/wp-content/uploads/2020/11/img-drinks-6.png.webp"
-                    alt=""
-                  />
-                </a>
-                <span>Rum</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* <!--End of Banner--> */}
+        
 
         {/* <!--intro--> */}
         <div className="banner">

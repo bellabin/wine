@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { GetProductById, GetListProduct } from "../../services/Product";
 import { removeCartItemToLocalStorage } from "../../helper/addToCart";
 import { GetCtPromoById } from "../../services/Promo";
-import { Button, TableRow, TableCell, TextField } from "@mui/material";
+
 import { toDecimal } from "../../helper/convertPrice";
-import TextareaAutosize from '@mui/material/TextareaAutosize';
-import Grid from "@material-ui/core/Grid";
+import { Button, TableRow, TableCell, TextField } from "@mui/material";
+
 import {
   checkKm,
   convertKm,
@@ -13,7 +13,6 @@ import {
   fixedPrice,
   checkPrice,
 } from "../../helper/convertPrice";
-import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export default class Item extends Component {
   constructor(props) {
@@ -26,7 +25,6 @@ export default class Item extends Component {
       price: 0,
       promoPrice: 0,
       curQuantity: 0,
-      
 
     };
   }
@@ -115,13 +113,9 @@ export default class Item extends Component {
                 </TableCell>
         <TableCell>{(this.state.price - this.state.promoPrice).toFixed(2)} $</TableCell>
         <TableCell>
-          <Button style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px', borderColor: "#FF5733", color:'#FF5733'}} variant="outlined" className="btn-minus" onClick={ this.handleClickMinus}>
-            -
-          </Button>
-          <input style={{width:'40px',height:'35px', marginLeft:'5px', marginRight:'5px'}} variant="outlined" value={this.state.curQuantity} />
-          <Button style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px', borderColor: "#FF5733", color:'#FF5733'}} variant="outlined" onClick={ this.handleClickPlus}>
-            +
-          </Button>
+          
+          <p>{this.state.curQuantity}</p>
+          
           </TableCell>
         <TableCell>
           {(
@@ -130,11 +124,7 @@ export default class Item extends Component {
           ).toFixed(2)}{" "}
           $
         </TableCell>
-        <TableCell>
-          <Button variant="outlined" color="error" onClick={this.onSubmit}>
-            Xoá
-          </Button>
-        </TableCell>
+        
       </TableRow>
     );
   }

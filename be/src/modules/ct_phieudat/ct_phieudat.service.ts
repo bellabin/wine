@@ -48,4 +48,21 @@ export class CtPhieudatService {
     const ct_phieudat = await this.findOne(IDCTPD, MAPD, MADONG)
     return this.ctphieudatRepo.remove(ct_phieudat)
   }
+
+  async getRevenueProduct(from: string, to: string){
+    return this.ctphieudatRepo.query(`
+    SELECT sum(cp.SOLUONG) as so_luong_ban, cp.MADONG ,  d.TENDONG , d.HINHANH 
+    FROM ct_phieudat cp
+    INNER JOIN (
+      SELECT * 
+      FROM phieudat
+      WHERE NGAYDAT >= '${from}' AND NGAYDAT <= '${to}'
+    ) p ON cp.MAPD = p.MAPD
+    INNER JOIN dongruou d on cp.MADONG = d.MADONG 
+    GROUP BY cp.MADONG
+    ORDER BY so_luong_ban DESC  
+    `)
+    
 }
+}
+//.where('phieudat.NGAYDAT >= :from and phieudat.NGAYDAT <= :to', {from: from, to: to})

@@ -8,4 +8,5 @@ export declare class CtPhieudatService {
     findOne(IDCTPD: number, MAPD: string, MADONG: string): Promise<CtPhieudat>;
     update(IDCTPD: number, MAPD: string, MADONG: string, body: UpdateCtPhieudatDto): Promise<import("typeorm").UpdateResult>;
     remove(IDCTPD: number, MAPD: string, MADONG: string): Promise<CtPhieudat>;
+    getRevenueProduct(from: string, to: string): Promise<any>;
 }

@@ -9,4 +9,5 @@ export declare class CtPhieudatController {
     findOne(IDCTPD: number, MAPD: string, MADONG: string): Promise<import("./entities/ct_phieudat.entity").CtPhieudat>;
     update(IDCTPD: number, MAPD: string, MADONG: string, updateCtPhieudatDto: UpdateCtPhieudatDto): Promise<import("typeorm").UpdateResult>;
     remove(IDCTPD: number, MAPD: string, MADONG: string): Promise<import("./entities/ct_phieudat.entity").CtPhieudat>;
+    getRevProduct(from: string, to: string): Promise<any>;
 }

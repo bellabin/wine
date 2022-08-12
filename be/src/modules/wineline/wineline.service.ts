@@ -77,7 +77,7 @@ export class WinelineService {
         // const query = this.winelineRepo.createQueryBuilder('wineline')
         //     .where('INSTR(wineline.TENDONG, :name) > 0', {name: name})
         //     .setFindOptions({
-        //         relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
+        //         relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews']
         //     }).getQuery();
         // console.log('query ne', query);
         return this.winelineRepo.createQueryBuilder('wineline')
@@ -89,12 +89,6 @@ export class WinelineService {
     }
 
     async getTopPromoProduct(){
-        // const query = this.winelineRepo.createQueryBuilder('wineline')
-        // .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
-        // .setFindOptions({
-        //     relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews','ct_phieutras']
-        // }).getQuery()
-        // console.log('qr:', query)
         return this.winelineRepo.createQueryBuilder('wineline')
         .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
         .setFindOptions({
@@ -103,4 +97,7 @@ export class WinelineService {
         .getMany();
         //chua update ngay
     }
+
+    
+
 }

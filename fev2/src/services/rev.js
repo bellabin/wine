@@ -1,0 +1,6 @@
+import HttpService from "./Gateway"
+
+//API get list products
+export const GetListRevProduct = async (from,to) => {
+  return HttpService.get(`ct-phieudat/${from},${to}`)
+}

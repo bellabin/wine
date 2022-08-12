@@ -3,11 +3,10 @@ import Layout from '../../components/Layout'
 import Paypal from '../../components/Paypal'
 import Body from "./Body"
 
-export default class Cart extends Component {
+export default class CheckOut extends Component {
     render() {
         return (
             <Layout>
-                {/* <Paypal/> */}
                 <Body/>
             </Layout>
         )
