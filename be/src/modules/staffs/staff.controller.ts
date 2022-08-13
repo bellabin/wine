@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, No
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { StaffService } from './staff.service';
-import { AuthService } from '../auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginStaffDto } from './dto/login-staff.dto';
 import { NotFoundError } from 'rxjs';
@@ -11,7 +10,6 @@ import { NotFoundError } from 'rxjs';
 export class StaffController {
     constructor(
         private staffService: StaffService, //import staff service
-        private authService: AuthService
     ) {}
 
     @Get() //get list staffs
@@ -24,8 +22,6 @@ export class StaffController {
     findById(@Param('id') id: string) {
         return this.staffService.findById(id)
     }
-
-
 
     
 //    @Post('login')
@@ -48,8 +44,6 @@ export class StaffController {
     @Post('login')
     @UseGuards(AuthGuard('local'))
     async login(@Body() payload: LoginStaffDto){
-        console.log('BE: ',payload.PASSWORD)
-        return this.authService.loginStaff(payload)
     }
 
 

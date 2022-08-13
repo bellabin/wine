@@ -25,9 +25,10 @@ import { CtPromotion } from './modules/ct_promotion/entities/ct_promotion.entity
 import { CtOrder } from './modules/ct_order/entities/ct_order.entity';
 import { CtOrderModule } from './modules/ct_order/ct_order.module';
 import { CtPromotionModule } from './modules/ct_promotion/ct_promotion.module';
-// import { AuthModule } from './auth/auth.module';
 // import { UsersModule } from './users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './modules/auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -36,7 +37,7 @@ import { AuthModule } from './modules/auth/auth.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'billybua7',
+      password: '',
       database: 'banruou',
       entities: ["dist/**/*.entity.js"],
     }),
@@ -61,11 +62,16 @@ import { AuthModule } from './modules/auth/auth.module';
     ChangepriceModule,
     CtPromotionModule,
     CtOrderModule,
-    // AuthModule,
+    AuthModule,
     // UsersModule
 
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,
+    {
+			provide: APP_GUARD,
+			useClass: RolesGuard,
+		},
+  ],
 })
 export class AppModule {}

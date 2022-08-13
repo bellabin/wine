@@ -1,48 +1,42 @@
-import { Injectable } from "@nestjs/common";
-import { forwardRef, Inject } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { CustomerService } from "../customers/customer.service";
-import { StaffService } from "../staffs/staff.service";
+import { JwtService } from '@nestjs/jwt';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { AuthLoginDto } from './dto/auth-login.dto';
+import { StaffService } from '../staffs/staff.service';
+import { CustomerService } from '../customers/customer.service';
+import { compareSync } from 'bcrypt'
 
 @Injectable()
 export class AuthService {
   constructor(
     private jwtService: JwtService,
-    @Inject(forwardRef(() => StaffService)) private readonly staffService: StaffService,
-    @Inject(forwardRef(() => CustomerService)) private customerService: CustomerService,
+    private staffService: StaffService,
+    private customerService: CustomerService,
   ) {}
 
-  async validateStaff(username: string, pass: string): Promise<any> {
-    const staff = await this.staffService.findByUsername(username);
-    if (staff && staff.PASSWORD === pass) {
-      const { PASSWORD, ...result } = staff;
-      return result;
+    async login(authLoginDto: AuthLoginDto) {
+      const { USERNAME, PASSWORD } = authLoginDto
+
+      const staffLogin = this.staffService.findByUsername(USERNAME)
+      const customerLogin = this.customerService.findByUsername(USERNAME)
+
+      const promises = []
+      promises.push(staffLogin)
+      promises.push(customerLogin)
+
+      const [ staff, customer ] = await Promise.all(promises)
+
+      if (!staff && !customer) throw new NotFoundException('User not found')
+
+      if (!compareSync(PASSWORD, staff.PASSWORD || customer.PASSWORD)) throw new NotFoundException('Login failed')
+      
+      const response = {
+        accessToken: this.jwtService.sign({
+          userId: staff.MANV || customer.MAKH,
+          role: staff ? 'staff' : 'customer'
+        }),
+        role: staff ? 'staff' : 'customer'
+      }
+
+      return response
     }
-    return null;
-  }
-
-  // async validateCustomer(username: string, pass: string): Promise<any> {
-  //   const user = await this.customerService.findByUsername(username);
-  //   if (user && user.PASSWORD === pass) {
-  //     const { PASSWORD, ...result } = user;
-  //     return result;
-  //   }
-  //   return null;
-  // }
-
-
-
-  // async loginCustomer(user: any) {
-  //   const payload = { username: user.USERNAME, sub: user.MAKH };
-  //   return {
-  //     access_token: this.jwtService.sign(payload),
-  //   };
-  // }
-
-  async loginStaff(user: any) {
-    const payload = { username: user.USERNAME, sub: user.MANV };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
 }

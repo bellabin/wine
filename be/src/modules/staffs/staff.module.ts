@@ -7,8 +7,7 @@ import { StaffService } from './staff.service';
 import { forwardRef } from '@nestjs/common';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Staff]),
-  forwardRef(() => AuthModule)], //import entity
+  imports: [TypeOrmModule.forFeature([Staff])], //import entity
   controllers: [StaffController], //import controller
   providers: [StaffService], //import service
   exports:[StaffService]

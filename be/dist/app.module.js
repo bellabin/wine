@@ -32,6 +32,9 @@ const ct_phieutra_module_1 = require("./modules/ct_phieutra/ct_phieutra.module")
 const changeprice_module_1 = require("./modules/changeprice/changeprice.module");
 const ct_order_module_1 = require("./modules/ct_order/ct_order.module");
 const ct_promotion_module_1 = require("./modules/ct_promotion/ct_promotion.module");
+const auth_module_1 = require("./modules/auth/auth.module");
+const core_1 = require("@nestjs/core");
+const roles_guard_1 = require("./modules/auth/guards/roles.guard");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -42,7 +45,7 @@ AppModule = __decorate([
                 host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: 'billybua7',
+                password: '',
                 database: 'banruou',
                 entities: ["dist/**/*.entity.js"],
             }),
@@ -67,9 +70,15 @@ AppModule = __decorate([
             changeprice_module_1.ChangepriceModule,
             ct_promotion_module_1.CtPromotionModule,
             ct_order_module_1.CtOrderModule,
+            auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService,
+            {
+                provide: core_1.APP_GUARD,
+                useClass: roles_guard_1.RolesGuard,
+            },
+        ],
     })
 ], AppModule);
 exports.AppModule = AppModule;

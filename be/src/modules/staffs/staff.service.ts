@@ -5,15 +5,13 @@ import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { Staff } from './entities/staff.entity';
 import { forwardRef, Inject } from "@nestjs/common";
-import { AuthService } from '../auth/auth.service';
+import { hashSync } from 'bcrypt'
 
 @Injectable()
 export class StaffService {
     constructor(
         @InjectRepository(Staff) private staffRepo: Repository<Staff> ,
         //inject repo
-        //private authService: AuthService,
-
     ) {}
 
     findAll() { //function handle get list staff
@@ -23,10 +21,11 @@ export class StaffService {
     }
 
     findById(MANV: string) {
-        return this.staffRepo.findOne({
-            where: { MANV: MANV  },
-            relations: ['role','phieudats','phieunhaps','phieutras','changeprices','bills','promotions','orders'],
-          })
+        return this.staffRepo.findOne({ where: { MANV }})
+        // return this.staffRepo.findOne({
+        //     where: { MANV: MANV  },
+        //     relations: ['role','phieudats','phieunhaps','phieutras','changeprices','bills','promotions','orders'],
+        //   })
     }
 
     findByUsername(USERNAME: string) {
@@ -44,6 +43,10 @@ export class StaffService {
 
 
     async create(payload: CreateStaffDto) { //func handle create new staff
+        const passwordHashed = hashSync(payload.PASSWORD, 10)
+
+        payload.PASSWORD = passwordHashed
+        
         const staff = this.staffRepo.create(payload) //create nhung chua duoc save
 
         await this.staffRepo.save(staff) //khi save thi data moi duoc luu vao db

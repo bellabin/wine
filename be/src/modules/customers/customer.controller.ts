@@ -3,15 +3,14 @@ import { CustomerService } from "./customer.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
 import { LoginCustomerDto } from "./dto/login-customer";
-import { AuthService } from "../auth/auth.service";
 import { AuthGuard } from '@nestjs/passport';
+import { Roles } from "src/decorators/role.decorator";
 
 
 @Controller('customers')
 export class CustomerController {
     constructor(
         private customerService: CustomerService,
-        private authService: AuthService
 
     ) { }
 
