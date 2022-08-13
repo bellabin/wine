@@ -1,13 +1,18 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, NotFoundException, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CustomerService } from "./customer.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
 import { LoginCustomerDto } from "./dto/login-customer";
+import { AuthService } from "../auth/auth.service";
+import { AuthGuard } from '@nestjs/passport';
+
 
 @Controller('customers')
 export class CustomerController {
     constructor(
-        private customerService: CustomerService
+        private customerService: CustomerService,
+        private authService: AuthService
+
     ) { }
 
     @Get()
@@ -21,18 +26,25 @@ export class CustomerController {
     }
 
 
-    @Post('login')
-    async login(@Body() payload: LoginCustomerDto) {
-        console.log('day la ben BE', payload);
-        const customer = await this.customerService.findByUsername(payload.USERNAME)
+    // @Post('login')
+    // async login(@Body() payload: LoginCustomerDto) {
+    //     console.log('day la ben BE', payload);
+    //     const customer = await this.customerService.findByUsername(payload.USERNAME)
 
-        if (!customer) throw new NotFoundException()
+    //     if (!customer) throw new NotFoundException()
 
-        if (payload.PASSWORD != customer.PASSWORD) throw new HttpException('invalid credential', HttpStatus.UNAUTHORIZED)
+    //     if (payload.PASSWORD != customer.PASSWORD) throw new HttpException('invalid credential', HttpStatus.UNAUTHORIZED)
 
-        return customer
+    //     return customer
 
-    }
+    // }
+
+    // @UseGuards(AuthGuard('local'))
+    // @Post('login')
+    // async login(@Body() payload: LoginCustomerDto){
+    //     console.log('BE',payload)
+    //     return this.authService.loginCustomer(payload)
+    // }
 
     @Post()
     create(@Body() payload: CreateCustomerDto) {

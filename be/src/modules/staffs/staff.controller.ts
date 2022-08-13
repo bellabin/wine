@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, Request, No
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { StaffService } from './staff.service';
+import { AuthService } from '../auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginStaffDto } from './dto/login-staff.dto';
 import { NotFoundError } from 'rxjs';
@@ -9,11 +10,13 @@ import { NotFoundError } from 'rxjs';
 @Controller('staffs')
 export class StaffController {
     constructor(
-        private staffService: StaffService //import staff service
+        private staffService: StaffService, //import staff service
+        private authService: AuthService
     ) {}
 
     @Get() //get list staffs
     findAll() {
+        //console.log('sdad')
         return this.staffService.findAll()
     }
 
@@ -22,21 +25,35 @@ export class StaffController {
         return this.staffService.findById(id)
     }
 
-   @Post('login')
-   async login(@Body() payload: LoginStaffDto){
-        console.log('day la ben BE', payload);
-        const staff = await this.staffService.findByUsername(payload.USERNAME)
 
-        if(!staff) throw new NotFoundException()
 
-        var CryptoJS = require("crypto-js/SHA256");
-        const pass = CryptoJS(payload.PASSWORD);
-        console.log('day la password ma hoa: ', pass.toString());
-        if(pass.toString() != staff.PASSWORD) throw new HttpException ('invalid credential', HttpStatus.UNAUTHORIZED)
+    
+//    @Post('login')
+//    async login(@Body() payload: LoginStaffDto){
+//         console.log('day la ben BE', payload);
+//         const staff = await this.staffService.findByUsername(payload.USERNAME)
 
-        return staff
+//         if(!staff) throw new NotFoundException()
 
-   }
+//         var CryptoJS = require("crypto-js/SHA256");
+//         const pass = CryptoJS(payload.PASSWORD);
+//         console.log('day la password ma hoa: ', pass.toString());
+//         if(pass.toString() != staff.PASSWORD) throw new HttpException ('invalid credential', HttpStatus.UNAUTHORIZED)
+
+//         return staff
+
+//    }
+
+
+    @Post('login')
+    @UseGuards(AuthGuard('local'))
+    async login(@Body() payload: LoginStaffDto){
+        console.log('BE: ',payload.PASSWORD)
+        return this.authService.loginStaff(payload)
+    }
+
+
+
 
     @Post() //create new staff
     create(@Body() payload: CreateStaffDto) {

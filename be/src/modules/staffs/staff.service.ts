@@ -4,11 +4,16 @@ import { Repository } from 'typeorm';
 import { CreateStaffDto } from './dto/create-staff.dto';
 import { UpdateStaffDto } from './dto/update-staff.dto';
 import { Staff } from './entities/staff.entity';
+import { forwardRef, Inject } from "@nestjs/common";
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class StaffService {
     constructor(
-        @InjectRepository(Staff) private staffRepo: Repository<Staff> //inject repo
+        @InjectRepository(Staff) private staffRepo: Repository<Staff> ,
+        //inject repo
+        //private authService: AuthService,
+
     ) {}
 
     findAll() { //function handle get list staff

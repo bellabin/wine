@@ -7,6 +7,7 @@ import { CustomerModule } from '../customers/customer.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from 'src/constants/constant';
 import { JwtStrategy } from './jwt.strategy';
+import { forwardRef } from '@nestjs/common';
 
 @Module({
   imports: [
@@ -14,9 +15,9 @@ import { JwtStrategy } from './jwt.strategy';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '2592000s' },
     }),
-    StaffModule, 
+    forwardRef(() => StaffModule), 
     PassportModule, 
-    CustomerModule
+    forwardRef(() => CustomerModule)
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
