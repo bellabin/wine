@@ -38,6 +38,9 @@ export default class Body extends Component {
     };
   }
   componentDidMount() {
+    if(!getUserProfileFromLS){
+      console.log('chua login')
+    }else console.log('da login')
     const cartsT = JSON.parse(getListCartItemsFromLocalStorage());
     this.setState({ carts: cartsT });
     let productsT = [];

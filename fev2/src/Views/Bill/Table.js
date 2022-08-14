@@ -11,12 +11,20 @@ import { GetListBill, GetListPD } from '../../services/Bill'
 import { GetListCustomer } from '../../services/Customer'
 import FormModalEditBill from './FormModal-Edit';
 import FormModalDeleteBill from './FormModal-Delete';
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 
 
 
 export default function DenseTable() {
 
+  const [state,setState] = useState('TAT_CA');
+
+  const handleChange = (e) => {
+    setState(e.target.value );
+    
+  };
     function Edit(data){
         
         //console.log(data)
@@ -67,6 +75,17 @@ export default function DenseTable() {
 
     return (
         <TableContainer component={Paper}>
+        <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={state}
+            label=" "
+            onChange={handleChange}
+          >
+            <MenuItem value={0}>TAT_CA</MenuItem>
+            <MenuItem value={1}>CHUA_DUYET</MenuItem>
+            <MenuItem value={2}>DA_DUYET</MenuItem>
+          </Select>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
                     <TableRow>
@@ -104,7 +123,8 @@ export default function DenseTable() {
                                     }
                                 })
                             }
-                            <TableCell align="left">{row.EMAIL}</TableCell>
+                            {/* {console.log(row.TRANGTHAI)} */}
+                            <TableCell align="left">{row.TRANGTHAI}</TableCell>
                             <TableCell align="left">{row.THANHTIEN}</TableCell>
                             <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick={()=>Edit(row)} ></i>
                             <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MAHD)} ></i>

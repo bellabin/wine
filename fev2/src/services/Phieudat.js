@@ -24,3 +24,7 @@ export const createPhieuDat = (data) => {
         // ]
       })
 }
+
+export const findByState = (TRANGTHAI) => {
+  return HttpService.get('phieudat',TRANGTHAI)
+}

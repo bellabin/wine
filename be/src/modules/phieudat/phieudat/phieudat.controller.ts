@@ -20,6 +20,11 @@ export class PhieudatController {
         return this.phieudatService.findById(id)
     }
 
+    @Get('/state/:state')
+    findByState(@Param('TRANGTHAI') TRANGTHAI: string) {
+        return this.phieudatService.findByState(TRANGTHAI)
+    }
+
     @Post() //create new pd
     create(@Body() payload: CreatePhieudatDto) {
         const MAPD = uuidv4().slice(0, 19)

@@ -18,11 +18,13 @@ const CustomeSlider = (props) => {
     cssEase: "linear",
     centerPadding: 30,
   };
+  
 
   return (
     <Slider {...settings}>
         {
             props.data && props.data.map(item => {
+              {/* console.log('item: ',item) */}
                 return <CustomCard data={item}/>
             })
         }

@@ -30,6 +30,10 @@ export const CustomCardProduct = (props) => {
     backgroundColor: "rgb(165, 29, 42)"
   }
 
+  // const checkIfPromo = (phantram) => {
+
+  // }
+
   return (
       <div className="col-md-4">
         <figure className="card card-product-grid">
