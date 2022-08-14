@@ -1,6 +1,8 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { hashSync } from "bcrypt";
 import { Repository } from "typeorm";
+import { StaffService } from "../staffs/staff.service";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
 import { Customer } from "./entities/customer.entity";
@@ -8,7 +10,8 @@ import { Customer } from "./entities/customer.entity";
 @Injectable()
 export class CustomerService {
     constructor(
-        @InjectRepository(Customer) private customerRepo: Repository<Customer>
+        @InjectRepository(Customer) private customerRepo: Repository<Customer>,
+        private staffService: StaffService
         ) {}
 
     findAll() {
@@ -32,13 +35,28 @@ export class CustomerService {
     
     }
 
-   async create (payload:CreateCustomerDto)  {
-    const customer = this.customerRepo.create(payload)
-
-    await this.customerRepo.save(customer)
-
-    return customer
-   }
+    async create(payload: CreateCustomerDto) {
+        try {
+          const { USERNAME, PASSWORD } = payload;
+    
+          const staff = await this.staffService.findByUsername(USERNAME);
+    
+          if (staff) throw new ConflictException("Username is existing");
+    
+          const hashedPassword = hashSync(PASSWORD, 10);
+          payload.PASSWORD = hashedPassword;
+    
+          const customer = this.customerRepo.create(payload);
+    
+          await this.customerRepo.save(customer);
+    
+          return customer;
+        } catch (error) {
+                console.error(error);
+          throw new ConflictException(error.response);
+        }
+      }
+    
 
    async update (MAKH: string, body: UpdateCustomerDto) {
     const customer = await this.findById(MAKH)

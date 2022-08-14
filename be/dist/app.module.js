@@ -45,7 +45,7 @@ AppModule = __decorate([
                 host: 'localhost',
                 port: 3306,
                 username: 'root',
-                password: '',
+                password: 'billybua7',
                 database: 'banruou',
                 entities: ["dist/**/*.entity.js"],
             }),

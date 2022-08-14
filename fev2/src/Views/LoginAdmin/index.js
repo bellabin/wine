@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { loginUser } from '../../services/Customer';
 import Button from '@mui/material/Button';
 import { Link, Route, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
@@ -42,11 +43,11 @@ export default class LoginAdmin extends Component {
         }
         console.log('payload', payload);
         
-        await LoginStaff(payload).then(response => {
+        await loginUser(payload).then(response => {
             if(response.status === 201) {
               
               console.log('hghgjg')
-              window.location.href='/Admin'
+              window.location.href='/'
             //   <Link to={KeyNavigate.Layout}></Link>
 
             }

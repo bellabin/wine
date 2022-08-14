@@ -15,7 +15,6 @@ import Paper from "@mui/material/Paper";
 
 import { Box, Button } from "@mui/material";
 import { createPhieuDat } from "../../services/Phieudat";
-import * as moment from "moment";
 import {
   checkKm,
   convertKm,
@@ -83,11 +82,7 @@ export default class CartSection extends Component {
     //this.setState({total: })
   }
 
-  async checkout() {
-    console.log(moment(new Date()).format("YYYY-MM-DD"));
-    //goi api de tao phieu dat = tat ca data trong gio hang
-    //const data = await createPhieuDat()
-  }
+  
 
   render() {
     return (
@@ -138,7 +133,7 @@ export default class CartSection extends Component {
                           <Button
                             variant="outlined"
                             style={{ textAlign: "center", fontSize: "20px", color:'#FF5733', borderColor: "#FF5733"}}
-                            onClick={this.checkout}
+                            
                           >
                             Thanh toán
                           </Button>

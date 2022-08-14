@@ -1,18 +1,20 @@
 import Box from "@mui/material/Box";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import { FormControl } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { getListCartItemsFromLocalStorage } from "../../helper/addToCart";
-
 import React, { Component } from "react";
 import { GetProductById } from "../../services/Product";
-
-import { TableRow, TableCell } from "@mui/material";
 import Section from "../Checkout/Section";
 import Paypal from "../../components/Paypal";
+import { Button } from "@mui/material";
+import { Table, TableRow } from "@mui/material";
+import * as moment from "moment";
+import {
+  getAccessTokenFromLocalStorage,
+  getUserProfileFromLS,
+} from "../../helper/accessToken";
 
 export default class Body extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ export default class Body extends Component {
       carts: [],
       products: [],
       payment: 0,
+      customer: JSON.parse(getUserProfileFromLS()),
     };
   }
   componentDidMount() {
@@ -36,18 +39,22 @@ export default class Body extends Component {
     });
     this.setState({ products: productsT });
   }
-  handleChange = (e) =>{
-    this.setState({payment: e.target.value})
-    console.log(e.target.value)
-  }
+
+  handleChange = (e) => {
+    this.setState({ payment: e.target.value });
+  };
 
   checkPaypalState = (e) => {
-    if(this.state.payment === 1 ){
-      return (<Paypal></Paypal>)
-    }
-    else return (<></>)
-  }
+    if (this.state.payment === 1) {
+      return <Paypal></Paypal>;
+    } else return <></>;
+  };
 
+  async checkout() {
+    console.log(moment(new Date()).format("YYYY-MM-DD"));
+    //goi api de tao phieu dat = tat ca data trong gio hang
+    //const data = await createPhieuDat()
+  }
   render() {
     return (
       <>
@@ -67,6 +74,9 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Họ và tên"
+                          defaultValue={this.state.customer.HO.concat(
+                            " "
+                          ).concat(this.state.customer.TEN)}
                           InputProps={{
                             name: "Email",
                           }}
@@ -75,6 +85,7 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Số điện thoại"
+                          defaultValue={this.state.customer.SDT}
                           InputProps={{
                             name: "Email",
                           }}
@@ -83,6 +94,7 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Email"
+                          defaultValue={this.state.customer.EMAIL}
                           InputProps={{
                             name: "Email",
                           }}
@@ -91,14 +103,22 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Địa chỉ giao hàng"
+                          defaultValue={this.state.customer.DIACHI}
                           InputProps={{
                             name: "Email",
                           }}
                         />
                       </FormControl>
-                      <p style={{ marginTop:'10px'}}>Phương thức thanh toán: </p>
-                      <FormControl style={{width:'300px', marginTop:'10px', marginBottom:'10px'}}>
-                        
+                      <p style={{ marginTop: "10px" }}>
+                        Phương thức thanh toán:{" "}
+                      </p>
+                      <FormControl
+                        style={{
+                          width: "300px",
+                          marginTop: "10px",
+                          marginBottom: "10px",
+                        }}
+                      >
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -106,16 +126,30 @@ export default class Body extends Component {
                           label=" "
                           onChange={this.handleChange}
                         >
-                          <MenuItem value={0}>
-                          Thanh toán trực tiếp
-                          </MenuItem>
-                          <MenuItem value={1}>
-                          Paypal
-                          </MenuItem>
+                          <MenuItem value={0}>Thanh toán trực tiếp</MenuItem>
+                          <MenuItem value={1}>Paypal</MenuItem>
                         </Select>
                       </FormControl>
                       {this.checkPaypalState()}
                     </Box>
+                    <Table style={{ marginTop: "20px" }}>
+                      <TableRow
+                        style={{ textAlign: "center", fontSize: "30px" }}
+                      >
+                        <Button
+                          variant="outlined"
+                          style={{
+                            textAlign: "center",
+                            fontSize: "20px",
+                            color: "#FF5733",
+                            borderColor: "#FF5733",
+                          }}
+                          onClick={this.checkout}
+                        >
+                          Xác nhận
+                        </Button>
+                      </TableRow>
+                    </Table>
                   </div>
                 </div>
               </div>
