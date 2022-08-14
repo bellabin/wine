@@ -24,7 +24,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!userId) throw new ForbiddenException()
 
     const staffLogin = this.staffService.findById(userId)
-    const customerLogin = this.customerService.findByUsername(userId)
+    const customerLogin = this.customerService.findById(userId)
 
     const promises = []
     promises.push(staffLogin)
@@ -35,8 +35,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!staff && !customer) throw new ForbiddenException()
 
     const { role } = payload
-    const username = staff.USERNAME || customer.USERNAME
-      
+    const username = staff?.USERNAME || customer?.USERNAME
+
     return { userId, role, username };
   }
 }

@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { hashSync } from "bcrypt";
 import { Repository } from "typeorm";
@@ -9,68 +13,66 @@ import { Customer } from "./entities/customer.entity";
 
 @Injectable()
 export class CustomerService {
-    constructor(
-        @InjectRepository(Customer) private customerRepo: Repository<Customer>,
-        private staffService: StaffService
-        ) {}
+  constructor(
+    @InjectRepository(Customer) private customerRepo: Repository<Customer>,
+    private staffService: StaffService
+  ) {}
 
-    findAll() {
-        return this.customerRepo.find({
-            relations: ['role', 'phieudats'],
-          })
+  findAll() {
+    return this.customerRepo.find({
+      relations: ["role", "phieudats"],
+    });
+  }
+
+  findById(MAKH: string) {
+    return this.customerRepo.findOne({
+      where: { MAKH: MAKH },
+      relations: ["role", "phieudats"],
+    });
+  }
+
+  findByUsername(USERNAME: string) {
+    return this.customerRepo
+      .createQueryBuilder("customers")
+      .where("customers.USERNAME = :USERNAME", { USERNAME })
+      .getOne();
+  }
+
+  async create(payload: CreateCustomerDto) {
+    try {
+      const { USERNAME, PASSWORD } = payload;
+
+      const staff = await this.staffService.findByUsername(USERNAME);
+
+      if (staff) throw new ConflictException("Username is existing");
+
+      const hashedPassword = hashSync(PASSWORD, 10);
+      payload.PASSWORD = hashedPassword;
+
+      const customer = this.customerRepo.create(payload);
+
+      await this.customerRepo.save(customer);
+
+      return customer;
+    } catch (error) {
+			console.error(error);
+      throw new ConflictException(error.response);
     }
-    
-    findById(MAKH : string) {
-        return this.customerRepo.findOne({
-            where: { MAKH: MAKH  },
-            relations: ['role', 'phieudats'],
-          })
-    }
+  }
 
-    findByUsername(USERNAME: string) {
-        return this.customerRepo
-            .createQueryBuilder('customers')
-            .where('customers.USERNAME = :USERNAME', {USERNAME})
-            .getOne()
-    
-    }
+  async update(MAKH: string, body: UpdateCustomerDto) {
+    const customer = await this.findById(MAKH);
 
-    async create(payload: CreateCustomerDto) {
-        try {
-          const { USERNAME, PASSWORD } = payload;
-    
-          const staff = await this.staffService.findByUsername(USERNAME);
-    
-          if (staff) throw new ConflictException("Username is existing");
-    
-          const hashedPassword = hashSync(PASSWORD, 10);
-          payload.PASSWORD = hashedPassword;
-    
-          const customer = this.customerRepo.create(payload);
-    
-          await this.customerRepo.save(customer);
-    
-          return customer;
-        } catch (error) {
-                console.error(error);
-          throw new ConflictException(error.response);
-        }
-      }
-    
+    if (!customer) throw new NotFoundException("Cus is not exist");
 
-   async update (MAKH: string, body: UpdateCustomerDto) {
-    const customer = await this.findById(MAKH)
+    return this.customerRepo.update(MAKH, body);
+  }
 
-    if(!customer) throw new NotFoundException ('Cus is not exist')
+  async delete(MAKH: string) {
+    const customer = await this.findById(MAKH);
 
-    return this.customerRepo.update(MAKH, body)
-   }
+    if (!customer) throw new NotFoundException("Customer is not exist");
 
-   async delete (MAKH: string) {
-    const customer = await this.findById(MAKH)
-
-    if(!customer) throw new NotFoundException('Customer is not exist')
-
-    return this.customerRepo.remove(customer)
-   }
+    return this.customerRepo.remove(customer);
+  }
 }

@@ -11,10 +11,9 @@ import Paypal from "../../components/Paypal";
 import { Button } from "@mui/material";
 import { Table, TableRow } from "@mui/material";
 import * as moment from "moment";
-import {
-  getAccessTokenFromLocalStorage,
-  getUserProfileFromLS,
-} from "../../helper/accessToken";
+import { getUserProfileFromLS } from "../../helper/accessToken";
+import { createPhieuDat } from "../../services/Phieudat";
+import { checkKm, checkPrice, toDecimal } from "../../helper/convertPrice";
 
 export default class Body extends Component {
   constructor(props) {
@@ -24,25 +23,78 @@ export default class Body extends Component {
       products: [],
       payment: 0,
       customer: JSON.parse(getUserProfileFromLS()),
+      data: {
+        HONN: "",
+        TENNN: "",
+        DIACHINN: "",
+        SDTNN: "",
+        GHICHU: "",
+        TRANGTHAI: "CHUA_DUYET",
+        MANVD: "",
+        MANVGH: "",
+        MAKH: "",
+        CTPDS: [],
+      },
     };
   }
   componentDidMount() {
     const cartsT = JSON.parse(getListCartItemsFromLocalStorage());
     this.setState({ carts: cartsT });
     let productsT = [];
-    this.state.carts.map((cur) => {
+    cartsT.map((cur) => {
       GetProductById(cur.productId)
         .then((res) => {
+          //console.log(res.data)
           productsT.push(res.data);
         })
         .catch((err) => console.log(err));
     });
     this.setState({ products: productsT });
+
+    let listCTPDstemp = [];
+
+    cartsT.map((cur) => {
+      let CTPDtemp = {};
+      CTPDtemp.MADONG = cur.productId;
+      CTPDtemp.SOLUONG = cur.quantity;
+      GetProductById(cur.productId)
+        .then((res) => {
+          let price = checkPrice(res.data.changeprices);
+          let promoPrice =
+            checkPrice(res.data.changeprices) *
+            toDecimal(checkKm(res.data.ct_khuyenmais));
+          let totalTemp = price - promoPrice;
+          CTPDtemp.GIA = totalTemp * cur.quantity;
+        })
+        .catch((err) => console.log(err));
+      listCTPDstemp.push(CTPDtemp);
+    });
+
+    this.setState({
+      data: {
+        HONN: this.state.customer.HO,
+        TENNN: this.state.customer.TEN,
+        DIACHINN: this.state.customer.DIACHI,
+        SDTNN: this.state.customer.SDT,
+        GHICHU: "",
+        TRANGTHAI: "CHUA_DUYET",
+        MANVD: "",
+        MANVGH: "",
+        MAKH: this.state.customer.MAKH,
+        CTPDS: listCTPDstemp,
+      },
+    });
   }
 
   handleChange = (e) => {
     this.setState({ payment: e.target.value });
   };
+  
+  handleName = (e) => {
+    let ho = e.target.value.trim().split(' ').slice(0, -1).join(' ')
+    let ten = e.target.value.trim().split(' ').slice(-1).join(' ')
+    this.setState({data:{ ...this.state.data,HONN: ho, TENNN: ten} })
+  }
 
   checkPaypalState = (e) => {
     if (this.state.payment === 1) {
@@ -50,11 +102,12 @@ export default class Body extends Component {
     } else return <></>;
   };
 
-  async checkout() {
-    console.log(moment(new Date()).format("YYYY-MM-DD"));
-    //goi api de tao phieu dat = tat ca data trong gio hang
-    //const data = await createPhieuDat()
-  }
+  checkout = () => {
+    //console.log(moment(new Date()).format("YYYY-MM-DD"));
+    //console.log("data", this.state.data);
+    createPhieuDat(this.state.data);
+    console.log("confirm");
+  };
   render() {
     return (
       <>
@@ -80,6 +133,7 @@ export default class Body extends Component {
                           InputProps={{
                             name: "Email",
                           }}
+                          onChange={(e) => this.handleName(e)}
                         />
                       </FormControl>
                       <FormControl fullWidth>
@@ -89,6 +143,7 @@ export default class Body extends Component {
                           InputProps={{
                             name: "Email",
                           }}
+                          onChange={(e) => this.setState({data:{ ...this.state.data,SDT: e.target.value} })}
                         />
                       </FormControl>
                       <FormControl fullWidth>
@@ -98,6 +153,7 @@ export default class Body extends Component {
                           InputProps={{
                             name: "Email",
                           }}
+                          onChange={(e) => this.setState({data:{ ...this.state.data,EMAIL: e.target.value} })}
                         />
                       </FormControl>
                       <FormControl fullWidth>
@@ -107,6 +163,20 @@ export default class Body extends Component {
                           InputProps={{
                             name: "Email",
                           }}
+                          onChange={(e) => this.setState({data:{ ...this.state.data,DIACHI: e.target.value} })}
+                        />
+                      </FormControl>
+                      <FormControl fullWidth>
+                        <TextField
+                          label="Ghi chú"
+                          defaultValue={""}
+                          placeholder="MultiLine with rows: 2 and rowsMax: 4"
+                          multiline
+                          rows={3}
+                          InputProps={{
+                            name: "Email",
+                          }}
+                          onChange={(e) => this.setState({data:{ ...this.state.data,GHICHU: e.target.value} })}
                         />
                       </FormControl>
                       <p style={{ marginTop: "10px" }}>

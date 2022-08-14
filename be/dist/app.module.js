@@ -47,7 +47,7 @@ AppModule = __decorate([
                 username: 'root',
                 password: 'billybua7',
                 database: 'banruou',
-                entities: ["dist/**/*.entity.js"],
+                entities: ['dist/**/*.entity.js'],
             }),
             staff_module_1.StaffModule,
             customer_module_1.CustomerModule,
@@ -73,7 +73,8 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService,
+        providers: [
+            app_service_1.AppService,
             {
                 provide: core_1.APP_GUARD,
                 useClass: roles_guard_1.RolesGuard,
