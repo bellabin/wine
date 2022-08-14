@@ -27,11 +27,11 @@ export class AuthService {
 
       if (!staff && !customer) throw new NotFoundException('User not found')
 
-      if (!compareSync(PASSWORD, staff.PASSWORD || customer.PASSWORD)) throw new NotFoundException('Login failed')
-      
+      if (!compareSync(PASSWORD, staff?.PASSWORD || customer?.PASSWORD)) throw new NotFoundException('Login failed')
+
       const response = {
         accessToken: this.jwtService.sign({
-          userId: staff.MANV || customer.MAKH,
+          userId: staff?.MANV || customer?.MAKH,
           role: staff ? 'staff' : 'customer'
         }),
         role: staff ? 'staff' : 'customer'

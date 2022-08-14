@@ -55,6 +55,7 @@ export class CustomerService {
 
       return customer;
     } catch (error) {
+			console.error(error);
       throw new ConflictException(error.response);
     }
   }
