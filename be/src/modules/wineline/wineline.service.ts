@@ -65,11 +65,11 @@ export class WinelineService {
         INNER JOIN (
             SELECT * 
             FROM phieudat p
-            -- WHERE p.NGAYDAT >= (curdate() - INTERVAL 30 DAY)
+            -- WHERE p.NGAYDAT >= (curdate() - INTERVAL 180 DAY)
         ) p ON cp.MAPD = p.MAPD
         INNER JOIN dongruou d on cp.MADONG = d.MADONG and d.SOLUONGTON > 0
         GROUP BY cp.MADONG
-        ORDER BY so_luong_ban DESC LIMIT 10
+        ORDER BY so_luong_ban DESC LIMIT 5
         `)
     }
 

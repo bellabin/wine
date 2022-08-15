@@ -7,12 +7,21 @@ export default class HotProducts extends Component {
     super(props);
     this.state = {
       products: [],
-      hots: GetListHotProducts().then((res) => res.data),
     };
   }
 
   componentDidMount() {
-    console.log(this.state.hots)
+    let listTemp = []
+    GetListHotProducts()
+      .then((res) => {
+        res.data.map(cur => {
+          GetProductById(cur.MADONG).then(res => {
+            listTemp.push(res.data)
+          })
+        })
+      })
+      .catch((err) => console.log(err));
+    this.setState({products: listTemp})
   }
 
   render() {
