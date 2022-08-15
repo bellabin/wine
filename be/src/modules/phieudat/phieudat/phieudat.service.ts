@@ -28,6 +28,16 @@ export class PhieudatService {
             relations: ['staff', 'customer','ct_phieudats','bill'],
           })
     }
+    findByState(TRANGTHAI: string){
+        // return this.phieudatRepo.query(`
+        // SELECT * FROM phieudat p 
+        // WHERE p.TRANGTHAI = '${TRANGTHAI}'
+        // `)
+        return this.phieudatRepo.find({
+            where:{TRANGTHAI:TRANGTHAI},
+            relations: ['staff', 'customer','ct_phieudats','bill'],
+        })
+    }
 
     async create(payload: CreatePhieudatDto) { //func handle create new pd
         const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save

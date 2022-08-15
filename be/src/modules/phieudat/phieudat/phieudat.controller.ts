@@ -3,6 +3,7 @@ import { CreatePhieudatDto } from '../dto/create-phieudat.dto';
 import { UpdatePhieudatDto } from '../dto/update-phieudat.dto';
 import { PhieudatService } from './phieudat.service';
 import { v4 as uuidv4 } from 'uuid';
+import { identity } from 'rxjs';
 
 @Controller('phieudat')
 export class PhieudatController {
@@ -18,6 +19,11 @@ export class PhieudatController {
     @Get(':id')
     findById(@Param('id') id: string) {
         return this.phieudatService.findById(id)
+    }
+
+    @Get('/state/:state')
+    findByState(@Param('state') state: string) {
+        return this.phieudatService.findByState(state)
     }
 
     @Post() //create new pd

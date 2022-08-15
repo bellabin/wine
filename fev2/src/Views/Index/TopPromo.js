@@ -13,18 +13,6 @@ export default class TopPromo extends Component {
   componentDidMount() {
     GetListTopPromo()
       .then((res) => {
-        // res.data.forEach(item => {
-        //     const { ct_khuyenmais } = item
-            
-        //     if (ct_khuyenmais && ct_khuyenmais.length) {
-        //         ct_khuyenmais.forEach(km => {
-        //             ///if(>=50)
-        //             const { wineline } = km
-        //             promo.push({...wineline, PHANTRAMGIAM: km.PHANTRAMGIAM})
-        //         })
-        //     }
-        // })
-
         this.setState({ promos: res.data });
       })
       .catch((err) => console.log(err));

@@ -215,7 +215,7 @@ export default class Body extends Component {
         
 
         
-        {/* <HotProducts/> */}
+        <HotProducts/>
        
 
         <TopPromo/>

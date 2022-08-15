@@ -1,9 +1,9 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-/be/dist/
+./be/dist
+./be/node_modules
+./be/yarn-error.log
+
+./fe/node_modules
+./fe/yarn-error.log
+
+./fe2/node_modules
+./fe2/yarn-error.log

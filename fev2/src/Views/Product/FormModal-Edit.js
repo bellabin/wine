@@ -63,10 +63,6 @@ export default class FormModalEditProduct extends React.Component {
                 MANCC: row.MANCC,
             }
         })
-        // this.setState({data: {SDT: row.SDT}})
-        // this.setState({data: {EMAIL: row.EMAIL}})
-        // this.setState({data: {DIACHI: row.DIACHI}})
-        // console.log('f',this.state.data.EMAIL)
 
 
     }

@@ -51,7 +51,7 @@ export default function DenseTable() {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">{row.MANV}</TableCell>
-                            <TableCell align="left">{row.HO + row.TEN}</TableCell>
+                            <TableCell align="left">{row.HO + ' ' + row.TEN}</TableCell>
                             <TableCell align="left">{row.DIACHI}</TableCell>
                             <TableCell align="left">{row.EMAIL}</TableCell>
                             <TableCell align="left">{row.SDT}</TableCell>

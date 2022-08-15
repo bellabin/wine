@@ -30,12 +30,28 @@ export const CustomCardProduct = (props) => {
     backgroundColor: "rgb(165, 29, 42)"
   }
 
+  // const checkIfPromo = (phantram) => {
+
+  // }
+
   return (
       <div className="col-md-4">
-        <figure className="card card-product-grid">
-          <div className="img-wrap">
-            <span style={styleBadge}>{checkKm(props.data.ct_khuyenmais)}</span>
-            <Link to={KeyNavigate.Detail.concat('/').concat(props.data.MADONG)}><img src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} width={"100%"} height={"auto"}/></Link>
+        <figure className="card card-product-grid" >
+          <div className="img-wrap" >
+            {(checkKm(props.data.ct_khuyenmais) !== '0%') ?  
+              <span style={styleBadge}>- {checkKm(props.data.ct_khuyenmais)}</span> : null}
+            <Link to={KeyNavigate.Detail.concat('/').concat(props.data.MADONG)}>
+            {(checkKm(props.data.ct_khuyenmais) !== '0%') ?  
+            <img 
+              src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} 
+              width={"100%"} height={"auto"}
+              /> : <img 
+              src={"../../../".concat(props.data.HINHANH && props.data.HINHANH)} 
+              width={"100%"} height={"auto"}
+              style={{marginTop:'24px'}}
+              />}
+            
+              </Link>
           </div>
           <figcaption className="info-wrap">
             <div className="fix-height">
@@ -52,8 +68,9 @@ export const CustomCardProduct = (props) => {
                             checkPrice(props.data.changeprices && props.data.changeprices ),
                             convertKm(props.data.ct_khuyenmais)/100 || 0
                           )}$</span>
+                {(checkKm(props.data.ct_khuyenmais) !== '0%') ?  
                 <del className="price-old" style={{marginLeft: 10}}>
-                  {fixedPrice(checkPrice(props.data.changeprices))}$</del>
+                  {fixedPrice(checkPrice(props.data.changeprices))}$</del> : null}
               </div>
             </div>
             <a className="btn btn-block btn-primary" onClick={() => addToCart(props.data.MADONG, checkPrice(props.data.changeprices))}>Add to cart </a>

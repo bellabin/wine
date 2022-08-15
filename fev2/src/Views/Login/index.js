@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import Button from '@mui/material/Button';
-import { Link, Routes } from 'react-router-dom';
-import { KeyNavigate } from '../../helper/KeyNavigate';
-import { LoginCustomer } from '../../services/Customer';
-import { useNavigate } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { loginUser } from '../../services/Customer';
+import { addAccessTokenToLocalStorage, addUserProfileToLS } from '../../helper/accessToken';
+import { GetCustomerById } from '../../services/Customer';
+import jwt from 'jwt-decode' 
 
 export default class Login extends Component {
     constructor(props) {
@@ -26,10 +24,25 @@ export default class Login extends Component {
             USERNAME: this.state.username,
             PASSWORD: this.state.password,
         }
-        console.log('payload', payload);
-        const res = await LoginCustomer(payload)
-        if(!res) this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})
-        window.location.href= '/'
+        
+        await loginUser(payload).then(response => {
+            if(response.status === 201) {
+              
+                addAccessTokenToLocalStorage(response.data.accessToken)
+                const tokenDecode = jwt(response.data.accessToken)
+                GetCustomerById(tokenDecode.userId).then(res => {
+                    
+                    addUserProfileToLS(res.data)
+                })
+
+                window.location.href='/'
+            //   <Link to={KeyNavigate.Layout}></Link>
+                                
+
+            }
+          },reason => {
+            this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})
+          })
     }
 
     

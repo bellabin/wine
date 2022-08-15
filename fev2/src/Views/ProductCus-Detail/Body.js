@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { KeyNavigate } from "../../helper/KeyNavigate";
 import { GetProductById } from "../../services/Product";
-import { addCartItemToLocalStorage } from "../../helper/addToCart";
+import { addCartItemToLocalStorage, getListCartItemsFromLocalStorage } from "../../helper/addToCart";
 import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA, checkRating} from "../../helper/convertPrice";
 
 
@@ -15,6 +15,7 @@ export default class BodyProductDetail extends Component {
       oldPrice:0,
       newPrice:0,
       rating:0,
+      error:'',
     }
   }
   
@@ -38,8 +39,21 @@ export default class BodyProductDetail extends Component {
   };
 
   handleClick = () => {
+    let carts = JSON.parse(getListCartItemsFromLocalStorage())
+    let quantityProductInCart = 0
+    carts.map(cur => {
+      if(cur.productId == this.state.product.MADONG){
+        quantityProductInCart = cur.quantity
+      }
+    })
     let currentQuantity = this.state.quantity
-    this.addToCart(this.state.product.MADONG, this.state.product.GIA, currentQuantity)
+    if(currentQuantity > (this.state.product.SOLUONGTON - quantityProductInCart)){
+      //console.log('vuot qua so luong')
+      this.setState({error: 'Số lượng hàng còn lại không đủ'})
+      
+      
+    }
+    else this.addToCart(this.state.product.MADONG, this.state.product.GIA, currentQuantity)
   }
 
   handleClickMinus = () => {
@@ -97,9 +111,8 @@ export default class BodyProductDetail extends Component {
                       
                     </div>
                     <div className="price">
-                      {/* {console.log(this.state.product.changeprices)} */}
                       <h4 width={'50px'}>Giá: ${this.state.newPrice}
-                          <del> ${this.state.oldPrice} </del>
+                          {(this.state.newPrice !== this.state.oldPrice) ? <del> ${this.state.oldPrice} </del> : null}
                       </h4>
                       <p id="priceProduct"></p>
                     </div>
@@ -124,6 +137,7 @@ export default class BodyProductDetail extends Component {
                         Thêm vào giỏ
                       </a>
                     </div>
+                    {this.state.error ? <p style={{ color: "red" }}>{this.state.error}</p> : null}
                   </div>
                 </div>
               </div>

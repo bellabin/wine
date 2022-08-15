@@ -37,7 +37,7 @@ import { RolesGuard } from './modules/auth/guards/roles.guard'
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'billybua7',
       database: 'banruou',
       entities: ['dist/**/*.entity.js'],
     }),

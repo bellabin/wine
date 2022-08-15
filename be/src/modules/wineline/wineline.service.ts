@@ -59,7 +59,18 @@ export class WinelineService {
     }
 
     async getHotProducts() {
-        return this.winelineRepo.query(HotProductQuery)
+        return this.winelineRepo.query(`
+        SELECT sum(cp.SOLUONG) as so_luong_ban, cp.MADONG ,  d.TENDONG , d.HINHANH 
+        FROM ct_phieudat cp
+        INNER JOIN (
+            SELECT * 
+            FROM phieudat p
+            -- WHERE p.NGAYDAT >= (curdate() - INTERVAL 180 DAY)
+        ) p ON cp.MAPD = p.MAPD
+        INNER JOIN dongruou d on cp.MADONG = d.MADONG and d.SOLUONGTON > 0
+        GROUP BY cp.MADONG
+        ORDER BY so_luong_ban DESC LIMIT 5
+        `)
     }
 
 

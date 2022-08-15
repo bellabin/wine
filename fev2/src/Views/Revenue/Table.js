@@ -7,9 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
-
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { findByState } from "../../services/Phieudat";
 
 import {
   GetListProduct,
@@ -29,6 +31,7 @@ export default function DenseTable() {
   const [toTime, setToTime] = React.useState(new Date());
   const [stt, setStt] = useState(1);
   const [listRev, setListRev] = useState([]);
+  const [state,setState] = useState('TAT_CA');
 
   const handleFromTime = (time) => {
     setFromTime(time);
@@ -39,17 +42,28 @@ export default function DenseTable() {
     //console.log(toTime)
   };
 
+  
+
   const handleRev = (fromTime, toTime) => {
     const vFromTime = moment(fromTime).format("YYYY-MM-DD");
     const vToTime = moment(toTime).format("YYYY-MM-DD");
     setStt(1);
+    let count = 1
+    let listTemp = []
     GetListRevProduct(vFromTime, vToTime).then((res) => {
-      res.data.stt = stt
-      setListRev(res.data);
-      setStt(stt++)
+      res.data.map(cur => {
+        cur.stt = count
+        count++
+        listTemp.push(cur)
+      })
+      
+      setListRev(listTemp);
     });
+
     
     
+    console.log('temp',listTemp)
+       
   };
   return (
     <>
@@ -76,6 +90,7 @@ export default function DenseTable() {
           >
             Lọc
           </Button>
+          
         </LocalizationProvider>
       </Box>
       <TableContainer component={Paper} style={{ marginTop: "20px" }}>
@@ -95,25 +110,25 @@ export default function DenseTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-          {listRev.map((item) => (
+            {listRev.map((item) => (
               <TableRow>
+              
                 <TableCell style={{ width: "10%" }}>{item.stt}</TableCell>
                 <TableCell style={{ width: "35%" }} align="left">
                   {item.TENDONG}
                 </TableCell>
                 <TableCell style={{ width: "40%" }} align="left">
-                <img
-                        src={"../../../".concat(item.HINHANH)}
-                        width={"18%"}
-                        height={"auto"}
-                      />
+                  <img
+                    src={"../../../".concat(item.HINHANH)}
+                    width={"18%"}
+                    height={"auto"}
+                  />
                 </TableCell>
                 <TableCell style={{ width: "15%" }} align="left">
                   {item.so_luong_ban}
                 </TableCell>
               </TableRow>
-            )
-          )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

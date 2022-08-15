@@ -135,6 +135,7 @@ export default class Section extends Component {
                       </TableRow>
                     </Table>
                   </TableContainer>
+                  
                 </div>
               </div>
             </div>
