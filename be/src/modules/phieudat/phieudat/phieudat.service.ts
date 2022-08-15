@@ -29,8 +29,12 @@ export class PhieudatService {
           })
     }
     findByState(TRANGTHAI: string){
+        // return this.phieudatRepo.query(`
+        // SELECT * FROM phieudat p 
+        // WHERE p.TRANGTHAI = '${TRANGTHAI}'
+        // `)
         return this.phieudatRepo.find({
-            where:{TRANGTHAI: TRANGTHAI},
+            where:{TRANGTHAI:TRANGTHAI},
             relations: ['staff', 'customer','ct_phieudats','bill'],
         })
     }

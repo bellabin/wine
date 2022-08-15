@@ -112,7 +112,6 @@ export default class BodyProductDetail extends Component {
                     </div>
                     <div className="price">
                       <h4 width={'50px'}>Giá: ${this.state.newPrice}
-                          
                           {(this.state.newPrice !== this.state.oldPrice) ? <del> ${this.state.oldPrice} </del> : null}
                       </h4>
                       <p id="priceProduct"></p>
