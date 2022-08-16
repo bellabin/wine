@@ -4,10 +4,10 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { CustomCard } from "./Card"
 
-const CustomeSlider = (props) => {
+const CustomeSlider2 = (props) => {
 
   const settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -18,6 +18,7 @@ const CustomeSlider = (props) => {
     cssEase: "linear",
     centerPadding: 30,
   };
+  
 
   return (
     <Slider {...settings}>
@@ -31,4 +32,4 @@ const CustomeSlider = (props) => {
   )
 };
 
-export default CustomeSlider;
+export default CustomeSlider2;

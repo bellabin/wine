@@ -1,75 +1,36 @@
 import React, { Component } from "react";
 import HotProducts from "./HotProducts";
 import TopPromo from "./TopPromo";
+import { GetListHotProducts, GetProductById } from "../../services/Product";
+
 
 export default class Body extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hotproducts: undefined,
+      isFetching: false,
+    };
+  }
+
+  componentDidMount() {
+    let listTemp = []
+    GetListHotProducts()
+      .then((res) => {
+        res.data.map(cur => {
+          GetProductById(cur.MADONG).then(res => {
+            listTemp.push(res.data)
+          })
+        })
+      })
+      .catch((err) => console.log(err));
+    this.setState({hotproducts: listTemp})
+    this.setState({dataIsReturned:true})
+  }
   render() {
     return (
       <main id="main">
-        {/* <div className="types">
-          <div className="container">
-            <div className="Liquor">
-              <a href="">
-                <img
-                  src="/img/wine-content1.jpg"
-                  width="200"
-                  height="400"
-                  alt=""
-                />
-              </a>
-              <div className="content">
-                <h1>Liquor</h1>
-                <span className="amounts">11 items</span>
-              </div>
-            </div>
-
-            <div className="Wine">
-              <a href="">
-                <img
-                  src="/img/wine-content3.jpg"
-                  width="200"
-                  height="400"
-                  alt=""
-                />
-              </a>
-              <div className="content">
-                <h1>Wine</h1>
-                <span className="amounts">11 items</span>
-              </div>
-            </div>
-
-            <div className="Beer">
-              <a href="">
-                <img
-                  src="/img/wine-content2.jpg"
-                  width="200"
-                  height="400"
-                  alt=""
-                />
-              </a>
-              <div className="content">
-                <h1>Beer</h1>
-                <span className="amounts">11 items</span>
-              </div>
-            </div>
-
-            <div className="Accessories">
-              <a href="">
-                <img
-                  src="/img/wine-content4.jpg"
-                  width="200"
-                  height="400"
-                  alt=""
-                />
-              </a>
-              <div className="content">
-                <h1>Accessories</h1>
-                <span className="amounts">11 items</span>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
+        
         {/* <!-- Brand Start --> */}
         <div className="brand">
           <div className="container-fluid">
@@ -215,7 +176,7 @@ export default class Body extends Component {
         
 
         
-        <HotProducts/>
+        {(this.state.dataIsReturned !== false) ? <HotProducts data={this.state.hotproducts}/> : <h1>Loading</h1> }
        
 
         <TopPromo/>

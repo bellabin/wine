@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA} from "../helper/convertPrice";
+import { KeyNavigate } from "../helper/KeyNavigate";
 import { addCartItemToLocalStorage } from "../helper/addToCart"
 
 
@@ -15,13 +17,21 @@ export const CustomCard = (props) => {
 
   return (
     <Card sx={{ minWidth: 275 }}>
+      <Link to={KeyNavigate.Detail.concat('/').concat(props.data.MADONG)}>
       <CardContent>
         <Typography
           sx={{ fontSize: props.fontSize || 14 }}
           color="text.secondary"
           gutterBottom
         >
-          {checkKm(props.data.ct_khuyenmais)}
+          {/* {checkKm(props.data.ct_khuyenmais)} */}
+          {(checkKm(props.data.ct_khuyenmais) !== '0%') ? '-'.concat(checkKm(props.data.ct_khuyenmais)) : 
+          <Typography
+          sx={{ fontSize: props.fontSize || 14 }}
+          style={{color:'#FFFFFF'}}
+          gutterBottom
+        >j</Typography> }
+
         </Typography>
 
         <Typography
@@ -48,8 +58,13 @@ export const CustomCard = (props) => {
           )}
           $
         </Typography>
+        {(checkKm(props.data.ct_khuyenmais) !== '0%') ? 
         <del>{fixedPrice(checkPrice(props.data.changeprices) && checkPrice(props.data.changeprices))}$</del>
+         : 
+        <del style={{color:'#FFFFFF'}}>{fixedPrice(checkPrice(props.data.changeprices) && checkPrice(props.data.changeprices))}$</del>
+         }
       </CardContent>
+      </Link>
       <CardActions>
         <Button size="small" onClick={() => addToCart(props.data.MADONG, checkPrice(props.data.changeprices))}>
           Add to cart

@@ -99,7 +99,7 @@ export default class BodyProductDetail extends Component {
                 <div className="col-md-7">
                   <div className="product-content">
                     <div className="title">
-                      <h2 id="nameProduct"></h2>
+                      <h2 id="nameProduct">{this.state.product.TENDONG}</h2>
                     </div>
                     <div className="ratting">
                       <i className="fa fa-star"></i>
@@ -117,7 +117,7 @@ export default class BodyProductDetail extends Component {
                       <p id="priceProduct"></p>
                     </div>
                     <div className="quantity">
-                      <h4>Số lượng:</h4>
+                      <h4 style={{fontSize:'1em'}}>Số lượng:</h4>
                       <div className="qty">
                         <button className="btn-minus" onClick={this.handleClickMinus}>
                           <i className="fa fa-minus"></i>

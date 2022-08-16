@@ -10,8 +10,8 @@ export default class TopPromo extends Component {
     };
   }
 
-  componentDidMount() {
-    GetListTopPromo()
+  async componentDidMount() {
+    await GetListTopPromo()
       .then((res) => {
         this.setState({ promos: res.data });
       })
