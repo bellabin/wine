@@ -3,72 +3,38 @@ import {
   PayPalButtons,
   usePayPalScriptReducer
 } from "@paypal/react-paypal-js";
-import { PayPalScriptOptions, PayPalButtonsComponentProps} from "@paypal/paypal-js";
+import { useEffect, useState } from "react";
+import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
+import { getTotal } from "../services/Phieudat";
 
-const paypalScriptOptions: PayPalScriptOptions = {
-  "client-id":
-      "AaaFcJt0sRvpH2wvW0ZvhaD2myM0PpZyEAM4vzamKXoWRAOyuIgkNXXKOKRJpAa4ACvjTiuWwF714d3_",
+const paypalScriptOptions = {
+  "client-id": "AeMSCBo543IZhLXERfPVLZ5fyuYvpZ4OrgzbiKAfSsjY25sVg9jkXFVIY6_R9Qo-Ef-haY4rZAIIrxZG",
+  // secret: "EGslr3PrO-xVBffuxgSyG9vsV_rDN-JaBDIo8cuKFKswBIQGWoGfalbE0Dm7pDw-01La_7tDJcBZV5hV",
   currency: "USD"
 };
-function Button() {
-  /**
-   * usePayPalScriptReducer use within PayPalScriptProvider
-   * isPending: not finished loading(default state)
-   * isResolved: successfully loaded
-   * isRejected: failed to load
-   */
+
+function Button(props) {
+  const [purchaseUnits, setPurchaseUnits] = useState([
+    {
+      amount: {
+        value: props.total.toString(), // value phai = tong tat cả value trong breakdown
+        currency_code: "USD",
+      },
+      items: [ // sau nay thay bang list product khi thanh toan  
+      ],
+    }
+  ])
+
   const [{ isPending }] = usePayPalScriptReducer();
-  const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
+
+  const paypalbuttonTransactionProps = {
     style: { layout: "vertical" },
     createOrder(data, actions) { // ham nay goi khi bam vao nut pop up Paypal
       return actions.order.create({
-        purchase_units: [
-          {
-            amount: {
-              value: "25", // value phai = tong tat cả value trong breakdown
-              breakdown: {
-                item_total: { // item_total phai = unit_amount * quantity trong tat ca item
-                  currency_code: "USD",
-                  value: "22"
-                },
-                shipping: {
-                  currency_code: "USD",
-                  value: "3"
-                }
-              }
-            },
-            items: [ // sau nay thay bang list product khi thanh toan
-              {
-                name: "TEST_NAME",
-                unit_amount: {
-                  currency_code: "USD",
-                  value: "6"
-                },
-                quantity: "1",
-              },
-              {
-                name: "TEST_NAME_1",
-                unit_amount: {
-                  currency_code: "USD",
-                  value: "8"
-                },
-                quantity: "2",
-              }
-            ],
-          }
-        ]
+        purchase_units: purchaseUnits     
       });
     },
     onApprove(data, actions) { // ham nay goi khi thanh toan thanh cong
-      /**
-       * data: {
-       *   orderID: string;
-       *   payerID: string;
-       *   paymentID: string | null;
-       *   billingToken: string | null;
-       *   facilitatorAccesstoken: string;
-       * }
-       */
       return actions.order.capture({}).then((details) => {
         alert(
             "Transaction completed by" +
@@ -78,11 +44,36 @@ function Button() {
         alert("Data details: " + JSON.stringify(data, null, 2));
       });
     },
-    onError(err: Record<string, unknown>) { // ham nay goi khi thanh toan loi
+    onError(err) { // ham nay goi khi thanh toan loi
       console.log('error paypal', err.toString())
       alert("The Transaction has error!!!!")
     }
   };
+
+  useEffect(() => {
+    const items = []
+    const carts = props.carts
+    if (carts && carts.length) {
+      for (const cart of carts) {
+        const item = {
+          name: cart?.MADONG,
+          unit_amount: {
+            currency_code: "USD",
+            value: cart?.GIA
+          },
+          quantity: cart?.SOLUONG,
+        }
+
+        items.push(item)
+      }
+
+      purchaseUnits[0].items = items
+
+      setPurchaseUnits(purchaseUnits)
+      console.log(purchaseUnits)
+    }
+  }, [purchaseUnits, props.carts])
+
   return (
       <>
         {isPending ? <h2>Load Smart Payment Button...</h2> : null}
@@ -91,10 +82,18 @@ function Button() {
   );
 }
 export default function Paypal() {
+  const [carts, setCarts] = useState([])
+  const [total, setTotal] = useState()
+
+  useEffect(() => {
+    setCarts(getListCartItemsFromLocalStorage())
+    getTotal().then(res => setTotal(res.data.totals))
+  }, [carts, total])
+
   return (
       <div style={{textAlign: "center"}}>
         <PayPalScriptProvider options={paypalScriptOptions}>
-          <Button />
+          <Button total={total} carts={carts}/>
         </PayPalScriptProvider>
       </div>
   );

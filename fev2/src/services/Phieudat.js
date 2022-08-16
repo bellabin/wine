@@ -28,3 +28,7 @@ export const createPhieuDat = (data) => {
 export const findByState = (TRANGTHAI) => {
   return HttpService.get('phieudat/state/'.concat(TRANGTHAI))
 }
+
+export const getTotal = (data) => {
+  return HttpService.post('phieudat/getTotal', { totals: data })
+}

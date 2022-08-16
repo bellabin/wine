@@ -1,9 +1,1 @@
-./be/dist
-./be/node_modules
-./be/yarn-error.log
-
-./fe/node_modules
-./fe/yarn-error.log
-
-./fe2/node_modules
-./fe2/yarn-error.log
+yarn-error.log
