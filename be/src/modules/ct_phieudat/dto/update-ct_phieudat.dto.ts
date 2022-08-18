@@ -14,18 +14,4 @@ export class UpdateCtPhieudatDto {
     @IsOptional()
     GIA!: number
 
-    @ApiProperty()
-    @IsString()
-    @IsOptional()
-    TRANGTHAI!: string
-
-    @ApiProperty()
-    @IsString()
-    @IsOptional()
-    MANVDH!: string
-
-    @ApiProperty()
-    @IsString()
-    @IsOptional()
-    MANVGH!: string
 }

@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { CreatePhieudatDto } from '../dto/create-phieudat.dto';
 import { UpdatePhieudatDto } from '../dto/update-phieudat.dto';
 import { PhieudatService } from './phieudat.service';
 import { v4 as uuidv4 } from 'uuid';
-import { identity } from 'rxjs';
+import { CtPhieudat } from 'src/modules/ct_phieudat/entities/ct_phieudat.entity';
+import { GetTotalDto } from '../dto/get-total.dto';
 
 @Controller('phieudat')
 export class PhieudatController {
@@ -43,5 +44,13 @@ export class PhieudatController {
         return this.phieudatService.delete(id)
     }
 
-    
+    @Post('total')
+		getTotal(@Body() getTotalDto: GetTotalDto) {
+			return this.phieudatService.getTotal(getTotalDto)
+		}
+
+    @Get('list/:from,:to')
+    getPdFromTo(@Param('from') from: string, @Param('to')to: string){
+        return this.phieudatService.getListPdFromTo(from,to)
+    }
 }

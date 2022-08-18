@@ -19,11 +19,5 @@ export class CreateCtPhieudatDto {
     @IsNumber()
     GIA!: number
 
-    @ApiProperty()
-    @IsString()
-    MANVD!: string
-
-    @ApiProperty()
-    @IsString()
-    MANVGH?: string
+    
 }

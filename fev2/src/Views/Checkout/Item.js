@@ -114,7 +114,7 @@ export default class Item extends Component {
         <TableCell>{(this.state.price - this.state.promoPrice).toFixed(2)} $</TableCell>
         <TableCell>
           
-          <p>{this.state.curQuantity}</p>
+          {this.state.curQuantity}
           
           </TableCell>
         <TableCell>

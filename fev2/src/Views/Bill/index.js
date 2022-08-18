@@ -7,22 +7,36 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { GetListPD } from '../../services/Bill';
+import { findByState } from "../../services/Phieudat";
+
 
 export default class Bill extends Component {
   constructor (props) {
     super(props)
     this.state={
       filter:'ALL',
+      listPds: []
     }
   }
+
+  componentDidMount() {
+    GetListPD().then(res => {
+      this.setState({listPds: res.data})
+    })
+  }
+
   handleChange = (e) => {
-    console.log('loop')
-    this.setState({filter: e.target.value})
+    findByState(e.target.value).then(res => {
+      this.setState({listPds: res.data})
+      this.setState({filter: e.target.value})
+    })
   }
   onCreate = () => {
     this.refModal?.open()
     //this.refModal.Create()
   }
+  
   render() {
     return (
       <div className='container'>
@@ -53,7 +67,8 @@ export default class Bill extends Component {
         </div>
         <div className='row mt-2'>
           <div className='col-12'>
-            <Table filter={this.state.filter}/>
+          {/* {console.log('in',this.state.filter, this.state.listPds)} */}
+            <Table list={this.state.listPds}/>
           </div>
         </div>
       </div>

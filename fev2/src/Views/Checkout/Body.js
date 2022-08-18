@@ -22,6 +22,7 @@ export default class Body extends Component {
       carts: [],
       products: [],
       payment: 0,
+      total:0,
       customer: JSON.parse(getUserProfileFromLS()),
       data: {
         HONN: "",
@@ -55,6 +56,7 @@ export default class Body extends Component {
     this.setState({ products: productsT });
 
     let listCTPDstemp = [];
+    let totalAmountTemp = 0;
 
     cartsT.map((cur) => {
       let CTPDtemp = {};
@@ -68,10 +70,15 @@ export default class Body extends Component {
             toDecimal(checkKm(res.data.ct_khuyenmais));
           let totalTemp = price - promoPrice;
           CTPDtemp.GIA = totalTemp * cur.quantity;
+          totalAmountTemp += totalTemp * cur.quantity;
+          // console.log(totalAmountTemp)
+          this.setState({ total: totalAmountTemp.toFixed(2) });
+
         })
         .catch((err) => console.log(err));
       listCTPDstemp.push(CTPDtemp);
     });
+
 
     this.setState({
       data: {
@@ -101,7 +108,7 @@ export default class Body extends Component {
 
   checkPaypalState = (e) => {
     if (this.state.payment === 1) {
-      return <Paypal></Paypal>;
+      return <Paypal total={this.state.total}></Paypal>;
     } else return <></>;
   };
 
@@ -203,6 +210,7 @@ export default class Body extends Component {
                           <MenuItem value={1}>Paypal</MenuItem>
                         </Select>
                       </FormControl>
+                      
                       {this.checkPaypalState()}
                     </Box>
                     <Table style={{ marginTop: "20px" }}>

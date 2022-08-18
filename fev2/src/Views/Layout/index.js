@@ -61,17 +61,14 @@ export default class LayoutAdmin extends Component {
 
 
 
-                {/* <!-- Breadcrumb Start --> */}
-                <div className="breadcrumb-wrap">
+                {/* <div className="breadcrumb-wrap">
                     <div className="container-fluid">
                         <ul className="breadcrumb">
-                            {/* <!-- <li className="breadcrumb-item"><a href="#">Trang chủ</a></li> --> */}
                             <li className="breadcrumb-item active">Quản trị</li>
-                            <li className="breadcrumb-item active">Admin {/*<%=user.ho%><%=user.ten%>*/}</li>
+                            <li className="breadcrumb-item active">Admin </li>
                         </ul>
                     </div>
-                </div>
-                {/* <!-- Breadcrumb End --> */}
+                </div> */}
 
                 {/* <!-- My Account Start --> */}
                 {/* <!-- My Account Start --> */}

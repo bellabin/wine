@@ -7,7 +7,9 @@ import { CtPhieudat } from './entities/ct_phieudat.entity';
 
 @Injectable()
 export class CtPhieudatService {
+
   @InjectRepository(CtPhieudat) private ctphieudatRepo: Repository <CtPhieudat>
+  
   async create(payload: CreateCtPhieudatDto) { //func handle create new ctpd
     const ct_phieudat = this.ctphieudatRepo.create(payload) //create nhung chua duoc save
 
@@ -49,6 +51,18 @@ export class CtPhieudatService {
     return this.ctphieudatRepo.remove(ct_phieudat)
   }
 
+  async getTotalRev(from:string,to:string) {
+    return this.ctphieudatRepo.query(`
+    SELECT sum(cp.GIA) as gia 
+    FROM ct_phieudat cp
+    INNER JOIN (
+      SELECT * 
+      FROM phieudat p
+      WHERE p.NGAYDAT >= '${from}' AND p.NGAYDAT <= '${to}'
+    ) p ON cp.MAPD = p.MAPD
+    `)
+  }
+
   async getRevenueProduct(from: string, to: string){
     return this.ctphieudatRepo.query(`
     SELECT sum(cp.SOLUONG) as so_luong_ban, cp.MADONG ,  d.TENDONG , d.HINHANH 
@@ -63,6 +77,18 @@ export class CtPhieudatService {
     ORDER BY so_luong_ban DESC  
     `)
     
-}
+  }
+
+  async getTotalIncomeFromTo(from: string, to: string) {
+    return this.ctphieudatRepo.query(`
+    SELECT sum(cp.GIA) as gia 
+    FROM ct_phieudat cp
+    INNER JOIN (
+      SELECT * 
+      FROM phieudat p
+      WHERE NGAYDAT >= '${from}' AND NGAYDAT <= '${to}'
+    ) p ON cp.MAPD = p.MAPD
+    `)
+  }
 }
 //.where('phieudat.NGAYDAT >= :from and phieudat.NGAYDAT <= :to', {from: from, to: to})

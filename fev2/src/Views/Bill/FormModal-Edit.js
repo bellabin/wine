@@ -15,6 +15,18 @@ import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import { useState, useEffect } from 'react'
 import { UpdateBillById } from '../../services/Bill';
+import { TextareaAutosize } from '@mui/material';
+import {
+    Table,
+    TableBody,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableContainer,
+} from "@mui/material";
+import Paper from "@mui/material/Paper";
+import Item from '../Checkout/Item';
+import ItemPd from './Item';
 
 
 export default class FormModalEditBill extends React.Component {
@@ -23,14 +35,20 @@ export default class FormModalEditBill extends React.Component {
         this.state = {
             open: false,
             data: {
-                MAHD:'',
-                NGAY: '',
-                THANHTIEN: '',
-                MASOTHUE: '',
-                MANV: '',
-                MAPD:'',
-
+                MAPD: '',
+                NGAYDAT: '',
+                HONN: '',
+                TENNN: '',
+                DIACHINN: '',
+                SDTNN: '',
+                GHICHU: '',
+                TRANGTHAI: '',
+                MANVD: '',
+                MANVGH: '',
+                MAKH: '',
             },
+            listCTPD: [],
+            total:0,
         }
     }
     Close = () => {
@@ -40,17 +58,28 @@ export default class FormModalEditBill extends React.Component {
         this.setState({ open: true })
     }
     Edit(row) {
-
+        let totalTemp = 0
+        row.ct_phieudats.map(cur => {
+            totalTemp += cur.GIA
+        })
+        this.setState({total:totalTemp.toFixed(2)})
 
         this.setState({
             data: {
-                MAHD: row.MAHD,
-                NGAY: row.NGAY,
-                THANHTIEN: row.THANHTIEN,
-                MASOTHUE: row.MASOTHUE,
-                MANV: row.MANV,
                 MAPD: row.MAPD,
-            }
+                NGAYDAT: row.NGAYDAT,
+                HONN: row.HONN,
+                TENNN: row.TENNN,
+                DIACHINN: row.DIACHINN,
+                SDTNN: row.SDTNN,
+                GHICHU: row.GHICHU,
+                TRANGTHAI: row.TRANGTHAI,
+                MANVD: row.MANVD,
+                MANVGH: row.MANVGH,
+                MAKH: row.MAKH,
+
+            },
+            listCTPD: row.ct_phieudats
         })
         // this.setState({data: {SDT: row.SDT}})
         // this.setState({data: {EMAIL: row.EMAIL}})
@@ -79,108 +108,167 @@ export default class FormModalEditBill extends React.Component {
     ///api
     async updateBill() {
         const data = {
-            NGAY: this.state.data.NGAY,
-            THANHTIEN: this.state.data.THANHTIEN,
-            MASOTHUE: this.state.data.MASOTHUE,
-            MANV: this.state.data.MANV,
-            MAPD: this.state.data.MAPD,
+            NGAYDAT: this.state.data.NGAYDAT,
+            HONN: this.state.data.HONN,
+            TENNN: this.state.data.TENNN,
+            DIACHINN: this.state.data.DIACHINN,
+            SDTNN: this.state.data.SDTNN,
+            GHICHU: this.state.data.GHICHU,
+            TRANGTHAI: this.state.data.TRANGTHAI,
+            MANVD: this.state.data.MANVD,
+            MANVGH: this.state.data.MANVGH,
+            MAKH: this.state.data.MAKH,
+
+
 
         }
-        await UpdateBillById(this.state.data.MAHD, data)
+        await UpdateBillById(this.state.data.MAPD, data)
 
     }
 
 
 
-render = () => {
-    return (
-        <Dialog
-            className='dialog edit bill'
+    render = () => {
+        return (
+            <Dialog
+                className='dialog edit bill'
 
-            fullWidth
-            maxWidth={'md'}
-            open={this.state.open}
-            onClose={this.Close}
-        >
-            <form
-                noValidate
-                autoComplete="off"
-                onSubmit={this.onSubmit}
+                fullWidth
+                maxWidth={'col-lg-'}
+                open={this.state.open}
+                onClose={this.Close}
             >
-                <DialogTitle>Bill update form</DialogTitle>
-                <DialogContent>
-                    <Box
-                        sx={{
-                            '& .MuiTextField-root': { m: 1 },
-                        }}
+                <form
+                    noValidate
+                    autoComplete="off"
+                    onSubmit={this.onSubmit}
+                >
+                    <div className='row'>
+                        <div className='col-4'>
+                            <DialogTitle >Thông tin phiếu đặt</DialogTitle>
+                            <DialogContent
 
-                    >
-                        <FormControl fullWidth >
-                            <TextField
-                                label="Ngày"
-                                defaultValue={Object(this.state.data.NGAY).length && this.state.data.NGAY}
-                                InputProps={{
-                                    name: "Ten"
-                                }}
-                                onChange={(e) => {
-                                    this.setState({data: {...this.state.data,NGAY: e.target.value} })
-                                }}
+                            >
+                                <Box
 
-                            />
-                        </FormControl>
-                        <FormControl fullWidth >
-                            <TextField
-                                label="Thành tiền"
-                                defaultValue={Object(this.state.data.THANHTIEN).length && this.state.data.THANHTIEN}
-                                InputProps={{
-                                    name: "SDT"
-                                }}
-                                onChange={(e) => this.setState({data:{ ...this.state.data,THANHTIEN: e.target.value} })}
+                                    sx={{
+                                        '& .MuiTextField-root': { m: 1 },
+                                    }}
 
-                            />
-                        </FormControl>
-                        <FormControl fullWidth >
-                            <TextField
-                                label="Mã số thuế"
-                                defaultValue={Object(this.state.data.MASOTHUE).length && this.state.data.MASOTHUE}
-                                InputProps={{
-                                    name: "Email"
-                                }}
-                                onChange={(e) => this.setState({data: {...this.state.data,MASOTHUE: e.target.value} })}
+                                >
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Ngày đặt"
+                                            value={Object(this.state.data.NGAYDAT).length && this.state.data.NGAYDAT}
+                                            InputProps={{
+                                                name: "day"
+                                            }}
+                                        // onChange={(e) => {
+                                        //     this.setState({data: {...this.state.data,NGAYDAT: e.target.value} })
+                                        // }}
 
-                            />
-                        </FormControl>
-                        <FormControl fullWidth >
-                            <TextField
-                                label="Mã nhân viên"
-                                defaultValue={Object(this.state.data.MANV).length && this.state.data.MANV}
-                                InputProps={{
-                                    name: "Diachi"
-                                }}
-                                onChange={(e) => this.setState({data: {...this.state.data,MANV: e.target.value} })}
+                                        />
+                                    </FormControl>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Họ tên người nhận"
+                                            value={Object(this.state.data.TENNN).length && this.state.data.HONN.concat(' ').concat(this.state.data.TENNN)}
+                                            InputProps={{
+                                                name: "name"
+                                            }}
+                                        // onChange={(e) => this.setState({data:{ ...this.state.data,TENNN: e.target.value} })}
 
-                            />
-                        </FormControl>
-                        <FormControl fullWidth >
-                            <TextField
-                                label="Mã phiếu đặt"
-                                defaultValue={Object(this.state.data.MAPD).length && this.state.data.MAPD}
-                                InputProps={{
-                                    name: "Diachi"
-                                }}
-                                onChange={(e) => this.setState({data: {...this.state.data,MAPD: e.target.value} })}
+                                        />
+                                    </FormControl>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Địa chỉ"
+                                            value={Object(this.state.data.DIACHINN).length && this.state.data.DIACHINN}
+                                            multiline rows={2}
+                                            InputProps={{
+                                                name: "add"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,MASOTHUE: e.target.value} })}
 
-                            />
-                        </FormControl>
-                    </Box>
-                </DialogContent>
-                <DialogActions>
-                    <Button type='submit' color='success' variant='contained' onClick={this.onSubmit} >Submit</Button>
-                    <Button onClick={this.Close}>Close</Button>
-                </DialogActions>
-            </form>
-        </Dialog>
-    );
-}
+                                        />
+                                    </FormControl>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="SĐT"
+                                            value={Object(this.state.data.SDTNN).length && this.state.data.SDTNN}
+                                            InputProps={{
+                                                name: "phone"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
+
+                                        />
+                                    </FormControl>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Trạng thái"
+                                            value={Object(this.state.data.TRANGTHAI).length && this.state.data.TRANGTHAI}
+                                            InputProps={{
+                                                name: "l"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,TRANGTHAI: e.target.value} })}
+
+                                        />
+                                    </FormControl>
+                                </Box>
+
+
+                            </DialogContent>
+                        </div>
+                        <div className='col-8' >
+                            {/* <Box >Chi tiết: </Box> */}
+                            <DialogTitle >Chi tiết:</DialogTitle>
+                            <TableContainer TableContainer component={Paper}>
+                                <Table
+                                    sx={{ minWidth: 650 }}
+                                    size="small"
+                                    aria-label="a dense table"
+                                >
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Sản phẩm</TableCell>
+                                            <TableCell style={{ width: '25%' }}>Hình ảnh</TableCell>
+                                            
+                                            <TableCell>Số lượng</TableCell>
+                                            <TableCell>Tổng</TableCell>
+                                            <TableCell></TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {this.state.listCTPD.map(cur => {
+                                            return (
+                                                <ItemPd
+                                                    
+                                                    data={{productId:cur.MADONG,quantity:cur.SOLUONG,GIA:cur.GIA}}
+                                                    
+                                                />
+                                            );
+                                        })}
+                                    </TableBody>
+                                </Table>
+                                <Table style={{ marginTop: "20px" }}>
+                                    <TableRow
+                                        style={{ textAlign: "center", fontSize: "30px" }}
+                                    >
+                                        Tổng tiền: {this.state.total}${"   "}
+                                    </TableRow>
+                                </Table>
+                            </TableContainer>
+
+                        </div>
+                        <DialogActions>
+                            {/* <Button type='submit' color='success' variant='contained' onClick={this.onSubmit} >Submit</Button> */}
+                            <Button onClick={this.Close}>Close</Button>
+                        </DialogActions>
+                    </div>
+                </form>
+
+            </Dialog>
+        );
+    }
 
 }

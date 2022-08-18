@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/paypal-rest-sdk": "^1.7.6",
+    "paypal-rest-sdk": "^1.8.1"
+  }
+}

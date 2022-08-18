@@ -22,7 +22,7 @@ export class Wineline {
     // @Column({type:'float'})
     // GIA!: number
 
-    
+
 
     @Column({type:'varchar'})
     TRANGTHAI!: string
@@ -76,7 +76,5 @@ export class Wineline {
 
     @OneToMany(() => Review, (review) => review.wineline)
     reviews: Review[]
-
-    
 
 }

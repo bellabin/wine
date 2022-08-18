@@ -36,4 +36,14 @@ export class CtPhieudatController {
   getRevProduct(@Param('from') from: string, @Param('to')to: string){
     return this.ctPhieudatService.getRevenueProduct(from,to)
   }
+
+  @Get('total/:from,:to')
+  getTotalRev(@Param('from') from: string, @Param('to')to: string){
+    return this.ctPhieudatService.getTotalRev(from,to)
+  }
+
+  @Get('total/Income/:from,:to')
+  getTotalIncomeFromTo(@Param('from') from: string, @Param('to')to: string){
+    return this.ctPhieudatService.getTotalIncomeFromTo(from,to)
+  }
 }

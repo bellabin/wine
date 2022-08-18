@@ -9,7 +9,7 @@ export const createPhieuDat = (data) => {
         DIACHINN: data.DIACHINN,
         SDTNN: data.SDTNN,
         GHICHU: data.GHICHU,
-        TRANGTHAI: "CHUA_DUYET",
+        TRANGTHAI: "Chưa duyệt",
         MANVD: "",
         MANVGH: "",
         MAKH: data.MAKH,
@@ -25,6 +25,29 @@ export const createPhieuDat = (data) => {
       })
 }
 
+export const UpdatePdById = async (id, data) => {
+  console.log(data)
+  return HttpService.put(`phieudat/${id}`, {
+    MAPD: data.MAPD,
+    NGAYDAT: data.NGAYDAT,
+    HONN: data.HONN,
+    TENNN: data.TENNN,
+    DIACHINN: data.DIACHINN,
+    SDTNN: data.SDTNN,
+    GHICHU: data.GHICHU,
+    TRANGTHAI: data.TRANGTHAI,
+    MANVD: data.MANVD,
+    MANVGH: data.MANVGH,
+    MAKH: data.MAKH,
+    CTPDS: data.CTPDS
+
+  })
+}
+
 export const findByState = (TRANGTHAI) => {
   return HttpService.get('phieudat/state/'.concat(TRANGTHAI))
+}
+
+export const getTotal = (data) => {
+  return HttpService.post('phieudat/getTotal', { totals: data })
 }

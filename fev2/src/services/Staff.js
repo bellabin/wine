@@ -14,3 +14,6 @@ export const LoginStaff = async (payload) => {
 }
 
 
+export const GetNVGH = async () => {
+  return HttpService.get(`staffs/nvgh`)
+}

@@ -57,4 +57,15 @@ export class WinelineController {
     delete(@Param('id') id: string) {
         return this.winelineService.delete(id)
     }
+
+    @Post('/product/arr')
+    getListProductByArr(@Body() payload: []) {
+        // console.log('be',payload)
+        return this.winelineService.getListProductByArr(payload)
+    }
+
+    @Post('product/paypal/arr')
+    getDetailPaypal(@Body() payload: []){
+        return this.winelineService.getDetailPaypal(payload)
+    }
 }

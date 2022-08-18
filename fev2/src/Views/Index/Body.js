@@ -8,24 +8,21 @@ export default class Body extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hotproducts: undefined,
-      isFetching: false,
+      hotproducts: [],
+      
     };
   }
 
   componentDidMount() {
+    //get arr hot prod
     let listTemp = []
     GetListHotProducts()
       .then((res) => {
-        res.data.map(cur => {
-          GetProductById(cur.MADONG).then(res => {
-            listTemp.push(res.data)
-          })
-        })
+        this.setState({hotproducts: res.data})
       })
       .catch((err) => console.log(err));
-    this.setState({hotproducts: listTemp})
-    this.setState({dataIsReturned:true})
+    // get prod by arr
+    
   }
   render() {
     return (
@@ -176,7 +173,7 @@ export default class Body extends Component {
         
 
         
-        {(this.state.dataIsReturned !== false) ? <HotProducts data={this.state.hotproducts}/> : <h1>Loading</h1> }
+       <HotProducts data={this.state.hotproducts}/> 
        
 
         <TopPromo/>

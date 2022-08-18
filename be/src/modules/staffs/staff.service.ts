@@ -69,4 +69,12 @@ export class StaffService {
 
         return this.staffRepo.remove(staff)
     }
+
+    async getNVGH(){
+        let id = '3'
+        return this.staffRepo
+        .createQueryBuilder('staffs')
+        .where('staffs.role.MANQ = :id', {id})
+        .getMany()
+    }
 }

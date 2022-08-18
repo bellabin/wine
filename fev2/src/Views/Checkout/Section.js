@@ -40,6 +40,7 @@ export default class Section extends Component {
   componentDidMount() {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
     this.setState({ carts });
+    
     let totalAmountTemp = 0;
     carts.map((cur) => {
       GetProductById(cur.productId)

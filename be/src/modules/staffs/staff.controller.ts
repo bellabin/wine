@@ -18,6 +18,11 @@ export class StaffController {
         return this.staffService.findAll()
     }
 
+    @Get('/nvgh')
+    GetNVGH(){
+        return this.staffService.getNVGH()
+    }
+
     @Get(':id')
     findById(@Param('id') id: string) {
         return this.staffService.findById(id)

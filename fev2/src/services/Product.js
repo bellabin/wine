@@ -88,3 +88,7 @@ export const GetListProductByName = async (name) => {
 export const GetListTopPromo = async () => {
   return HttpService.get('winelines/product/promo/top')
 }
+
+export const getPaypalDetail = async (arr) => {
+  return HttpService.post('winelines/product/paypal/arr',arr)
+}

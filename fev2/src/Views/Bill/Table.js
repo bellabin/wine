@@ -11,52 +11,51 @@ import { GetListBill, GetListPD } from "../../services/Bill";
 import { GetListCustomer } from "../../services/Customer";
 import FormModalEditBill from "./FormModal-Edit";
 import FormModalDeleteBill from "./FormModal-Delete";
+import { GetNVGH } from "../../services/Staff";
 import { findByState } from "../../services/Phieudat";
 
 export default function DenseTable(props) {
     
-    const filter = props.filter
-
-    const [listBills, setListBills] = useState([]);
-    const [listPD, setListPD] = useState([]);
+    const listPds = props.list
     const [listCustomers, setListCustomers] = useState([]);
+    const [listNVGH,setListNVGH] = useState([])
+
+    
 
     useEffect(() => {
-        async function fetchListBills() {
-            const getbills = (await GetListBill()).data;
-            const getpds = (await findByState(filter)).data;
+        async function fetchListCus() {
             const getcustomers = (await GetListCustomer()).data;
+            const getListNVGH = (await GetNVGH()).data
+            const promises = [getcustomers, getListNVGH];
 
-            const promises = [getbills, getpds, getcustomers];
-
-            const [bills, pds, customers] = await Promise.all(promises);
-            setListBills(bills);
-            setListPD(pds);
+            const [customers, nvghs] = await Promise.all(promises);
             setListCustomers(customers);
+            setListNVGH(nvghs)
+            
         }
 
-        fetchListBills();
+        fetchListCus();
     }, []);
-    findByState(filter).then(res => {
-        console.log(res.data)
-        setListPD(res.data)
-    })
+
+    
     function Edit(data) {
         //console.log(data)
         React.refModalEditBill?.open();
         React.refModalEditBill.Edit(data);
     }
 
-    function Delete(MAHD) {
+    function Delete(MAPD, listNVGH ,data) {
         React.refModalDeleteBill?.open();
-        React.refModalDeleteBill.Delete(MAHD);
+        React.refModalDeleteBill.Delete(MAPD,listNVGH, data);
 
-        const index = listBills.findIndex((x) => x.MAHD === MAHD);
-        console.log(index);
-        if (index >= 0) {
-            listBills.splice(index, 1);
-            setListBills([...listBills]);
-        }
+    }
+    const totalCTPD = (list) => {
+        let total = 0
+        list.map(cur => {
+            total += cur.GIA 
+        })
+        
+        return total.toFixed(2)
     }
     return (
         <>
@@ -72,7 +71,7 @@ export default function DenseTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {listPD.map((row) => (
+                        {listPds.map((row) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -100,22 +99,25 @@ export default function DenseTable(props) {
                                 </TableCell>
 
                                 <TableCell align="left">{row.TRANGTHAI}</TableCell>
-                                <TableCell align="left">{row.THANHTIEN}</TableCell>
+                                <TableCell align="left">{totalCTPD(row.ct_phieudats)} $</TableCell>
+                                <TableCell align="left">
+
                                 <i
-                                    className="fas fa-pencil-alt"
+                                    className="fa fa-search"
                                     style={{ paddingRight: "10px" }}
                                     onClick={() => Edit(row)}
                                 ></i>
                                 <i
-                                    className="fas fa-trash-alt"
-                                    onClick={() => Delete(row.MAHD)}
+                                    className="fas fa-pencil-alt"
+                                    onClick={() => Delete(row.MAPD, listNVGH, row)}
                                 ></i>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
                 <FormModalEditBill ref={(ref) => (React.refModalEditBill = ref)} />
-                <FormModalDeleteBill ref={(ref) => (React.refModalDeleteBill = ref)} />
+                <FormModalDeleteBill ref={(ref) => (React.refModalDeleteBill = ref)} listNVGH={listNVGH} />
             </TableContainer>
         </>
     );
