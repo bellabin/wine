@@ -49,7 +49,7 @@ export default class LoginAdmin extends Component {
                     
                     addUserProfileToLS(res.data)
                 })
-              window.location.href='/'
+              window.location.href='/Admin'
             //   <Link to={KeyNavigate.Layout}></Link>
 
             }

@@ -146,7 +146,7 @@ export default class FormModalDeleteBillShipper extends React.Component {
                     autoComplete="off"
                     onSubmit={this.onSubmit}
                 >
-                    <DialogTitle>Duyệt đơn</DialogTitle>
+                    <DialogTitle>Xác nhận đơn</DialogTitle>
                     <DialogContent >
                         <FormControl fullWidth style={{marginTop:'20px'}}>
                             <InputLabel id="demo-simple-select-label">Chọn nhân viên giao</InputLabel>

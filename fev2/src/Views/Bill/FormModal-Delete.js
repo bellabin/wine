@@ -14,6 +14,7 @@ import { GetNVGH } from '../../services/Staff'
 import { Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { UpdatePdById } from '../../services/Phieudat';
+import { getUserProfileFromLS } from '../../helper/accessToken';
 
 
 export default class FormModalDeleteBill extends React.Component {
@@ -22,6 +23,7 @@ export default class FormModalDeleteBill extends React.Component {
         this.state = {
             open: false,
             MANVGH:'',
+            MANVD:'',
             MAPD: '',
             listSelect: [],
             data: {
@@ -42,7 +44,11 @@ export default class FormModalDeleteBill extends React.Component {
         }
     }
 
-    
+    // componentDidMount(){
+    //     getUserProfileFromLS().then(res => {
+    //         console.log(res.data)
+    //     })
+    // }
 
     Close = () => {
         this.setState({ open: false })
@@ -53,6 +59,7 @@ export default class FormModalDeleteBill extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         ///update lai pd
+        const user = JSON.parse( getUserProfileFromLS())
         let tempData = {
             MAPD: '',
             NGAYDAT: '',
@@ -62,13 +69,12 @@ export default class FormModalDeleteBill extends React.Component {
             SDTNN: '',
             GHICHU: '',
             TRANGTHAI: '',
-            MANVD: '',
+            MANVD: user.MANV,
             MANVGH: '',
             MAKH: '',
             CTPDS: [],
         }
         if(this.state.data.TRANGTHAI === 'Chưa duyệt' ){
-            console.log('i was here')
             tempData = {
                 MAPD: this.state.data.MAPD,
                 NGAYDAT: this.state.data.NGAYDAT,
@@ -78,7 +84,7 @@ export default class FormModalDeleteBill extends React.Component {
                 SDTNN: this.state.data.SDTNN,
                 GHICHU: this.state.data.GHICHU,
                 TRANGTHAI: 'Đã phân công',
-                MANVD: '001',
+                MANVD: user.MANV,
                 MANVGH: this.state.MANVGH,
                 MAKH: this.state.data.MAKH,
                 CTPDS: this.state.data.CTPDS,

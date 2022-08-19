@@ -97,6 +97,7 @@ export class PhieudatService {
 		if (!phieudat) throw new NotFoundException('PD is not exist')
 
 		const staff = await this.staffService.findById(payload.MANVD)
+		console.log(payload.MANVD)
 
 		// await this.phieudatRepo.update(MAPD, phieudat)
 

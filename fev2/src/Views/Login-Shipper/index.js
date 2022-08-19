@@ -3,7 +3,7 @@ import { loginUser } from '../../services/Customer';
 import { addUserProfileToLS } from '../../helper/accessToken';
 import { addAccessTokenToLocalStorage } from '../../helper/accessToken';
 import jwt from 'jwt-decode' 
-import { GetListStaff, GetNVGH, LoginStaff } from '../../services/Staff';
+import { GetListStaff, GetNVGH, GetStaffById, LoginStaff } from '../../services/Staff';
 
 export default class LoginShipper extends Component {
     //const navigate = useNavigate();
@@ -38,23 +38,23 @@ export default class LoginShipper extends Component {
             USERNAME: this.state.username,
             PASSWORD: this.state.password,
         }
-        console.log('payload', payload);
         
 
         // chua set token
         await loginUser(payload).then(response => {
-            if(response.status === 201) {
+            if(response.status === 201 && response.role === 'shipper') {
               
                 addAccessTokenToLocalStorage(response.data.accessToken)
                 const tokenDecode = jwt(response.data.accessToken)
                 //console.log(tokenDecode.userId)
-                GetNVGH(tokenDecode.userId).then(res => {
-                    
+                GetStaffById(tokenDecode.userId).then(res => {
                     addUserProfileToLS(res.data)
                 })
-              window.location.href='/Shipper'
+                window.location.href='/Shipper'
             //   <Link to={KeyNavigate.Layout}></Link>
-
+            }
+            else{
+                this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})
             }
           },reason => {
             this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})

@@ -29,12 +29,19 @@ export class AuthService {
 
       if (!compareSync(PASSWORD, staff?.PASSWORD || customer?.PASSWORD)) throw new NotFoundException('Login failed')
 
+      // const response = {
+      //   accessToken: this.jwtService.sign({
+      //     userId: staff?.MANV || customer?.MAKH,
+      //     role: staff ? 'staff' : 'customer'
+      //   }),
+      //   role: staff ? 'staff' : 'customer'
+      // }
       const response = {
         accessToken: this.jwtService.sign({
           userId: staff?.MANV || customer?.MAKH,
-          role: staff ? 'staff' : 'customer'
+          role: staff ? (staff.MANQ === '2' ? 'staff' : 'shipper') : 'customer'
         }),
-        role: staff ? 'staff' : 'customer'
+        role: staff ? (staff.MANQ === '2' ? 'staff' : 'shipper') : 'customer'
       }
 
       return response
