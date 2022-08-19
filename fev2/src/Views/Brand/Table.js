@@ -73,9 +73,10 @@ export default function DenseTable() {
                         >
                             <TableCell component="th" scope="row">{row.MATH}</TableCell>
                             <TableCell align="left">{row.TENTH}</TableCell>
-                            
-                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
-                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MATH)} ></i>
+                            <TableCell align="right">
+                                <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
+                                <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MATH)} ></i>
+                            </TableCell>
                         </TableRow>
                     ))}
                     

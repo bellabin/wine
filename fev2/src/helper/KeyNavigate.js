@@ -14,6 +14,11 @@ export const KeyNavigate = {
     Layout: "/Admin",
     Search:'/Search',
 
+    LoginShipper:"/LoginShipper",
+    Shipper:'/Shipper',
+    OrderShipper:"/OrderShipper",
+    ShipperDetail:"/ShipperDetail",
+
 
 
     Account:"/Account",

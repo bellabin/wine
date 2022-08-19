@@ -51,3 +51,11 @@ export const findByState = (TRANGTHAI) => {
 export const getTotal = (data) => {
   return HttpService.post('phieudat/getTotal', { totals: data })
 }
+
+export const getListPdByNVGH = (MANV) => {
+  return HttpService.get(`phieudat/list/NVGH/${MANV}`)
+}
+
+export const getListPdByStateAndNVGH = (TRANGTHAI,MANV) => {
+  return HttpService.get(`phieudat/NV&state/${TRANGTHAI},${MANV}`)
+}

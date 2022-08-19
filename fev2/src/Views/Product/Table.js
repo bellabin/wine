@@ -75,9 +75,10 @@ export default function DenseTable() {
             <TableCell align="left">Tên dòng</TableCell>
             <TableCell align="left">Hình ảnh</TableCell>
             <TableCell align="left">Giá</TableCell>
-            <TableCell align="left">Số lượng</TableCell>
+            <TableCell align="left">SL</TableCell>
             <TableCell align="left">Loại</TableCell>
-            <TableCell align="left">Thương hiệu</TableCell>
+            <TableCell align="left" style={{width: '5%'}}>Thương hiệu</TableCell>
+            <TableCell style={{width: '10%'}}></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -101,7 +102,9 @@ export default function DenseTable() {
               <TableCell align="left">{row.SOLUONGTON}</TableCell>
               {listWinetypes &&
                 listWinetypes.map((wineType) => {
-                  if (row.MALOAI == wineType.MALOAI) {
+                  console.log(row)
+
+                  if (row.winetype.MALOAI === wineType.MALOAI) {
                     return (
                       <TableCell align="left">{wineType.TENLOAI}</TableCell>
                     );
@@ -115,7 +118,7 @@ export default function DenseTable() {
                 })}
 
               {/* <TableCell align="left">{row.MATH}</TableCell> */}
-
+              <TableCell align="right">
               <i
                 className="fas fa-pencil-alt"
                 style={{ paddingRight: "10px" }}
@@ -125,6 +128,7 @@ export default function DenseTable() {
                 className="fas fa-trash-alt"
                 onClick={() => Delete(row.MADONG)}
               ></i>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { loginUser } from '../../services/Customer';
-import { addAccessTokenToLocalStorage, addUserProfileToLS } from '../../helper/accessToken';
-import { GetListStaff, GetStaffById, LoginStaff } from '../../services/Staff';
+import { addUserProfileToLS } from '../../helper/accessToken';
+import { addAccessTokenToLocalStorage } from '../../helper/accessToken';
 import jwt from 'jwt-decode' 
+import { GetListStaff, GetNVGH, LoginStaff } from '../../services/Staff';
 
-
-export default class LoginAdmin extends Component {
+export default class LoginShipper extends Component {
     //const navigate = useNavigate();
     constructor(props) {
         super(props);
@@ -40,16 +40,19 @@ export default class LoginAdmin extends Component {
         }
         console.log('payload', payload);
         
+
+        // chua set token
         await loginUser(payload).then(response => {
             if(response.status === 201) {
               
                 addAccessTokenToLocalStorage(response.data.accessToken)
                 const tokenDecode = jwt(response.data.accessToken)
-                GetStaffById(tokenDecode.userId).then(res => {
+                //console.log(tokenDecode.userId)
+                GetNVGH(tokenDecode.userId).then(res => {
                     
                     addUserProfileToLS(res.data)
                 })
-              window.location.href='/'
+              window.location.href='/Shipper'
             //   <Link to={KeyNavigate.Layout}></Link>
 
             }
@@ -127,7 +130,7 @@ export default class LoginAdmin extends Component {
                     <div className="container-fluid">
                         <ul className="breadcrumb">
                             <li className="breadcrumb-item"><a href="/">Trang chủ</a></li>
-                            <li className="breadcrumb-item active">Đăng nhập trang quản trị</li>
+                            <li className="breadcrumb-item active">Đăng nhập trang giao hàng</li>
                         </ul>
                     </div>
                 </div>
@@ -141,9 +144,9 @@ export default class LoginAdmin extends Component {
                                 <div className="login-form">
                                     <form  >
                                         <div className="row">
-                                            <legend className="text-center">Đăng nhập Admin</legend>
+                                            <legend className="text-center">Đăng nhập</legend>
                                             <div className="col-md-6">
-                                                <label for="username">Username</label>
+                                                <label htmlFor="username">Username</label>
                                                 <input
                                                     id="username"
                                                     name="username"

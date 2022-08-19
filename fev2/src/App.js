@@ -29,6 +29,10 @@ import ProductCusDetail from './Views/ProductCus-Detail';
 import BodyProductDetail from './Views/ProductCus-Detail/Body';
 import ProductSearch from './Views/SearchPage';
 import CheckOut from './Views/Checkout';
+import Shipper from './Views/Shipper';
+import LoginShipper from './Views/Login-Shipper';
+import OrderShipper from './Views/Order-Shipper';
+import ShipperDetail from './Views/ShipperDetail';
 function App() {
   return (
     <Routes>
@@ -48,7 +52,14 @@ function App() {
 
       <Route path={KeyNavigate.Detail.concat('/:id')} element={<ProductCusDetail/>} />
       <Route path={KeyNavigate.Search.concat('/:text')} element={<ProductSearch/>} />
-      
+
+
+      <Route path={KeyNavigate.LoginShipper} element={<LoginShipper/>} />
+      <Route path={KeyNavigate.Shipper.concat('/*')} element={<Shipper>
+        <Route path={KeyNavigate.OrderShipper} element={<OrderShipper />} />
+        <Route path={KeyNavigate.ShipperDetail} element={<ShipperDetail />} />
+      </Shipper>} />
+        
       
 
 

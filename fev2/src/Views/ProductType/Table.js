@@ -72,9 +72,10 @@ export default function DenseTable() {
                         >
                             <TableCell component="th" scope="row">{row.MALOAI}</TableCell>
                             <TableCell align="left">{row.TENLOAI}</TableCell>
-                            
-                            <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
-                            <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MALOAI)} ></i>
+                            <TableCell align="right">
+                                <i className="fas fa-pencil-alt" style={{paddingRight:'10px'}} onClick= {() => Edit(row)} ></i>
+                                <i className="fas fa-trash-alt"  onClick= {() => Delete(row.MALOAI)} ></i>
+                            </TableCell>    
                         </TableRow>
                     ))}
                     

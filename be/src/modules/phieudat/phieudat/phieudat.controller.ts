@@ -27,6 +27,12 @@ export class PhieudatController {
         return this.phieudatService.findByState(state)
     }
 
+    @Get('/NV&state/:state,:id')
+    findByStateAndNVGH(@Param('state') state: string, @Param('id') id: string) {
+        return this.phieudatService.findByStateAndNVGH(state,id)
+    }
+
+
     @Post() //create new pd
     create(@Body() payload: CreatePhieudatDto) {
         const MAPD = uuidv4().slice(0, 19)
@@ -52,5 +58,10 @@ export class PhieudatController {
     @Get('list/:from,:to')
     getPdFromTo(@Param('from') from: string, @Param('to')to: string){
         return this.phieudatService.getListPdFromTo(from,to)
+    }
+
+    @Get('list/NVGH/:id')
+    getPdByNVGH(@Param('id') id: string){
+        return this.phieudatService.getListPdByNVGH(id)
     }
 }

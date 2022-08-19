@@ -50,6 +50,19 @@ export class PhieudatService {
 		})
 	}
 
+	async findByStateAndNVGH(TRANGTHAI: string, MANV: string) {
+		if(TRANGTHAI === 'ALL'){
+			return this.phieudatRepo.find({
+				where: { MANVGH: MANV },
+				relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+			})
+		}
+		return this.phieudatRepo.find({
+			where: { TRANGTHAI: TRANGTHAI, MANVGH:MANV },
+			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+		})
+	}
+
 	async create(payload: CreatePhieudatDto) {
 		//func handle create new pd
 		const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
@@ -160,5 +173,12 @@ export class PhieudatService {
         .getMany()
 	}
 
-	
+	async getListPdByNVGH(id: string) {
+		return this.phieudatRepo.createQueryBuilder('phieudat')
+		.where('phieudat.MANVGH = :id',{id:id})
+		.setFindOptions({
+			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+        })
+		.getMany()
+	}
 }

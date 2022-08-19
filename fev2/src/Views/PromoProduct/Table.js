@@ -86,6 +86,7 @@ export default function DenseTable() {
             <TableCell align="left">Hình ảnh</TableCell>
             <TableCell align="left">Sản phẩm</TableCell>
             <TableCell align="left">Giảm</TableCell>
+            <TableCell style={{width: '10%'}} ></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -108,9 +109,10 @@ export default function DenseTable() {
                     </TableCell>
                     <TableCell align="left">{ctpromo.wineline.TENDONG}</TableCell>
                     <TableCell align="left">{ctpromo.PHANTRAMGIAM} %</TableCell>
-
-                    <i className="fas fa-pencil-alt" style={{ paddingRight: "10px" }} onClick={() => Edit(row)}></i>
-                    <i className="fas fa-trash-alt" onClick={() => Delete(row.MADONG)}></i>
+                    <TableCell align="right">
+                      <i className="fas fa-pencil-alt" style={{ paddingRight: "10px" }} onClick={() => Edit(row)}></i>
+                      <i className="fas fa-trash-alt" onClick={() => Delete(row.MADONG)}></i>
+                    </TableCell>
                   </TableRow>
                 );
               }

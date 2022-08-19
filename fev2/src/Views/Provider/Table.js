@@ -74,15 +74,17 @@ export default function DenseTable() {
                 <TableCell align="left">{row.SDT}</TableCell>
                 <TableCell align="left">{row.EMAIL}</TableCell>
                 <TableCell align="left">{row.DIACHI}</TableCell>
-                <i
-                  className="fas fa-pencil-alt"
-                  style={{ paddingRight: "10px" }}
-                  onClick={() => Edit(row)}
-                ></i>
-                <i
-                  className="fas fa-trash-alt"
-                  onClick={() => Delete(row.MANCC)}
-                ></i>
+                <TableCell align="right">
+                  <i
+                    className="fas fa-pencil-alt"
+                    style={{ paddingRight: "10px" }}
+                    onClick={() => Edit(row)}
+                  ></i>
+                  <i
+                    className="fas fa-trash-alt"
+                    onClick={() => Delete(row.MANCC)}
+                  ></i>
+                </TableCell>  
               </TableRow>
             ))}
           </TableBody>
