@@ -42,11 +42,13 @@ export class PhieudatService {
 		if(TRANGTHAI === 'ALL'){
 			return this.phieudatRepo.find({
 				relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+				order: { NGAYDAT: 'DESC'},
 			})
 		}
 		return this.phieudatRepo.find({
 			where: { TRANGTHAI: TRANGTHAI },
 			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+			order: { NGAYDAT: 'DESC'},
 		})
 	}
 
@@ -55,11 +57,13 @@ export class PhieudatService {
 			return this.phieudatRepo.find({
 				where: { MANVGH: MANV },
 				relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+				order: { NGAYDAT: 'DESC'},
 			})
 		}
 		return this.phieudatRepo.find({
 			where: { TRANGTHAI: TRANGTHAI, MANVGH:MANV },
 			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+			order: { NGAYDAT: 'DESC'},
 		})
 	}
 
@@ -165,13 +169,16 @@ export class PhieudatService {
 	}
 
 	async getListPdFromTo(from:string,to:string){
+		
 		return this.phieudatRepo.createQueryBuilder('phieudat')
-		.where('phieudat.NGAYDAT >= :from', { from })
-		.andWhere('phieudat.NGAYDAT <= :to', { to })
+		.where(`phieudat.NGAYDAT >= '${from}'`)
+		.andWhere(`phieudat.NGAYDAT <= '${to}'`)
+		.andWhere(`phieudat.TRANGTHAI = 'Đã giao'`)
 		.setFindOptions({
 			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
         })
         .getMany()
+		
 	}
 
 	async getListPdByNVGH(id: string) {

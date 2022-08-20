@@ -58,7 +58,7 @@ export class CtPhieudatService {
     INNER JOIN (
       SELECT * 
       FROM phieudat p
-      WHERE p.NGAYDAT >= '${from}' AND p.NGAYDAT <= '${to}'
+      WHERE p.NGAYDAT >= '${from}' AND p.NGAYDAT <= '${to}' AND p.TRANGTHAI = 'Đã giao'
     ) p ON cp.MAPD = p.MAPD
     `)
   }

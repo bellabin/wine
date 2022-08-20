@@ -55,7 +55,7 @@ export class PhieudatController {
 			return this.phieudatService.getTotal(getTotalDto)
 		}
 
-    @Get('list/:from,:to')
+    @Get('rev/list/:from,:to')
     getPdFromTo(@Param('from') from: string, @Param('to')to: string){
         return this.phieudatService.getListPdFromTo(from,to)
     }
