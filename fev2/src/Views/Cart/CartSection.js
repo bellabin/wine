@@ -12,6 +12,7 @@ import {
   TableContainer,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
+import { GetCustomerById } from "../../services/Customer";
 
 import { Box, Button } from "@mui/material";
 import { createPhieuDat } from "../../services/Phieudat";
@@ -24,12 +25,19 @@ import {
   toDecimal,
 } from "../../helper/convertPrice";
 import { KeyNavigate } from "../../helper/KeyNavigate";
+import {
+  addUserProfileToLS,
+  getAccessTokenFromLocalStorage,
+  getUser,
+} from "../../helper/accessToken";
+import { getMe } from "../../services/Getme";
 export default class CartSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
       carts: [],
       total: 0,
+      token: "",
     };
 
     this.removeItem = this.removeItem.bind(this);
@@ -40,49 +48,70 @@ export default class CartSection extends Component {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
     this.setState({ carts });
     let totalAmountTemp = 0;
-    carts.map((cur) => {
-      GetProductById(cur.productId)
-        .then((res) => {
-          let price = checkPrice(res.data.changeprices);
-          let promoPrice =
-            checkPrice(res.data.changeprices) *
-            toDecimal(checkKm(res.data.ct_khuyenmais));
-          let totalTemp = price - promoPrice;
-          totalAmountTemp += totalTemp * cur.quantity;
-          this.setState({ total: totalAmountTemp.toFixed(2) });
-        })
-        .catch((err) => console.log(err));
-    });
+    if (carts) {
+      carts.map((cur) => {
+        GetProductById(cur.productId)
+          .then((res) => {
+            let price = checkPrice(res.data.changeprices);
+            let promoPrice =
+              checkPrice(res.data.changeprices) *
+              toDecimal(checkKm(res.data.ct_khuyenmais));
+            let totalTemp = price - promoPrice;
+            totalAmountTemp += totalTemp * cur.quantity;
+            this.setState({ total: totalAmountTemp.toFixed(2) });
+          })
+          .catch((err) => console.log(err));
+      });
+    }
+
+    let token = getAccessTokenFromLocalStorage();
+    if (!token) token = "";
+    this.setState({ token: token });
   }
 
   totalAmount() {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
     let totalAmountTemp = 0;
-    carts.map((cur) => {
-      GetProductById(cur.productId)
-        .then((res) => {
-          let price = checkPrice(res.data.changeprices);
-          let promoPrice =
-            checkPrice(res.data.changeprices) *
-            toDecimal(checkKm(res.data.ct_khuyenmais));
-          let totalTemp = price - promoPrice;
-          totalAmountTemp += totalTemp * cur.quantity;
-          this.setState({ total: totalAmountTemp.toFixed(2) });
-        })
-        .catch((err) => console.log(err));
-    });
+    if (carts) {
+      carts.map((cur) => {
+        GetProductById(cur.productId)
+          .then((res) => {
+            let price = checkPrice(res.data.changeprices);
+            let promoPrice =
+              checkPrice(res.data.changeprices) *
+              toDecimal(checkKm(res.data.ct_khuyenmais));
+            let totalTemp = price - promoPrice;
+            totalAmountTemp += totalTemp * cur.quantity;
+            this.setState({ total: totalAmountTemp.toFixed(2) });
+          })
+          .catch((err) => console.log(err));
+      });
+    }
+  }
+
+  handleOnClick() {
+    alert("Bạn chưa đăng nhập");
+    // window.location.href('/Login')
+  }
+
+  handleOnClickLoggedIn() {
+      const usrId = JSON.parse(getUser());
+      GetCustomerById(usrId.userId).then((res) => {
+        addUserProfileToLS(res.data);
+      });
   }
 
   removeItem(productId) {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
-
-    const newCarts = carts.filter((product) => product.productId != productId);
-    this.setState({ carts: newCarts });
+    if (carts) {
+      const newCarts = carts.filter(
+        (product) => product.productId != productId
+      );
+      this.setState({ carts: newCarts });
+    }
 
     //this.setState({total: })
   }
-
-  
 
   render() {
     return (
@@ -128,16 +157,40 @@ export default class CartSection extends Component {
                       >
                         Tổng tiền: {this.state.total}${"   "}
                       </TableRow>
-                      <TableRow style={{textAlign:'center'}}>
-                        <Link  to={KeyNavigate.CheckOut}>
-                          <Button
-                            variant="outlined"
-                            style={{ textAlign: "center", fontSize: "20px", color:'#FF5733', borderColor: "#FF5733"}}
-                            
-                          >
-                            Thanh toán
-                          </Button>
-                        </Link>
+                      <TableRow style={{ textAlign: "center" }}>
+                        {this.state.token.length === 0 && (
+                          
+                            <Button
+                              variant="outlined"
+                              style={{
+                                textAlign: "center",
+                                fontSize: "20px",
+                                color: "#FF5733",
+                                borderColor: "#FF5733",
+                              }}
+                              onClick={() => this.handleOnClick()}
+                            >
+                              Thanh toán
+                            </Button>
+                         
+                        )}
+
+                        {this.state.token.length !== 0 && (
+                          <Link to={KeyNavigate.CheckOut}>
+                            <Button
+                              variant="outlined"
+                              style={{
+                                textAlign: "center",
+                                fontSize: "20px",
+                                color: "#FF5733",
+                                borderColor: "#FF5733",
+                              }}
+                              onClick={() => this.handleOnClickLoggedIn()}
+                            >
+                              Thanh toán
+                            </Button>
+                          </Link>
+                        )}
                       </TableRow>
                     </Table>
                   </TableContainer>

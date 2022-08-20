@@ -57,21 +57,7 @@ export default class Shipper extends Component {
                         </nav>
                     </div>
                 </div>
-                {/* <!-- Nav Bar End --> */}
-
-
-
-                {/* <div className="breadcrumb-wrap">
-                    <div className="container-fluid">
-                        <ul className="breadcrumb">
-                            <li className="breadcrumb-item active">Quản trị</li>
-                            <li className="breadcrumb-item active">Admin </li>
-                        </ul>
-                    </div>
-                </div> */}
-
-                {/* <!-- My Account Start --> */}
-                {/* <!-- My Account Start --> */}
+                                
                 <div className="my-account">
                     <div className="container-fluid">
                         <div className="row">

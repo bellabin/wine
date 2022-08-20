@@ -33,6 +33,8 @@ import Shipper from './Views/Shipper';
 import LoginShipper from './Views/Login-Shipper';
 import OrderShipper from './Views/Order-Shipper';
 import ShipperDetail from './Views/ShipperDetail';
+import CustomerDetail from './Views/Customer-Detail';
+import OrderCustomer from './Views/Order-customer';
 function App() {
   return (
     <Routes>
@@ -45,7 +47,12 @@ function App() {
         
       </ProductCus>}></Route>
       <Route path={KeyNavigate.Login} element={<Login></Login>}></Route>
-      <Route path={KeyNavigate.Account} element={<Account></Account>}></Route>
+
+      <Route path={KeyNavigate.Account.concat('/*')} element={<Account>
+        <Route path={KeyNavigate.OrderCustomer} element={<OrderCustomer/>}  />
+        <Route path={KeyNavigate.CustomerDetail} element={<CustomerDetail/>}  />
+      </Account>}></Route>
+
       <Route path={KeyNavigate.Cart} element={<Cart></Cart>}></Route>
       <Route path={KeyNavigate.CheckOut} element={<CheckOut></CheckOut>}></Route>
 

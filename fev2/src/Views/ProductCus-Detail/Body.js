@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { KeyNavigate } from "../../helper/KeyNavigate";
 import { GetProductById } from "../../services/Product";
-import { addCartItemToLocalStorage, getListCartItemsFromLocalStorage } from "../../helper/addToCart";
+import { addCartItemToLocalStorage2, getListCartItemsFromLocalStorage } from "../../helper/addToCart";
 import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA, checkRating} from "../../helper/convertPrice";
-
+import { getQuantity } from "../../services/Product";
 
 export default class BodyProductDetail extends Component {
   constructor (props) {
@@ -35,25 +35,28 @@ export default class BodyProductDetail extends Component {
   }
 
   addToCart = (productId, price, quantity) => {
-    addCartItemToLocalStorage(productId, price, quantity)
+    addCartItemToLocalStorage2(productId, price, quantity)
   };
 
-  handleClick = () => {
-    let carts = JSON.parse(getListCartItemsFromLocalStorage())
+  handleClick = async () => {
+    let carts = JSON.parse(getListCartItemsFromLocalStorage()) || [];
     let quantityProductInCart = 0
     carts.map(cur => {
       if(cur.productId == this.state.product.MADONG){
         quantityProductInCart = cur.quantity
       }
     })
-    let currentQuantity = this.state.quantity
-    if(currentQuantity > (this.state.product.SOLUONGTON - quantityProductInCart)){
+
+    //slt
+    let slt = await getQuantity(this.state.product.MADONG).then(res =>  (res.data[0].soluongton))
+
+    if(slt < (this.state.quantity + quantityProductInCart)){
       //console.log('vuot qua so luong')
       this.setState({error: 'Số lượng hàng còn lại không đủ'})
       
       
     }
-    else this.addToCart(this.state.product.MADONG, this.state.product.GIA, currentQuantity)
+    else this.addToCart(this.state.product.MADONG, this.state.product.GIA, this.state.quantity)
   }
 
   handleClickMinus = () => {

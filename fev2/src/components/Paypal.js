@@ -6,6 +6,7 @@ import {
 import { useEffect, useState } from "react";
 import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
 import { getPaypalDetail } from "../services/Product";
+import { createPhieuDatPaypal } from "../services/Phieudat";
 import { getTotal } from "../services/Phieudat";
 
 const paypalScriptOptions = {
@@ -38,10 +39,11 @@ function Button(props) {
 
   const [{ isPending }] = usePayPalScriptReducer();
 
+  
+
   const paypalbuttonTransactionProps = {
     style: { layout: "vertical" },
     createOrder(data, actions) { // ham nay goi khi bam vao nut pop up Paypal
-      console.log('inpp',purchaseUnits)
       return actions.order.create({
         purchase_units: purchaseUnits
      
@@ -49,7 +51,17 @@ function Button(props) {
     },
     onApprove(data, actions) { // ham nay goi khi thanh toan thanh cong
       // gọi api tạo phiếu đặt ở đây (tạo order theo carts ở local storage)
+      let pd = props.pd
+      createPhieuDatPaypal(pd, JSON.stringify(data.orderID))
 
+      
+      // data:{
+      //   orderID: string;
+      //   payerID: string;
+      //   paymentID: string | null;
+      //   billingToken: string | null;
+      //   facilitatorAccesstoken: string;
+      // }
 
       return actions.order.capture({}).then((details) => {
         alert(
@@ -70,7 +82,6 @@ function Button(props) {
 
     getPaypalDetail(carts).then(res => {
       let arrs = res.data
-      console.log('carts',carts)
       let total = 0
       if (arrs && arrs.length) {
         for (const arr of arrs) {
@@ -86,8 +97,6 @@ function Button(props) {
           total += (arr?.price.toFixed(2)* arr?.quantity)
         }
 
-        console.log('item',items)
-        console.log('total',total)
 
         purchaseUnits[0].items = items
         purchaseUnits[0].amount.value = total.toString()
@@ -110,18 +119,19 @@ function Button(props) {
 export default function Paypal(props) {
   // const [carts, setCarts] = useState([])
   const [total, setTotal] = useState()
-
+  const [pd, setPd] = useState({})
 
   useEffect(() => {
     // console.log(getListCartItemsFromLocalStorage())
     // setCarts(JSON.parse(getListCartItemsFromLocalStorage()))
     setTotal(props.total)
+    setPd(props.pd)
   }, [ total])
 
   return (
       <div style={{textAlign: "center"}}>
         <PayPalScriptProvider options={paypalScriptOptions}>
-          <Button total={total} />
+          <Button total={total} pd={pd}/>
         </PayPalScriptProvider>
       </div>
   );

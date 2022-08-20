@@ -9,11 +9,26 @@ import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice} from "../helpe
 import { addCartItemToLocalStorage } from "../helper/addToCart"
 import { Link } from "react-router-dom";
 import { KeyNavigate } from "../helper/KeyNavigate";
+import { getQuantity } from "../services/Product";
 
 
 export const CustomCardProduct = (props) => {
-  const addToCart = (productId, price) => {
-    addCartItemToLocalStorage(productId, price, 1)
+
+  // goi api check slt
+
+
+
+
+  const addToCart = async (productId, price) => {
+
+    let slt = await getQuantity(props.data.MADONG).then(res =>  (res.data[0].soluongton))
+    if(slt === 0)
+    {
+      alert('Sản phầm đã hết')
+    }
+    else{
+      addCartItemToLocalStorage(productId, price, 1)
+    }
   };
 
   const styleBadge = {

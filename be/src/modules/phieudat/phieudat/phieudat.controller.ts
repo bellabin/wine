@@ -40,6 +40,12 @@ export class PhieudatController {
         return this.phieudatService.create(payload)
     }
 
+    @Post('create/paypal') //create new pd
+    createPaypalPd(@Body() payload: CreatePhieudatDto) {
+        
+        return this.phieudatService.createPaypalPd(payload)
+    }
+
     @Put(':id') //update pd
     update(@Param('id') id: string, @Body() body: UpdatePhieudatDto) {
         return this.phieudatService.update(id, body)

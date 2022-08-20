@@ -39,47 +39,56 @@ export default class Section extends Component {
 
   componentDidMount() {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
-    this.setState({ carts });
+    if(carts){
+      this.setState({ carts });
     
-    let totalAmountTemp = 0;
-    carts.map((cur) => {
-      GetProductById(cur.productId)
-        .then((res) => {
-          let price = checkPrice(res.data.changeprices);
-          let promoPrice =
-            checkPrice(res.data.changeprices) *
-            toDecimal(checkKm(res.data.ct_khuyenmais));
-          let totalTemp = price - promoPrice;
-          totalAmountTemp += totalTemp * cur.quantity;
-          this.setState({ total: totalAmountTemp.toFixed(2) });
-        })
-        .catch((err) => console.log(err));
-    });
+      let totalAmountTemp = 0;
+      carts.map((cur) => {
+        GetProductById(cur.productId)
+          .then((res) => {
+            let price = checkPrice(res.data.changeprices);
+            let promoPrice =
+              checkPrice(res.data.changeprices) *
+              toDecimal(checkKm(res.data.ct_khuyenmais));
+            let totalTemp = price - promoPrice;
+            totalAmountTemp += totalTemp * cur.quantity;
+            this.setState({ total: totalAmountTemp.toFixed(2) });
+          })
+          .catch((err) => console.log(err));
+      });
+    }
+    
   }
 
   totalAmount() {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
-    let totalAmountTemp = 0;
-    carts.map((cur) => {
-      GetProductById(cur.productId)
-        .then((res) => {
-          let price = checkPrice(res.data.changeprices);
-          let promoPrice =
-            checkPrice(res.data.changeprices) *
-            toDecimal(checkKm(res.data.ct_khuyenmais));
-          let totalTemp = price - promoPrice;
-          totalAmountTemp += totalTemp * cur.quantity;
-          this.setState({ total: totalAmountTemp.toFixed(2) });
-        })
-        .catch((err) => console.log(err));
-    });
+    if(carts){
+      let totalAmountTemp = 0;
+      carts.map((cur) => {
+        GetProductById(cur.productId)
+          .then((res) => {
+            let price = checkPrice(res.data.changeprices);
+            let promoPrice =
+              checkPrice(res.data.changeprices) *
+              toDecimal(checkKm(res.data.ct_khuyenmais));
+            let totalTemp = price - promoPrice;
+            totalAmountTemp += totalTemp * cur.quantity;
+            this.setState({ total: totalAmountTemp.toFixed(2) });
+          })
+          .catch((err) => console.log(err));
+      });
+    }
+    
   }
 
   removeItem(productId) {
     const carts = JSON.parse(getListCartItemsFromLocalStorage());
+    if(carts) {
+      const newCarts = carts.filter((product) => product.productId != productId);
+      this.setState({ carts: newCarts });
+    }
 
-    const newCarts = carts.filter((product) => product.productId != productId);
-    this.setState({ carts: newCarts });
+    
 
     //this.setState({total: })
   }

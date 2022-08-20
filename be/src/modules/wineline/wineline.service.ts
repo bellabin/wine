@@ -182,4 +182,12 @@ export class WinelineService {
 
         return listArr
     }
+
+
+    async getQuantity(madong: string) {
+        return this.winelineRepo.query(`
+        SELECT soluongton from dongruou d 
+        WHERE d.MADONG = ${madong}
+        `)
+    }
 }

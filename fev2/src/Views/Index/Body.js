@@ -30,45 +30,8 @@ export default class Body extends Component {
         
         {/* <!-- Brand Start --> */}
         <div className="brand">
-          <div className="container-fluid">
-            <div className="brand-slider">
-              <div className="brand-item">
-                <a href="/danh-muc/agv">
-                  <img src="img/hennessy.jpg" alt="" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/shoei">
-                  <img src="img/bacardi.jpg" alt="" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/arai">
-                  <img src="img/chivas.jpg" alt="" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/torc">
-                  <img src="img/camus.jpg" alt="" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/yohe">
-                  <img src="img/ciroc.png" alt="" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/yohe">
-                  <img src="img/raynal.jpg" alt="rượu raynal" />
-                </a>
-              </div>
-              <div className="brand-item">
-                <a href="/danh-muc/yohe">
-                  <img src="img/martin.jpg" alt="" />
-                </a>
-              </div>
-            </div>
-          </div>
+          
+          
         </div>
         {/* <!-- Brand End --> */}
         {/* <!-- Category Start--> */}
@@ -173,60 +136,11 @@ export default class Body extends Component {
         
 
         
-       <HotProducts data={this.state.hotproducts}/> 
+      <HotProducts data={this.state.hotproducts}/> 
        
 
-        <TopPromo/>
+      <TopPromo/>
 
-       
-
-        
-
-        {/* <!--intro--> */}
-        <div className="banner">
-          <div className="container">
-            <div className="timer">
-              <div className="content">
-                <span className="first">DEALS OF THE MONTH</span>
-                <h1>Savvy Savings</h1>
-                <button>Shop now</button>
-              </div>
-            </div>
-
-            <div className="right">
-              <div className="top-right">
-                <div className="content">
-                  <h1>15 Whisky Cocktail You'll Fall For</h1>
-                  <span>
-                    We partnered with talented Ontario bartenders to create this
-                    autumn-inspired whisky cocktail collection.
-                  </span>
-                  <br />
-                  <button>Get the recipes</button>
-                </div>
-              </div>
-
-              <div className="bottom-right">
-                <div className="Sale">
-                  <div className="content">
-                    <span>LOCALLY MADE</span>
-                    <h1>Sale Now</h1>
-                    <button>Shop now</button>
-                  </div>
-                </div>
-
-                <div className="vintages">
-                  <div className="content">
-                    <span>NEW ARRIVALS</span>
-                    <h1>Vintages</h1>
-                    <button>Shop now</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!--end of intro--> */}
       </main>
     );
   }

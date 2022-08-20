@@ -8,11 +8,20 @@ import Typography from "@mui/material/Typography";
 import {checkKm, convertKm, convertPrice, fixedPrice, checkPrice, convertGIA} from "../helper/convertPrice";
 import { KeyNavigate } from "../helper/KeyNavigate";
 import { addCartItemToLocalStorage } from "../helper/addToCart"
+import { getQuantity } from "../services/Product";
 
 
 export const CustomCard = (props) => {
-  const addToCart = (productId, price) => {
-    addCartItemToLocalStorage(productId, price, 1)
+  const addToCart = async (productId, price) => {
+
+    let slt = await getQuantity(props.data.MADONG).then(res =>  (res.data[0].soluongton))
+    if(slt === 0)
+    {
+      alert('Sản phầm đã hết')
+    }
+    else{
+      addCartItemToLocalStorage(productId, price, 1)
+    }
   };
 
   return (

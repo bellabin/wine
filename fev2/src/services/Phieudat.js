@@ -25,6 +25,32 @@ export const createPhieuDat = (data) => {
       })
 }
 
+
+export const createPhieuDatPaypal = (data, orderID) => {
+  return HttpService.post('phieudat/create/paypal', {
+      NGAYDAT: moment(new Date()).format('YYYY-MM-DD'),
+      HONN: data.HONN,
+      TENNN: data.TENNN,
+      DIACHINN: data.DIACHINN,
+      SDTNN: data.SDTNN,
+      GHICHU: data.GHICHU,
+      TRANGTHAI: "Chưa duyệt",
+      MANVD: "",
+      MANVGH: "",
+      MAKH: data.MAKH,
+      CTPDS: data.CTPDS,
+      MAPD: orderID,
+      
+      // [
+      //   {
+      //     MADONG: "001",
+      //     SOLUONG: 5,
+      //     GIA: 60000
+      //   }
+      // ]
+    })
+}
+
 export const UpdatePdById = async (id, data) => {
   console.log(data)
   return HttpService.put(`phieudat/${id}`, {
@@ -41,6 +67,11 @@ export const UpdatePdById = async (id, data) => {
     MAKH: data.MAKH,
     CTPDS: data.CTPDS
 
+  }, {
+    headers: 
+    {
+      
+    }
   })
 }
 

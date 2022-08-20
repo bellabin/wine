@@ -5,6 +5,9 @@ import { StaffService } from './staff.service';
 import { AuthGuard } from '@nestjs/passport';
 import { LoginStaffDto } from './dto/login-staff.dto';
 import { NotFoundError } from 'rxjs';
+import { Role } from '../role/entities/role.entity';
+import { Roles } from 'src/decorators/role.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('staffs')
 export class StaffController {
@@ -13,6 +16,7 @@ export class StaffController {
     ) {}
 
     @Get() //get list staffs
+    @ApiBearerAuth()
     findAll() {
         //console.log('sdad')
         return this.staffService.findAll()

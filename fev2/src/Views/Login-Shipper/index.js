@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { loginUser } from '../../services/Customer';
-import { addUserProfileToLS } from '../../helper/accessToken';
+import { addUserProfileToLS, defineUser } from '../../helper/accessToken';
 import { addAccessTokenToLocalStorage } from '../../helper/accessToken';
+import { getMe } from '../../services/Getme';
+
 import jwt from 'jwt-decode' 
 import { GetListStaff, GetNVGH, GetStaffById, LoginStaff } from '../../services/Staff';
 
@@ -42,13 +44,12 @@ export default class LoginShipper extends Component {
 
         // chua set token
         await loginUser(payload).then(response => {
-            if(response.status === 201 && response.role === 'shipper') {
+            if(response.status === 201 && response.data.role === 'shipper') {
               
                 addAccessTokenToLocalStorage(response.data.accessToken)
-                const tokenDecode = jwt(response.data.accessToken)
-                //console.log(tokenDecode.userId)
-                GetStaffById(tokenDecode.userId).then(res => {
-                    addUserProfileToLS(res.data)
+                
+                getMe(response.data.accessToken).then(res => {
+                    defineUser(res.data)
                 })
                 window.location.href='/Shipper'
             //   <Link to={KeyNavigate.Layout}></Link>

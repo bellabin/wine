@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { loginUser } from '../../services/Customer';
-import { addAccessTokenToLocalStorage, addUserProfileToLS } from '../../helper/accessToken';
+import { addAccessTokenToLocalStorage, addUserProfileToLS, defineUser } from '../../helper/accessToken';
+import { getMe } from '../../services/Getme';
+
 import { GetListStaff, GetStaffById, LoginStaff } from '../../services/Staff';
 import jwt from 'jwt-decode' 
 
@@ -41,17 +43,19 @@ export default class LoginAdmin extends Component {
         console.log('payload', payload);
         
         await loginUser(payload).then(response => {
-            if(response.status === 201) {
+            if(response.status === 201 && response.data.role === 'staff') {
               
                 addAccessTokenToLocalStorage(response.data.accessToken)
-                const tokenDecode = jwt(response.data.accessToken)
-                GetStaffById(tokenDecode.userId).then(res => {
-                    
-                    addUserProfileToLS(res.data)
+                
+                getMe(response.data.accessToken).then(res => {
+                    defineUser(res.data)
                 })
               window.location.href='/Admin'
             //   <Link to={KeyNavigate.Layout}></Link>
 
+            }
+            else{
+                this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})
             }
           },reason => {
             this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})

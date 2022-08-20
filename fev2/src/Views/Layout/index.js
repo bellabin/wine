@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import Button from '@mui/material/Button';
 import { Link, NavLink, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
+import { removeToken } from '../../helper/accessToken';
 
 
 export default class LayoutAdmin extends Component {
     
+
+    removeTokenAdmin = () => {
+        removeToken()
+    }
+
     render() {
         
         return (
@@ -183,7 +189,7 @@ export default class LayoutAdmin extends Component {
                                         role="tab"
                                     ><i className="fas fa-file-pdf"></i>Report</a> */}
 
-                                    <NavLink className="nav-link" to={KeyNavigate.LoginAdmin}
+                                    <NavLink className="nav-link" to={KeyNavigate.LoginAdmin} onClick={ () => this.removeTokenAdmin() }
                                     ><i className="fa fa-sign-out-alt"></i>Đăng Xuất</NavLink>
                                 </div>
                             </div>

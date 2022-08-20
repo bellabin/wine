@@ -22,6 +22,8 @@ export const KeyNavigate = {
 
 
     Account:"/Account",
+    OrderCustomer:"/OrderCustomer",
+    CustomerDetail:"/CustomerDetail",
     Cart:"/Cart",
     ProductCus:"/ProductCus",
     Detail:"/Detail",

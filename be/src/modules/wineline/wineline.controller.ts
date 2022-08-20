@@ -68,4 +68,9 @@ export class WinelineController {
     getDetailPaypal(@Body() payload: []){
         return this.winelineService.getDetailPaypal(payload)
     }
+
+    @Get('/product/quantity/:id')
+    getQuantity(@Param('id') id: string){
+        return this.winelineService.getQuantity(id)
+    }
 }

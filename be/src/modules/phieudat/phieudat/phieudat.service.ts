@@ -95,6 +95,35 @@ export class PhieudatService {
 		return phieudat
 	}
 
+	async createPaypalPd(payload: CreatePhieudatDto) {
+		//func handle create new pd
+
+		const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
+
+		await this.phieudatRepo.save(phieudat) //khi save thi data moi duoc luu vao db
+
+		const { CTPDS } = payload
+
+		const promises = []
+
+		for (const ct_phieudat of CTPDS) {
+			const createCtPhieudatDto: CreateCtPhieudatDto = {
+				MAPD: payload.MAPD,
+				MADONG: ct_phieudat.MADONG,
+				SOLUONG: ct_phieudat.SOLUONG,
+				GIA: ct_phieudat.GIA,
+			}
+
+			promises.push(this.ctPhieuDatService.create(createCtPhieudatDto))
+		}
+
+		const cTPDs = await Promise.all(promises)
+
+		phieudat.ct_phieudats = cTPDs
+
+		return phieudat
+	}
+
 	async update(MAPD: string, payload: UpdatePhieudatDto) {
 		const phieudat = await this.findById(MAPD)
 

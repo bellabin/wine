@@ -6,6 +6,7 @@ import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
 import ProductCus from "../Views/ProductCus/index";
 import SearchBar from "./SearchBar";
 import SearchBar2 from "./SearchBar";
+import { getAccessTokenFromLocalStorage, removeToken } from "../helper/accessToken";
 
 export default class Header extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class Header extends Component {
     this.state = {
       products: [],
       itemInCart: 0,
+      token :''
     };
   }
 
@@ -26,10 +28,23 @@ export default class Header extends Component {
     const cart = JSON.parse(getListCartItemsFromLocalStorage());
 
     let count = 0;
-    cart.map((cur) => {
-      count++;
-    });
-    this.setState({ itemInCart: count });
+    if (cart) {
+      cart.map((cur) => {
+        count++;
+      });
+      this.setState({ itemInCart: count });
+    }
+
+    let token = getAccessTokenFromLocalStorage()
+    if(!token) token = ''
+    this.setState({token:token})
+    
+  }
+
+  logOut = () => {
+    removeToken()
+    this.setState({token : ''})
+    window.location.reload()
   }
 
   
@@ -110,6 +125,7 @@ export default class Header extends Component {
                       className="sign-in"
                       style={{ display: "inline", float: "left" }}
                     >
+                    {this.state.token.length === 0 && (
                       <Link
                         style={{
                           display: "block",
@@ -122,9 +138,11 @@ export default class Header extends Component {
                       >
                         Sign in
                       </Link>
+                    )}
                     </li>
                     <li style={{ display: "inline", float: "left" }}>
-                      <Link
+                    {this.state.token.length === 0 && (
+                      <Link 
                         style={{
                           display: "block",
                           padding: "8px",
@@ -136,6 +154,24 @@ export default class Header extends Component {
                       >
                         Admin
                       </Link>
+                    )}
+                    </li>
+                    <li style={{color: "#ff6f61", display: "inline", float: "left" }}>
+                    {this.state.token.length !== 0 && (
+                      <Link
+                        style={{
+                          display: "block",
+                          padding: "8px",
+                          textAlign: "center",
+                          padding: "14px 16px",
+                          textDecoration: "none",
+                        }}
+                        to={'/'}
+                        onClick={() => this.logOut()}
+                      >
+                        Log out
+                      </Link>
+                    )}
                     </li>
                   </ul>
                 </nav>

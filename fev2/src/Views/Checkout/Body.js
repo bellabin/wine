@@ -11,10 +11,11 @@ import Paypal from "../../components/Paypal";
 import { Button } from "@mui/material";
 import { Table, TableRow } from "@mui/material";
 import * as moment from "moment";
-import { getUserProfileFromLS } from "../../helper/accessToken";
+import { getAccessTokenFromLocalStorage, getUserProfileFromLS } from "../../helper/accessToken";
 import { createPhieuDat } from "../../services/Phieudat";
 import { checkKm, checkPrice, toDecimal } from "../../helper/convertPrice";
-
+import { getMe } from "../../services/Getme";
+import { GetCustomerById } from "../../services/Customer";
 export default class Body extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +31,7 @@ export default class Body extends Component {
         DIACHINN: "",
         SDTNN: "",
         GHICHU: "",
-        TRANGTHAI: "CHUA_DUYET",
+        TRANGTHAI: "Chưa duyệt",
         MANVD: "",
         MANVGH: "",
         MAKH: "",
@@ -38,13 +39,26 @@ export default class Body extends Component {
       },
     };
   }
-  componentDidMount() {
-    if(!getUserProfileFromLS){
-      console.log('chua login')
-    }else console.log('da login')
+  async componentDidMount() {
+    // const token = getAccessTokenFromLocalStorage() 
+    // if(!token) {
+    //   alert('Vui lòng đăng nhập')
+    //   window.location.href('/Login')
+    // }
+
+    // let userId = {}
+    // await getMe(token).then(res => {
+    //   userId = res.data.userId
+    // })
+    // console.log(userId)
+    // await GetCustomerById(userId).then(res => {
+    //   console.log('res', res.data)
+    //   this.setState({customer: res.data})
+    // })
+    
     const cartsT = JSON.parse(getListCartItemsFromLocalStorage());
-    this.setState({ carts: cartsT });
-    let productsT = [];
+    if(cartsT) {
+      let productsT = [];
     cartsT.map((cur) => {
       GetProductById(cur.productId)
         .then((res) => {
@@ -87,13 +101,16 @@ export default class Body extends Component {
         DIACHINN: this.state.customer.DIACHI,
         SDTNN: this.state.customer.SDT,
         GHICHU: "",
-        TRANGTHAI: "CHUA_DUYET",
+        TRANGTHAI: "Chưa duyệt",
         MANVD: "",
         MANVGH: "",
         MAKH: this.state.customer.MAKH,
         CTPDS: listCTPDstemp,
       },
     });
+    }
+    
+    
   }
 
   handleChange = (e) => {
@@ -108,7 +125,7 @@ export default class Body extends Component {
 
   checkPaypalState = (e) => {
     if (this.state.payment === 1) {
-      return <Paypal total={this.state.total}></Paypal>;
+      return <Paypal total={this.state.total} pd={this.state.data}></Paypal>;
     } else return <></>;
   };
 
@@ -116,7 +133,6 @@ export default class Body extends Component {
     //console.log(moment(new Date()).format("YYYY-MM-DD"));
     //console.log("data", this.state.data);
     createPhieuDat(this.state.data);
-    console.log("confirm");
   };
   render() {
     return (

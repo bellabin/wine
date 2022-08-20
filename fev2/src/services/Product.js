@@ -18,7 +18,9 @@ export const GetWinetypeById = async (id) => {
 
 }
 
-
+export const getQuantity = async (id) => {
+  return HttpService.get(`winelines/product/quantity/${id}`)
+}
 /////
 
 

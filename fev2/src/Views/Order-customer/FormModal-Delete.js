@@ -14,17 +14,14 @@ import { GetNVGH } from '../../services/Staff'
 import { Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { UpdatePdById } from '../../services/Phieudat';
-import { getAccessTokenFromLocalStorage, getUserProfileFromLS } from '../../helper/accessToken';
-import { getMe } from '../../services/Getme';
 
 
-export default class FormModalDeleteBill extends React.Component {
+export default class FormModalDeleteBillCustomer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             open: false,
             MANVGH:'',
-            MANVD:'',
             MAPD: '',
             listSelect: [],
             data: {
@@ -45,11 +42,7 @@ export default class FormModalDeleteBill extends React.Component {
         }
     }
 
-    // componentDidMount(){
-    //     getUserProfileFromLS().then(res => {
-    //         console.log(res.data)
-    //     })
-    // }
+    
 
     Close = () => {
         this.setState({ open: false })
@@ -60,12 +53,6 @@ export default class FormModalDeleteBill extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         ///update lai pd
-        const token  = getAccessTokenFromLocalStorage()
-        let user = {}
-        await getMe(token).then(res => {
-            user = res.data
-        })
-
         let tempData = {
             MAPD: '',
             NGAYDAT: '',
@@ -75,12 +62,13 @@ export default class FormModalDeleteBill extends React.Component {
             SDTNN: '',
             GHICHU: '',
             TRANGTHAI: '',
-            MANVD: user.MANV,
+            MANVD: '',
             MANVGH: '',
             MAKH: '',
             CTPDS: [],
         }
         if(this.state.data.TRANGTHAI === 'Chưa duyệt' ){
+            console.log('i was here')
             tempData = {
                 MAPD: this.state.data.MAPD,
                 NGAYDAT: this.state.data.NGAYDAT,
@@ -90,7 +78,7 @@ export default class FormModalDeleteBill extends React.Component {
                 SDTNN: this.state.data.SDTNN,
                 GHICHU: this.state.data.GHICHU,
                 TRANGTHAI: 'Đã phân công',
-                MANVD: user.MANV,
+                MANVD: '001',
                 MANVGH: this.state.MANVGH,
                 MAKH: this.state.data.MAKH,
                 CTPDS: this.state.data.CTPDS,
@@ -158,7 +146,7 @@ export default class FormModalDeleteBill extends React.Component {
                     autoComplete="off"
                     onSubmit={this.onSubmit}
                 >
-                    <DialogTitle>Duyệt đơn</DialogTitle>
+                    <DialogTitle>Xác nhận đơn</DialogTitle>
                     <DialogContent >
                         <FormControl fullWidth style={{marginTop:'20px'}}>
                             <InputLabel id="demo-simple-select-label">Chọn nhân viên giao</InputLabel>

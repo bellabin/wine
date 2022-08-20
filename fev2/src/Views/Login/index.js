@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { loginUser } from '../../services/Customer';
-import { addAccessTokenToLocalStorage, addUserProfileToLS } from '../../helper/accessToken';
+import { addAccessTokenToLocalStorage, addUserProfileToLS, defineUser } from '../../helper/accessToken';
 import { GetCustomerById } from '../../services/Customer';
 import jwt from 'jwt-decode' 
+import { getMe } from '../../services/Getme';
 
 export default class Login extends Component {
     constructor(props) {
@@ -26,19 +27,24 @@ export default class Login extends Component {
         }
         
         await loginUser(payload).then(response => {
-            if(response.status === 201) {
+            if(response.status === 201 && response.data.role === 'customer') {
               
                 addAccessTokenToLocalStorage(response.data.accessToken)
-                const tokenDecode = jwt(response.data.accessToken)
-                GetCustomerById(tokenDecode.userId).then(res => {
-                    
-                    addUserProfileToLS(res.data)
+                
+                getMe(response.data.accessToken).then(res => {
+                    defineUser(res.data)
                 })
+                    
+                
+                
 
                 window.location.href='/'
             //   <Link to={KeyNavigate.Layout}></Link>
                                 
 
+            }
+            else{
+                this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})
             }
           },reason => {
             this.setState({error: 'Sai tên đăng nhập hoặc mật khẩu'})

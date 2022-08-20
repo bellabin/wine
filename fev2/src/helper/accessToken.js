@@ -5,10 +5,26 @@ export const getAccessTokenFromLocalStorage = () => {
     return sessionStorage.getItem('accessToken')
 }
 
+
+export const removeToken = () => {
+    console.log('xoa session nhaaaa')
+    return sessionStorage.removeItem('accessToken')
+}
+
+
+
 export const addUserProfileToLS = (payload) => {
     return sessionStorage.setItem('userProfile',JSON.stringify(payload))
 }
 
 export const getUserProfileFromLS = () => {
     return sessionStorage.getItem('userProfile')
+}
+
+export const defineUser = (payload) => {
+    return sessionStorage.setItem('getMe', JSON.stringify(payload))
+}
+
+export const getUser = (payload) => {
+    return sessionStorage.getItem('getMe', JSON.stringify(payload))
 }
