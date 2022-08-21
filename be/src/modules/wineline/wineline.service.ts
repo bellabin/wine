@@ -75,6 +75,22 @@ export class WinelineService {
         return this.winelineRepo.update(MADONG, body)
     }
 
+    async updateSLT(MADONG: string, slt: number) {
+        const wineline = await this.findById(MADONG)
+
+        if (!wineline) throw new NotFoundException('Wineline is not exist')
+
+        if(wineline.SOLUONGTON < slt) throw new NotFoundException('Not enough!')
+
+        return this.winelineRepo.createQueryBuilder('wineline')
+		.update(Wineline)
+		.set({
+            SOLUONGTON: wineline.SOLUONGTON - slt,
+		})
+		.where("MADONG = :MADONG",{MADONG:MADONG})
+		.execute()
+    }
+
     async delete(MADONG: string) {
         const wineline = await this.findById(MADONG)
 

@@ -169,6 +169,8 @@ export class PhieudatService {
 		
 	}
 
+	
+
 	async delete(MAPD: string) {
 		const phieudat = await this.findById(MAPD)
 
@@ -216,6 +218,7 @@ export class PhieudatService {
 		.setFindOptions({
 			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
         })
+		.orderBy('phieudat.NGAYDAT','DESC')
 		.getMany()
 	}
 }

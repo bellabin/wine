@@ -12,6 +12,7 @@ import { findByState } from "../../services/Phieudat";
 import { getListPdByStateAndNVGH } from '../../services/Phieudat';
 import { addAccessTokenToLocalStorage, addUserProfileToLS, getAccessTokenFromLocalStorage } from '../../helper/accessToken';
 import jwt from 'jwt-decode' 
+import {getMe} from '../../services/Getme'
 
 
 export default class OrderShipper extends Component {
@@ -20,25 +21,26 @@ export default class OrderShipper extends Component {
     this.state={
       filter:'ALL',
       listPds: [],
-      tokenDecode: jwt(getAccessTokenFromLocalStorage()),
+      usrId: '',
     }
   }
 
-  componentDidMount() {
-    const token = getAccessTokenFromLocalStorage()
-    const tokenDecode = jwt(token)
-    console.log(tokenDecode.userId)
+  async componentDidMount() {
+
+    const uid = await (await getMe(getAccessTokenFromLocalStorage())).data.userId
+    this.setState({usrId:uid})
+    // console.log('id',uid)
 
 
-    getListPdByNVGH('003').then(res => {
-      console.log(res.data)
+    getListPdByNVGH(uid).then(res => {
+      // console.log(res.data)
       this.setState({listPds: res.data})
     })
   }
 
   handleChange = (e) => {
-    getListPdByStateAndNVGH(e.target.value, '003').then(res => {
-      console.log(res.data)
+    getListPdByStateAndNVGH(e.target.value, this.state.usrId).then(res => {
+      // console.log(res.data)
 
       this.setState({listPds: res.data})
       this.setState({filter: e.target.value})
@@ -78,7 +80,7 @@ export default class OrderShipper extends Component {
         <div className='row mt-2'>
           <div className='col-12'>
           {/* {console.log('in',this.state.filter, this.state.listPds)} */}
-            <Table list={this.state.listPds}/>
+            <Table list={this.state.listPds} id={this.state.usrId}/>
           </div>
         </div>
       </div>

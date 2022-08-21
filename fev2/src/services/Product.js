@@ -94,3 +94,7 @@ export const GetListTopPromo = async () => {
 export const getPaypalDetail = async (arr) => {
   return HttpService.post('winelines/product/paypal/arr',arr)
 }
+
+export const updateSLT = (MADONG, slt) => {
+  return HttpService.put(`winelines/update/slt/${MADONG},${slt}`)
+}

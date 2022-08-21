@@ -53,6 +53,11 @@ export class WinelineController {
         return this.winelineService.update(id, body)
     }
 
+    @Put('/update/slt/:id,:slt') //update pd
+    updateSLT(@Param('id') id: string, @Param('slt') slt: number) {
+        return this.winelineService.updateSLT(id, slt)
+    }
+
     @Delete(':id') //remove 
     delete(@Param('id') id: string) {
         return this.winelineService.delete(id)

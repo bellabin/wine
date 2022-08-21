@@ -1,28 +1,37 @@
 import HttpService from "./Gateway"
 import * as moment from 'moment'
+import { updateSLT } from "./Product"
 
-export const createPhieuDat = (data) => {
-    return HttpService.post('phieudat', {
-        NGAYDAT: moment(new Date()).format('YYYY-MM-DD'),
-        HONN: data.HONN,
-        TENNN: data.TENNN,
-        DIACHINN: data.DIACHINN,
-        SDTNN: data.SDTNN,
-        GHICHU: data.GHICHU,
-        TRANGTHAI: "Chưa duyệt",
-        MANVD: "",
-        MANVGH: "",
-        MAKH: data.MAKH,
-        CTPDS: data.CTPDS
-        
-        // [
-        //   {
-        //     MADONG: "001",
-        //     SOLUONG: 5,
-        //     GIA: 60000
-        //   }
-        // ]
-      })
+export const createPhieuDat = async (data) => {
+
+  data.CTPDS.map(cur => {
+    console.log(cur.MADONG, cur.SOLUONG)
+    updateSLT(cur.MADONG, cur.SOLUONG)
+    .then(res => {
+      console.log(res)
+      if (res.status !== 201){
+        // alert('Failed')
+        return
+      }
+    })
+  })
+
+  // if(this.updateSLT())
+  return HttpService.post('phieudat', {
+      NGAYDAT: moment(new Date()).format('YYYY-MM-DD'),
+      HONN: data.HONN,
+      TENNN: data.TENNN,
+      DIACHINN: data.DIACHINN,
+      SDTNN: data.SDTNN,
+      GHICHU: data.GHICHU,
+      TRANGTHAI: "Chưa duyệt",
+      MANVD: "",
+      MANVGH: "",
+      MAKH: data.MAKH,
+      CTPDS: data.CTPDS
+      
+      
+    })
 }
 
 
@@ -90,3 +99,4 @@ export const getListPdByNVGH = (MANV) => {
 export const getListPdByStateAndNVGH = (TRANGTHAI,MANV) => {
   return HttpService.get(`phieudat/NV&state/${TRANGTHAI},${MANV}`)
 }
+

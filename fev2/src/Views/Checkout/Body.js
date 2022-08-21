@@ -13,6 +13,7 @@ import { Table, TableRow } from "@mui/material";
 import * as moment from "moment";
 import { getAccessTokenFromLocalStorage, getUserProfileFromLS } from "../../helper/accessToken";
 import { createPhieuDat } from "../../services/Phieudat";
+import { updateSLT } from "../../services/Phieudat";
 import { checkKm, checkPrice, toDecimal } from "../../helper/convertPrice";
 import { getMe } from "../../services/Getme";
 import { GetCustomerById } from "../../services/Customer";
@@ -129,10 +130,20 @@ export default class Body extends Component {
     } else return <></>;
   };
 
-  checkout = () => {
+  checkout = async () => {
     //console.log(moment(new Date()).format("YYYY-MM-DD"));
     //console.log("data", this.state.data);
-    createPhieuDat(this.state.data);
+    await createPhieuDat(this.state.data).then(res => {
+      if(res.status === 201) {
+        alert('Đặt hàng thành công')
+
+        ///update slt
+        // updateSLT()
+
+        window.location.href('/')
+      }
+    });
+
   };
   render() {
     return (

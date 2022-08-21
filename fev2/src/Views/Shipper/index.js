@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import Button from '@mui/material/Button';
 import { Link, NavLink, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
+import { removeToken } from '../../helper/accessToken';
 
 
 export default class Shipper extends Component {
     
+
+    Logout(){
+        removeToken()
+    }
+
     render() {
         
         return (
@@ -84,7 +90,7 @@ export default class Shipper extends Component {
                                         role="tab"
                                     ><i className="fa fa-user-tie"></i>Chi tiết tài khoản</Link>
                                     
-                                    <NavLink className="nav-link" to={KeyNavigate.LoginShipper}
+                                    <NavLink className="nav-link" to={KeyNavigate.LoginShipper} onClick={() => this.Logout()}
                                     ><i className="fa fa-sign-out-alt"></i>Đăng Xuất</NavLink>
                                 </div>
                             </div>

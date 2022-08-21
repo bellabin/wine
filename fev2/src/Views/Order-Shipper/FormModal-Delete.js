@@ -14,6 +14,8 @@ import { GetNVGH } from '../../services/Staff'
 import { Select } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { UpdatePdById } from '../../services/Phieudat';
+import { getMe } from '../../services/Getme';
+import { getAccessTokenFromLocalStorage } from '../../helper/accessToken';
 
 
 export default class FormModalDeleteBillShipper extends React.Component {
@@ -43,6 +45,7 @@ export default class FormModalDeleteBillShipper extends React.Component {
     }
 
     
+    
 
     Close = () => {
         this.setState({ open: false })
@@ -51,6 +54,9 @@ export default class FormModalDeleteBillShipper extends React.Component {
         this.setState({ open: true })
     }
     onSubmit = async (event) => {
+
+        
+
         event.preventDefault()
         ///update lai pd
         let tempData = {
@@ -67,8 +73,7 @@ export default class FormModalDeleteBillShipper extends React.Component {
             MAKH: '',
             CTPDS: [],
         }
-        if(this.state.data.TRANGTHAI === 'Chưa duyệt' ){
-            console.log('i was here')
+        if(this.state.data.TRANGTHAI === 'Đã phân công' ){
             tempData = {
                 MAPD: this.state.data.MAPD,
                 NGAYDAT: this.state.data.NGAYDAT,
@@ -77,32 +82,25 @@ export default class FormModalDeleteBillShipper extends React.Component {
                 DIACHINN: this.state.data.DIACHINN,
                 SDTNN: this.state.data.SDTNN,
                 GHICHU: this.state.data.GHICHU,
-                TRANGTHAI: 'Đã phân công',
-                MANVD: '001',
-                MANVGH: this.state.MANVGH,
+                TRANGTHAI: 'Đã giao',
+                MANVD: this.state.data.MANVD,
+                MANVGH: this.state.data.MANVGH,
                 MAKH: this.state.data.MAKH,
                 CTPDS: this.state.data.CTPDS,
             }
+
         }
         
         UpdatePdById(this.state.MAPD, tempData)
         this.Close()
     }
 
-    Delete(MAPD,listNVGH, row) {
+    Delete(MAPD,listNVGH, row ) {
         
-        
-        let listTemp = []
-        listNVGH.map(cur => {
-            listTemp.push({key:cur.MANV,value:cur.HO.concat(' ').concat(cur.TEN)})
-        })
 
-        
 
         this.setState({ 
             MAPD: MAPD, 
-            //listNVGH: listNVGH,
-            listSelect: listTemp,
             data: {
                 MAPD: row.MAPD,
                 NGAYDAT: row.NGAYDAT,
@@ -112,7 +110,7 @@ export default class FormModalDeleteBillShipper extends React.Component {
                 SDTNN: row.SDTNN,
                 GHICHU: row.GHICHU,
                 TRANGTHAI: row.TRANGTHAI,
-                MANVD: row.MANVD,
+                MANVD: row.staff.MANV,
                 MANVGH: row.MANVGH,
                 MAKH: row.MAKH,
                 CTPDS: row.ct_phieudats
@@ -147,27 +145,9 @@ export default class FormModalDeleteBillShipper extends React.Component {
                     onSubmit={this.onSubmit}
                 >
                     <DialogTitle>Xác nhận đơn</DialogTitle>
-                    <DialogContent >
-                        <FormControl fullWidth style={{marginTop:'20px'}}>
-                            <InputLabel id="demo-simple-select-label">Chọn nhân viên giao</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={this.state.MANVGH}
-                                label="Chọn nhân viên giao"
-                                onChange={(e) => this.handleChange(e)}
-                            >
-                                
-
-                                {this.state.listSelect.map((cur) => {
-                                    return(
-                                    <MenuItem value={cur.key}>{cur.value}</MenuItem>)
-                                })}
-                                
-                                
-                            </Select>
-                        </FormControl>
-                    </DialogContent>
+                    {/* <DialogContent >
+                        
+                    </DialogContent> */}
                     <DialogActions>
                         <Button type='submit' color='success' variant='contained' onClick={this.onSubmit} >Submit</Button>
                         <Button onClick={this.Close}>Close</Button>
