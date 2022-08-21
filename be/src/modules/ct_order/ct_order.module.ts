@@ -7,6 +7,8 @@ import { CtOrder } from './entities/ct_order.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([CtOrder])],
   controllers: [CtOrderController],
-  providers: [CtOrderService]
+  providers: [CtOrderService],
+  exports: [CtOrderService],
+  
 })
 export class CtOrderModule {}

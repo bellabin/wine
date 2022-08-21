@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNotEmpty, IsString } from "class-validator";
+import { Type } from "class-transformer";
+import { IsArray, IsDate, IsNotEmpty, IsString } from "class-validator";
+import { CtOrder } from "src/modules/ct_order/entities/ct_order.entity";
 
 export class CreateOrderDto {
     @ApiProperty()
@@ -18,4 +20,10 @@ export class CreateOrderDto {
     @ApiProperty()
     @IsString()
     MANCC!: string
+
+    @IsArray()
+    @IsNotEmpty()
+    @ApiProperty({ type: [CtOrder] })
+    @Type(() => CtOrder)
+    CTODS!: CtOrder[]
 }

@@ -22,6 +22,11 @@ export class CtOrderController {
     return this.ctOrderService.findOne(MADONG, MADDH);
   }
 
+  @Get('/findbyMADDH/:id')
+  findByMADDH(@Param('id') id: string){
+    return this,this.ctOrderService.findByMADDH(id)
+  }
+
   @Patch('')
   update(@Query('MADONG') MADONG: string, @Query('MADDH') MADDH: string, @Body() updateCtOrderDto: UpdateCtOrderDto) {
     return this.ctOrderService.update(MADONG, MADDH, updateCtOrderDto);

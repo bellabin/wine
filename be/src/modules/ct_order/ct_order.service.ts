@@ -17,6 +17,7 @@ export class CtOrderService {
     return ct_order
   }
 
+  
   findAll() {
     return this.ctorderRepo.find({
       relations: ['wineline', 'order'],
@@ -28,6 +29,14 @@ export class CtOrderService {
       where: { MADONG: MADONG, MADDH: MADDH   },
       relations: ['wineline', 'order'],
     })
+  }
+
+
+  findByMADDH( MADDH: string) {
+    return this.ctorderRepo.createQueryBuilder('ct_order')
+    .where('MADDH = :MADDH', { MADDH })
+    .getMany()
+
   }
 
   async update(MADONG: string, MADDH: string, body: UpdateCtOrderDto) {
