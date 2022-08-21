@@ -84,7 +84,7 @@ export default class Body extends Component {
             checkPrice(res.data.changeprices) *
             toDecimal(checkKm(res.data.ct_khuyenmais));
           let totalTemp = price - promoPrice;
-          CTPDtemp.GIA = totalTemp * cur.quantity;
+          CTPDtemp.GIA = totalTemp 
           totalAmountTemp += totalTemp * cur.quantity;
           // console.log(totalAmountTemp)
           this.setState({ total: totalAmountTemp.toFixed(2) });
@@ -137,6 +137,7 @@ export default class Body extends Component {
       if(res.status === 201) {
         alert('Đặt hàng thành công')
 
+
         ///update slt
         // updateSLT()
 
@@ -164,9 +165,9 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Họ và tên"
-                          defaultValue={this.state.customer.HO.concat(
-                            " "
-                          ).concat(this.state.customer.TEN)}
+                          // defaultValue={this.state.customer.HO.concat(
+                          //   " "
+                          // ).concat(this.state.customer.TEN)}
                           InputProps={{
                             name: "Email",
                           }}

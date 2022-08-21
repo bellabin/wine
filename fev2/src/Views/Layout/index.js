@@ -96,6 +96,14 @@ export default class LayoutAdmin extends Component {
                                         role="tab"
                                     ><i className="fa fa-user-tie"></i>Nhà cung cấp</Link>
                                     <Link
+                                        to={KeyNavigate.Layout.concat(KeyNavigate.DDH)}
+                                        className="nav-link"
+                                        id="address-nav"
+                                        data-toggle="pill"
+                                        href="#nhacungcap"
+                                        role="tab"
+                                    ><i className="fa fa-user-tie"></i>DDH</Link>
+                                    <Link
                                         to={KeyNavigate.Layout.concat(KeyNavigate.ProductType)}
                                         className="nav-link"
                                         id="payment-nav"

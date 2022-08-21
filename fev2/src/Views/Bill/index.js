@@ -52,7 +52,7 @@ export default class Bill extends Component {
             >
               <FormControlLabel value="ALL" control={<Radio />} label="Tất cả" />
               <FormControlLabel value="Chưa duyệt" control={<Radio />} label="Chưa duyệt" />
-              <FormControlLabel value="Chưa phân công" control={<Radio />} label="Chưa phân công" />
+              {/* <FormControlLabel value="Chưa phân công" control={<Radio />} label="Chưa phân công" /> */}
               <FormControlLabel value="Đã phân công" control={<Radio />} label="Đã phân công" />
               <FormControlLabel value="Đã giao" control={<Radio />} label="Đã giao hàng" />
               <FormControlLabel value="Đã huỷ" control={<Radio />} label="Đã huỷ" />

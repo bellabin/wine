@@ -35,6 +35,7 @@ import OrderShipper from './Views/Order-Shipper';
 import ShipperDetail from './Views/ShipperDetail';
 import CustomerDetail from './Views/Customer-Detail';
 import OrderCustomer from './Views/Order-customer';
+import DDH from './Views/DDH';
 function App() {
   return (
     <Routes>
@@ -81,6 +82,8 @@ function App() {
           <Route path={KeyNavigate.Revenue} element={<Revenue />} />
           <Route path={KeyNavigate.Customer} element={<Customer />} />
           <Route path={KeyNavigate.Staff} element={<Staff />} />
+          <Route path={KeyNavigate.DDH} element={<DDH />} />
+
       </LayoutAdmin>}></Route>
 
       

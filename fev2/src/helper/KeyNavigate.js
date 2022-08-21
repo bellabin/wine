@@ -27,7 +27,8 @@ export const KeyNavigate = {
     Cart:"/Cart",
     ProductCus:"/ProductCus",
     Detail:"/Detail",
-    CheckOut:"/CheckOut"
+    CheckOut:"/CheckOut",
+    DDH:"/DDH",
 
 
 

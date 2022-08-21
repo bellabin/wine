@@ -2,6 +2,7 @@ import HttpService from "./Gateway"
 import * as moment from 'moment'
 import { updateSLT } from "./Product"
 
+
 export const createPhieuDat = async (data) => {
 
   data.CTPDS.map(cur => {

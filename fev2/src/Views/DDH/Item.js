@@ -13,7 +13,7 @@ import {
   checkPrice,
 } from "../../helper/convertPrice";
 
-export default class ItemPd extends Component {
+export default class ItemDDH extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -64,11 +64,6 @@ export default class ItemPd extends Component {
           </TableCell>
         <TableCell>
           {this.props.data.GIA}{" "}
-          $
-        </TableCell>
-
-        <TableCell>
-          {this.props.data.GIA * this.state.curQuantity}{" "}
           $
         </TableCell>
         

@@ -60,9 +60,11 @@ export default class FormModalEditBill extends React.Component {
     Edit(row) {
         let totalTemp = 0
         row.ct_phieudats.map(cur => {
-            totalTemp += cur.GIA
+            totalTemp += cur.GIA * cur.SOLUONG
         })
         this.setState({total:totalTemp.toFixed(2)})
+
+        console.log(row.GHICHU)
 
         this.setState({
             data: {
@@ -192,7 +194,9 @@ export default class FormModalEditBill extends React.Component {
 
                                         />
                                     </FormControl>
-                                    <FormControl fullWidth >
+                                    <div className='row'>
+                                        <div className='col-5'>
+                                        <FormControl fullWidth >
                                         <TextField
                                             label="SĐT"
                                             value={Object(this.state.data.SDTNN).length && this.state.data.SDTNN}
@@ -202,7 +206,37 @@ export default class FormModalEditBill extends React.Component {
                                         // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
 
                                         />
-                                    </FormControl>
+                                        </FormControl>
+
+                                        </div>
+                                        <div className='col-7'>
+                                        <FormControl fullWidth >
+                                        <TextField
+                                            label="SĐT"
+                                            value={Object(this.state.data.EMAIL).length && this.state.data.EMAIL}
+                                            InputProps={{
+                                                name: "phone"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
+
+                                        />
+                                        </FormControl>
+
+                                        </div>
+
+                                    </div>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Ghi chú"
+                                            value={Object(this.state.data.GHICHU).length && this.state.data.GHICHU}
+                                            InputProps={{
+                                                name: "note"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
+
+                                        />
+                                        </FormControl>
+                                    
                                     <FormControl fullWidth >
                                         <TextField
                                             label="Trạng thái"
@@ -234,7 +268,8 @@ export default class FormModalEditBill extends React.Component {
                                             <TableCell style={{ width: '25%' }}>Hình ảnh</TableCell>
                                             
                                             <TableCell>Số lượng</TableCell>
-                                            <TableCell>Tổng</TableCell>
+                                            <TableCell>Đơn giá</TableCell>
+                                            <TableCell>Tỉ giá</TableCell>
                                             <TableCell></TableCell>
                                         </TableRow>
                                     </TableHead>
