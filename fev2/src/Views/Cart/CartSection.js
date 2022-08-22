@@ -94,9 +94,9 @@ export default class CartSection extends Component {
     // window.location.href('/Login')
   }
 
-  handleOnClickLoggedIn() {
+  async handleOnClickLoggedIn() {
       const usrId = JSON.parse(getUser());
-      GetCustomerById(usrId.userId).then((res) => {
+      await GetCustomerById(usrId.userId).then((res) => {
         addUserProfileToLS(res.data);
       });
   }

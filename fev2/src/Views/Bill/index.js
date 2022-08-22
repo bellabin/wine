@@ -25,10 +25,13 @@ export default class Bill extends Component {
   componentDidMount() {
     GetListPD().then(res => {
       this.setState({listPds: res.data})
+      GetNVGH().then(res1 => {
+        console.log('res',res1.data)
+        this.setState({
+          listNVGH: res1.data})
+      })
     })
-    GetNVGH().then(res => {
-      this.setState({listNVGH: res.data})
-    })
+    
   }
 
   handleChange = (e) => {

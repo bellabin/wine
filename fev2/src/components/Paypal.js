@@ -8,6 +8,7 @@ import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
 import { getPaypalDetail } from "../services/Product";
 import { createPhieuDatPaypal } from "../services/Phieudat";
 import { getTotal } from "../services/Phieudat";
+import { removeUserProfileToLS } from "../helper/accessToken";
 
 const paypalScriptOptions = {
   "client-id": "AeMSCBo543IZhLXERfPVLZ5fyuYvpZ4OrgzbiKAfSsjY25sVg9jkXFVIY6_R9Qo-Ef-haY4rZAIIrxZG",
@@ -64,6 +65,7 @@ function Button(props) {
       // }
 
       return actions.order.capture({}).then((details) => {
+        removeUserProfileToLS()
         alert(
             "Transaction completed by" +
             (details?.payer.name.given_name ?? "No details")

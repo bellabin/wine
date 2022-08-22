@@ -7,6 +7,9 @@ import ProductCus from "../Views/ProductCus/index";
 import SearchBar from "./SearchBar";
 import SearchBar2 from "./SearchBar";
 import { getAccessTokenFromLocalStorage, removeToken, removeUserProfileToLS } from "../helper/accessToken";
+import { getUser } from "../helper/accessToken";
+import { addUserProfileToLS } from "../helper/accessToken";
+import { GetCustomerById } from "../services/Customer";
 
 export default class Header extends Component {
   constructor(props) {
@@ -46,6 +49,13 @@ export default class Header extends Component {
     removeUserProfileToLS()
     this.setState({token : ''})
     window.location.reload()
+  }
+
+  async handleClick(){
+    const usrId = JSON.parse(getUser());
+      await GetCustomerById(usrId.userId).then((res) => {
+        addUserProfileToLS(res.data);
+      });
   }
 
   
@@ -103,6 +113,7 @@ export default class Header extends Component {
                           textDecoration: "none",
                         }}
                         to={KeyNavigate.Cart}
+                        onClick={() => this.handleClick()}
                       >
                         Giỏ hàng
                       </Link>

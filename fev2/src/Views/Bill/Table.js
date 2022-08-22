@@ -11,32 +11,34 @@ import { GetListBill, GetListPD } from "../../services/Bill";
 import { GetListCustomer } from "../../services/Customer";
 import FormModalEditBill from "./FormModal-Edit";
 import FormModalDeleteBill from "./FormModal-Delete";
-import { GetListStaff, GetNVGH } from "../../services/Staff";
+import { GetListStaff, GetNVGH, GetStaffById } from "../../services/Staff";
 import { findByState } from "../../services/Phieudat";
 
 export default function DenseTable(props) {
     
+    
     const listPds = props.list
     const [listCustomers, setListCustomers] = useState([]);
     const [listNVGH,setListNVGH] = useState([])
+    const listNVGH1 =  GetNVGH() 
+
+    
+    // const listNVGH = props.listNVGH
 
 
     
 
     useEffect(() => {
         async function fetchListCus() {
-            const getcustomers = (await GetListCustomer()).data;
-            const getListNVGH = (await GetNVGH()).data
-            const promises = [getcustomers, getListNVGH];
-
-            const [customers, nvghs] = await Promise.all(promises);
-            // console.log(staffs)
-            // console.log(listPds)
-            console.log(nvghs)
-            setListCustomers(customers);
-            setListNVGH(nvghs)
-
-            
+             GetListCustomer().then((res) => {
+                console.log(res.data)
+                setListCustomers(res.data);
+            }
+            )
+            GetNVGH().then((res) => {
+                    setListNVGH(res.data);
+                }
+            )
         }
 
         fetchListCus();
@@ -77,22 +79,16 @@ export default function DenseTable(props) {
     }
 
     const renderNVGH = (MANVGH) => {
+        console.log('GH',MANVGH)
         if(!MANVGH || MANVGH.length === 0){
             return (
                 <TableCell align="left"></TableCell>
             )
         }
         else{
-            let staffTemp = {}
-            console.log('in',listNVGH)
-            listNVGH && listNVGH.map(cur => {
-                if(cur.MANV === MANVGH){
-                    console.log('cur',cur)
-                    staffTemp = cur
-                }
-            })
+            let staff = listNVGH.find(item => item.MANV === MANVGH)
             return (
-                <TableCell align="left">{staffTemp.HO.concat(' ').concat(staffTemp.TEN)}</TableCell>
+                <TableCell align="left">{staff.HO.concat(' ').concat(staff.TEN)}</TableCell>
             )
         }
     }

@@ -11,7 +11,7 @@ import Paypal from "../../components/Paypal";
 import { Button } from "@mui/material";
 import { Table, TableRow } from "@mui/material";
 import * as moment from "moment";
-import { getAccessTokenFromLocalStorage, getUserProfileFromLS } from "../../helper/accessToken";
+import { getAccessTokenFromLocalStorage, getUserProfileFromLS, removeUserProfileToLS } from "../../helper/accessToken";
 import { createPhieuDat } from "../../services/Phieudat";
 import { updateSLT } from "../../services/Phieudat";
 import { checkKm, checkPrice, toDecimal } from "../../helper/convertPrice";
@@ -25,7 +25,7 @@ export default class Body extends Component {
       products: [],
       payment: 0,
       total:0,
-      customer: JSON.parse(getUserProfileFromLS()), /// ???
+      customer:  JSON.parse(getUserProfileFromLS()), /// ???
       data: {
         HONN: "",
         TENNN: "",
@@ -137,6 +137,7 @@ export default class Body extends Component {
       if(res.status === 201) {
         alert('Đặt hàng thành công')
 
+        removeUserProfileToLS()
 
         ///update slt
         // updateSLT()
@@ -165,9 +166,9 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Họ và tên"
-                          defaultValue={this.state.customer.HO.concat(
+                          defaultValue={this.state.customer && this.state.customer.HO.concat(
                             " "
-                          ).concat(this.state.customer.TEN)}
+                          ).concat(this.state.customer.TEN) }
                           InputProps={{
                             name: "Email",
                           }}
@@ -177,7 +178,7 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Số điện thoại"
-                          defaultValue={this.state.customer.SDT}
+                          defaultValue={this.state.customer ? this.state.customer.SDT : ''}
                           InputProps={{
                             name: "Email",
                           }}
@@ -187,7 +188,7 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Email"
-                          defaultValue={this.state.customer.EMAIL}
+                          defaultValue={this.state.customer ? this.state.customer.EMAIL : ''}
                           InputProps={{
                             name: "Email",
                           }}
@@ -197,7 +198,7 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Địa chỉ giao hàng"
-                          defaultValue={this.state.customer.DIACHI}
+                          defaultValue={this.state.customer ? this.state.customer.DIACHI : ''}
                           InputProps={{
                             name: "Email",
                           }}
