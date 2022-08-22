@@ -21,6 +21,10 @@ export const getUserProfileFromLS = () => {
     return sessionStorage.getItem('userProfile')
 }
 
+export const removeUserProfileToLS = (payload) => {
+    return sessionStorage.removeItem('userProfile')
+}
+
 export const defineUser = (payload) => {
     return sessionStorage.setItem('getMe', JSON.stringify(payload))
 }

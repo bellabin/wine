@@ -6,7 +6,7 @@ import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
 import ProductCus from "../Views/ProductCus/index";
 import SearchBar from "./SearchBar";
 import SearchBar2 from "./SearchBar";
-import { getAccessTokenFromLocalStorage, removeToken } from "../helper/accessToken";
+import { getAccessTokenFromLocalStorage, removeToken, removeUserProfileToLS } from "../helper/accessToken";
 
 export default class Header extends Component {
   constructor(props) {
@@ -43,6 +43,7 @@ export default class Header extends Component {
 
   logOut = () => {
     removeToken()
+    removeUserProfileToLS()
     this.setState({token : ''})
     window.location.reload()
   }

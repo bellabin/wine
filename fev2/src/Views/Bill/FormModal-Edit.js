@@ -27,6 +27,7 @@ import {
 import Paper from "@mui/material/Paper";
 import Item from '../Checkout/Item';
 import ItemPd from './Item';
+import { GetCustomerById } from '../../services/Customer';
 
 
 export default class FormModalEditBill extends React.Component {
@@ -48,6 +49,7 @@ export default class FormModalEditBill extends React.Component {
                 MAKH: '',
             },
             listCTPD: [],
+            customer:{},
             total:0,
         }
     }
@@ -62,9 +64,13 @@ export default class FormModalEditBill extends React.Component {
         row.ct_phieudats.map(cur => {
             totalTemp += cur.GIA * cur.SOLUONG
         })
+
+        GetCustomerById(row.MAKH).then(res => {
+            this.setState({customer: res.data})
+        })
         this.setState({total:totalTemp.toFixed(2)})
 
-        console.log(row.GHICHU)
+        // console.log('ghi chu',row.GHICHU)
 
         this.setState({
             data: {
@@ -212,10 +218,10 @@ export default class FormModalEditBill extends React.Component {
                                         <div className='col-7'>
                                         <FormControl fullWidth >
                                         <TextField
-                                            label="SĐT"
-                                            value={Object(this.state.data.EMAIL).length && this.state.data.EMAIL}
+                                            label="EMAIL"
+                                            value={Object(this.state.customer.EMAIL).length && this.state.customer.EMAIL}
                                             InputProps={{
-                                                name: "phone"
+                                                name: "email"
                                             }}
                                         // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
 
@@ -228,7 +234,7 @@ export default class FormModalEditBill extends React.Component {
                                     <FormControl fullWidth >
                                         <TextField
                                             label="Ghi chú"
-                                            value={Object(this.state.data.GHICHU).length && this.state.data.GHICHU}
+                                            value={Object(this.state.data.GHICHU) && this.state.data.GHICHU}
                                             InputProps={{
                                                 name: "note"
                                             }}

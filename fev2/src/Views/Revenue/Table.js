@@ -55,7 +55,11 @@ export default function DenseTable() {
       setTotalPd(res.data.length)
     })
     GetTotalIncomeFromTo(vFromTime,vToTime).then(res => {
-      setTotalIncome(res.data[0].gia)
+      console.log(res.data[0].gia)
+      if(res.data[0].gia) {
+      console.log(res.data[0].gia)
+
+        setTotalIncome(res.data[0].gia)}
     })
     var fromMonth = Number(moment(fromTime).format('M'));
     var toMonth = Number(moment(toTime).format('M'));

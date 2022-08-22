@@ -25,7 +25,7 @@ export default class Body extends Component {
       products: [],
       payment: 0,
       total:0,
-      customer: JSON.parse(getUserProfileFromLS()),
+      customer: JSON.parse(getUserProfileFromLS()), /// ???
       data: {
         HONN: "",
         TENNN: "",
@@ -165,9 +165,9 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Họ và tên"
-                          // defaultValue={this.state.customer.HO.concat(
-                          //   " "
-                          // ).concat(this.state.customer.TEN)}
+                          defaultValue={this.state.customer.HO.concat(
+                            " "
+                          ).concat(this.state.customer.TEN)}
                           InputProps={{
                             name: "Email",
                           }}

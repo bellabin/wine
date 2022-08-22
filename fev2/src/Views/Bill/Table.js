@@ -11,7 +11,7 @@ import { GetListBill, GetListPD } from "../../services/Bill";
 import { GetListCustomer } from "../../services/Customer";
 import FormModalEditBill from "./FormModal-Edit";
 import FormModalDeleteBill from "./FormModal-Delete";
-import { GetNVGH } from "../../services/Staff";
+import { GetListStaff, GetNVGH } from "../../services/Staff";
 import { findByState } from "../../services/Phieudat";
 
 export default function DenseTable(props) {
@@ -19,6 +19,7 @@ export default function DenseTable(props) {
     const listPds = props.list
     const [listCustomers, setListCustomers] = useState([]);
     const [listNVGH,setListNVGH] = useState([])
+
 
     
 
@@ -29,8 +30,12 @@ export default function DenseTable(props) {
             const promises = [getcustomers, getListNVGH];
 
             const [customers, nvghs] = await Promise.all(promises);
+            // console.log(staffs)
+            // console.log(listPds)
+            console.log(nvghs)
             setListCustomers(customers);
             setListNVGH(nvghs)
+
             
         }
 
@@ -57,6 +62,40 @@ export default function DenseTable(props) {
         
         return total.toFixed(2)
     }
+
+    const renderNV = (staff) => {
+        if(!staff){
+            return (
+                <TableCell align="left"></TableCell>
+            )
+        }
+        else{
+            return (
+                <TableCell align="left">{staff.HO.concat(' ').concat(staff.TEN)}</TableCell>
+            )
+        }
+    }
+
+    const renderNVGH = (MANVGH) => {
+        if(!MANVGH || MANVGH.length === 0){
+            return (
+                <TableCell align="left"></TableCell>
+            )
+        }
+        else{
+            let staffTemp = {}
+            console.log('in',listNVGH)
+            listNVGH && listNVGH.map(cur => {
+                if(cur.MANV === MANVGH){
+                    console.log('cur',cur)
+                    staffTemp = cur
+                }
+            })
+            return (
+                <TableCell align="left">{staffTemp.HO.concat(' ').concat(staffTemp.TEN)}</TableCell>
+            )
+        }
+    }
     return (
         <>
             <TableContainer component={Paper}>
@@ -66,12 +105,14 @@ export default function DenseTable(props) {
                             <TableCell>Mã số</TableCell>
                             <TableCell align="left">Ngày</TableCell>
                             <TableCell align="left">Thông tin người đặt</TableCell>
+                            <TableCell align="left">NV duyệt</TableCell>
+                            <TableCell align="left">NV giao</TableCell>
                             <TableCell align="left">Trạng thái</TableCell>
                             <TableCell align="left">Tổng tiền</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {listPds.map((row) => (
+                        {listPds && listPds.map((row) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -97,7 +138,12 @@ export default function DenseTable(props) {
                                             }
                                         })}
                                 </TableCell>
-
+                                
+                                {renderNV(row.staff)}
+                                {renderNVGH(row.MANVGH)}
+                               
+                                
+                                
                                 <TableCell align="left">{row.TRANGTHAI}</TableCell>
                                 <TableCell align="left">{totalCTPD(row.ct_phieudats)} $</TableCell>
                                 <TableCell align="left">

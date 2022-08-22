@@ -9,6 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { GetListPD } from '../../services/Bill';
 import { findByState } from "../../services/Phieudat";
+import { GetNVGH } from '../../services/Staff';
 
 
 export default class Bill extends Component {
@@ -16,13 +17,17 @@ export default class Bill extends Component {
     super(props)
     this.state={
       filter:'ALL',
-      listPds: []
+      listPds: [],
+      listNVGH: [],
     }
   }
 
   componentDidMount() {
     GetListPD().then(res => {
       this.setState({listPds: res.data})
+    })
+    GetNVGH().then(res => {
+      this.setState({listNVGH: res.data})
     })
   }
 
@@ -68,7 +73,8 @@ export default class Bill extends Component {
         <div className='row mt-2'>
           <div className='col-12'>
           {/* {console.log('in',this.state.filter, this.state.listPds)} */}
-            <Table list={this.state.listPds}/>
+          
+            <Table list={this.state.listPds} listNVGH={this.state.listNVGH}/>
           </div>
         </div>
       </div>
