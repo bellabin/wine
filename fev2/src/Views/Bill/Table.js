@@ -136,7 +136,16 @@ export default function DenseTable(props) {
                                 </TableCell>
                                 
                                 {renderNV(row.staff)}
-                                {renderNVGH(row.MANVGH)}
+                                <TableCell>
+                                    {listNVGH && listNVGH.map((nvgh) => {
+                                        if(row.MANVGH === nvgh.MANV) {
+                                            return (
+                                                <TableCell align="left">{nvgh.HO.concat(' ').concat(nvgh.TEN)}</TableCell>
+                                            )
+                                        }
+                                    })}
+                                </TableCell>
+                                
                                
                                 
                                 

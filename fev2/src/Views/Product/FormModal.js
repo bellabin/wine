@@ -134,11 +134,11 @@ export default class FormModal extends React.Component {
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
-                                label="Hình ảnh"
                                 InputProps={{
                                     name: "hinhanh"
                                 }}
-                                onChange={(e) => this.setState({data: {...this.state.data,HINHANH: e.target.value} })}
+                                type='file'
+                                onChange={(e) => this.setState({data: {...this.state.data, HINHANH: `img/${e.target.files[0].name}` }})}
 
                             />
                         </FormControl>
