@@ -261,21 +261,11 @@ export default class BodyProductDetail extends Component {
               </div>
             </div>
 
-            <div className="product">
-              <div className="section-header">
-                <h1>Nón tương tự</h1>
-              </div>
-
-              <div
-                className="row align-items-center product-slider product-slider-3"
-              >
-                
-              </div>
-            </div>
+            
           </div>
 
           {/* <!-- Side Bar Start --> */}
-          <div className="col-lg-4 sidebar">
+          {/* <div className="col-lg-4 sidebar">
             <div className="sidebar-widget category">
               <h2 className="title">Danh mục</h2>
               <nav className="navbar bg-light">
@@ -298,28 +288,13 @@ export default class BodyProductDetail extends Component {
                 
               </ul>
             </div>
-
-            
-          {/* <!-- Side Bar End --> */}
-        </div>
+        </div> */}
+        {/* <!-- Side Bar End --> */}
       </div>
     </div>
     {/* <!-- Product Detail End --> */}
 
-    {/* <!-- Brand Start --> */}
-    <div className="brand">
-      <div className="container-fluid">
-        <div className="brand-slider">
-          <div className="brand-item"><img src="../img/brand-1.png" alt="" /></div>
-          <div className="brand-item"><img src="../img/brand-2.png" alt="" /></div>
-          <div className="brand-item"><img src="../img/brand-3.png" alt="" /></div>
-          <div className="brand-item"><img src="../img/brand-4.png" alt="" /></div>
-          <div className="brand-item"><img src="../img/brand-5.png" alt="" /></div>
-          <div className="brand-item"><img src="../img/brand-6.png" alt="" /></div>
-        </div>
-      </div>
-    </div>
-    {/* <!-- Brand End --> */}
+    
 
     
 

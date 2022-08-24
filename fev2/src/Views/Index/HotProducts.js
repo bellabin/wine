@@ -12,7 +12,7 @@ const HotProducts = (props) => {
       <div className="featured-product product">
         <div className="container-fluid">
           <div className="section-header">
-            <h1>HÀNG HOT!!!</h1>
+            <h1>HÀNG HOT</h1>
             {(props.data !== []) ? <CustomeSlider data={props.data} /> : []}
           </div>
           <div id="non-noi-bat"></div>

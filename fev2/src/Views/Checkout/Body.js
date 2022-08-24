@@ -133,6 +133,9 @@ export default class Body extends Component {
   checkout = async () => {
     //console.log(moment(new Date()).format("YYYY-MM-DD"));
     //console.log("data", this.state.data);
+    //check slt
+    //neu ko du thi cut
+    //co thi tao]
     await createPhieuDat(this.state.data).then(res => {
       if(res.status === 201) {
         alert('Đặt hàng thành công')

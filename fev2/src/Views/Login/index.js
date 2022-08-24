@@ -143,9 +143,12 @@ export default class Login extends Component {
                                             </div>
                                             <div className="col-md-12">
                                                 <div className="custom-control custom-checkbox">
-                                                    {/* <!-- <input type="checkbox" className="custom-control-input" id="newaccount">
-                                            <label className="custom-control-label" for="newaccount">Lưu đăng nhập</label> --> */}
+                                                    
                                                     <a href="">Quên mật khẩu?</a>
+                                                </div>
+                                                <div className="custom-control custom-checkbox">
+                                                   
+                                                    <a href="">Chưa có tài khoản? Đăng ký tại đây</a>
                                                 </div>
                                             </div>
                                             <div className="col-md-12 text-center">

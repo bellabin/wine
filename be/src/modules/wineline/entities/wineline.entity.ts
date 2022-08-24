@@ -53,8 +53,8 @@ export class Wineline {
     @JoinColumn({name:'MATH'})
     trademark: Trademarks
 
-    @Column({type:'char'})
-    MANCC!: string
+    // @Column({type:'char'})
+    // MANCC!: string
 
     @OneToMany(() => CtPhieudat, ct_phieudat => ct_phieudat.wineline)
     ct_phieudats: CtPhieudat[]

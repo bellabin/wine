@@ -85,7 +85,7 @@ export default class BodyProduct extends Component {
               
                 <div className="row">
                 
-                  <div className="col-md-12">
+                  {/* <div className="col-md-12">
                     <div className="product-view-top">
                       <div className="row">
                         <div className="col-md-4">
@@ -108,7 +108,7 @@ export default class BodyProduct extends Component {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* <!-- danh sách sản phẩm theo loại đc nhúng tại đây --> */}
                   <div className="col-md-12">

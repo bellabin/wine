@@ -9,8 +9,8 @@ export class Trademarks {
     @Column ({type:'varchar'})
     TENTH!: string
 
-    @Column ({type:'varchar'})
-    HINHANH!: string
+    // @Column ({type:'varchar'})
+    // HINHANH!: string
 
     @OneToMany(() => Wineline, wineline => wineline.trademark)
     winelines: Wineline[]

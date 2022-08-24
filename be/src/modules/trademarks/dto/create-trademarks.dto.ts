@@ -11,7 +11,7 @@ export class CreateTrademarksDto {
     @IsString()
     TENTH!: string
     
-    @ApiProperty()
-    @IsString()
-    HINHANH!: string
+    // @ApiProperty()
+    // @IsString()
+    // HINHANH!: string
 }

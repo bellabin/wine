@@ -23,7 +23,7 @@ export default class TopPromo extends Component {
       <div className="recent-product product">
         <div className="container-fluid">
           <div className="section-header">
-            <h1>KHUYẾN MÃI KHỦNG!!!</h1>
+            <h1>HÀNG KHUYẾN MÃI</h1>
             <CustomeSlider data={this.state.promos && this.state.promos}/>
           </div>
           <div id="hang-khuyen-mai" className="row align-items-center"></div>
