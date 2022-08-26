@@ -4,6 +4,8 @@ import { addAccessTokenToLocalStorage, addUserProfileToLS, defineUser } from '..
 import { GetCustomerById } from '../../services/Customer';
 import jwt from 'jwt-decode' 
 import { getMe } from '../../services/Getme';
+import { Link} from "react-router-dom";
+import {KeyNavigate} from "../../helper/KeyNavigate";
 
 export default class Login extends Component {
     constructor(props) {
@@ -148,7 +150,9 @@ export default class Login extends Component {
                                                 </div>
                                                 <div className="custom-control custom-checkbox">
                                                    
-                                                    <a href="">Chưa có tài khoản? Đăng ký tại đây</a>
+                                                    <Link to={KeyNavigate.SignUp}>
+                                                        Chưa có tài khoản? Đăng ký tại đây
+                                                    </Link>
                                                 </div>
                                             </div>
                                             <div className="col-md-12 text-center">

@@ -49,6 +49,17 @@ export class CustomerService {
       const hashedPassword = hashSync(PASSWORD, 10);
       payload.PASSWORD = hashedPassword;
 
+			const lastCus = await this.customerRepo
+				.createQueryBuilder('customers')
+				.orderBy('customers.MAKH', "DESC")
+				.limit(1)
+				.getOne();
+			const lastId = Number(lastCus.MAKH) + 1;
+			payload.MAKH = lastId.toLocaleString('en-US', {
+				minimumIntegerDigits: 3,
+				useGrouping: false
+			});
+
       const customer = this.customerRepo.create(payload);
 
       await this.customerRepo.save(customer);

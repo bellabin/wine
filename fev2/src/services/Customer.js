@@ -21,3 +21,7 @@ export const updateCustomerDetail = async (id,payload) => {
   return HttpService.put(`customers/detail/${id}`, payload)
 }
 
+export const registerCustomer = async (payload) => {
+  return HttpService.post(`customers`,payload)
+}
+

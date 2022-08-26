@@ -36,6 +36,8 @@ import ShipperDetail from './Views/ShipperDetail';
 import CustomerDetail from './Views/Customer-Detail';
 import OrderCustomer from './Views/Order-customer';
 import DDH from './Views/DDH';
+import Index from "./Views/SignUp";
+import SignUp from "./Views/SignUp";
 function App() {
   return (
     <Routes>
@@ -48,6 +50,7 @@ function App() {
         
       </ProductCus>}></Route>
       <Route path={KeyNavigate.Login} element={<Login></Login>}></Route>
+      <Route path={KeyNavigate.SignUp} element={<SignUp></SignUp>}></Route>
 
       <Route path={KeyNavigate.Account.concat('/*')} element={<Account>
         <Route path={KeyNavigate.OrderCustomer} element={<OrderCustomer/>}  />
