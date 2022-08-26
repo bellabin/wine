@@ -55,7 +55,7 @@ export default class FormModalProvider extends React.Component {
 
     async createProvider() {
         const data = {
-            MANCC: '002',
+            MANCC: this.state.data.MANCC,
             TENNCC: this.state.data.TENNCC,
             DIACHI: this.state.data.DIACHI,
             EMAIL: this.state.data.EMAIL,
@@ -89,6 +89,18 @@ export default class FormModalProvider extends React.Component {
                         }}
 
                     >
+                        <FormControl fullWidth >
+                            <TextField
+                                label="Mã nhà cung cấp"
+                                InputProps={{
+                                    name: "ncc"
+                                }}
+                                onChange={(e) => {
+                                    this.setState({data: {...this.state.data,MANCC: e.target.value} })
+                                }}
+
+                            />
+                        </FormControl>
                         <FormControl fullWidth >
                             <TextField
                                 label="Tên"

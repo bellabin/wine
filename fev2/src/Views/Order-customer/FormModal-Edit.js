@@ -58,9 +58,10 @@ export default class FormModalEditBillCustomer extends React.Component {
         this.setState({ open: true })
     }
     Edit(row) {
+        console.log('row',row)
         let totalTemp = 0
         row.ct_phieudats.map(cur => {
-            totalTemp += cur.GIA
+            totalTemp += (cur.GIA * cur.SOLUONG)
         })
         this.setState({total:totalTemp.toFixed(2)})
 

@@ -75,4 +75,25 @@ export class CustomerService {
 
     return this.customerRepo.remove(customer);
   }
+
+  async updateCustomerDetail(id: string ,payload: UpdateCustomerDto){
+    const { PASSWORD } = payload;
+    const hashedPassword = hashSync(PASSWORD, 10);
+    payload.PASSWORD = hashedPassword;
+    return this.customerRepo.createQueryBuilder('customer')
+		.update(Customer)
+		.set({
+			// MAKH: payload.MAKH,
+      HO: payload.HO,
+      TEN: payload.TEN,
+      GIOITINH: payload.GIOITINH,
+      NGAYSINH: payload.NGAYSINH,
+      DIACHI: payload.DIACHI,
+      SDT: payload.SDT,
+      EMAIL: payload.EMAIL,
+      // PASSWORD: payload.PASSWORD,
+		})
+		.where("MAKH = :MAKH",{MAKH:id})
+		.execute()
+  }
 }

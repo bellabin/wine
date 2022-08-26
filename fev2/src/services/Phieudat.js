@@ -101,3 +101,10 @@ export const getListPdByStateAndNVGH = (TRANGTHAI,MANV) => {
   return HttpService.get(`phieudat/NV&state/${TRANGTHAI},${MANV}`)
 }
 
+export const getListPdByCustomer = (MAKH) => {
+  return HttpService.get(`phieudat/list/pd/KH/${MAKH}`)
+}
+
+export const getListPdByStateAndCustomer = (TRANGTHAI,MAKH) => {
+  return HttpService.get(`phieudat/cus&state/list/${TRANGTHAI},${MAKH}`)
+}

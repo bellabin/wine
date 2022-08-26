@@ -70,4 +70,14 @@ export class PhieudatController {
     getPdByNVGH(@Param('id') id: string){
         return this.phieudatService.getListPdByNVGH(id)
     }
+
+    @Get('list/pd/KH/:id')
+    getPdByCustomer(@Param('id') id: string){
+        return this.phieudatService.getListPdByCustomer(id)
+    }
+
+    @Get('/cus&state/list/:state,:id')
+    findByStateAndCustomer(@Param('state') state: string, @Param('id') id: string) {
+        return this.phieudatService.findByStateAndCustomer(state,id)
+    }
 }

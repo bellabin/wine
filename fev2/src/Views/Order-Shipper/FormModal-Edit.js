@@ -27,6 +27,8 @@ import {
 import Paper from "@mui/material/Paper";
 import Item from '../Checkout/Item';
 import ItemPd from './Item';
+import { GetCustomerById } from '../../services/Customer';
+
 
 
 export default class FormModalEditBillShipper extends React.Component {
@@ -48,6 +50,7 @@ export default class FormModalEditBillShipper extends React.Component {
                 MAKH: '',
             },
             listCTPD: [],
+            customer:{},
             total:0,
         }
     }
@@ -60,7 +63,10 @@ export default class FormModalEditBillShipper extends React.Component {
     Edit(row) {
         let totalTemp = 0
         row.ct_phieudats.map(cur => {
-            totalTemp += cur.GIA
+            totalTemp += (cur.GIA * cur.SOLUONG)
+        })
+        GetCustomerById(row.MAKH).then(res => {
+            this.setState({customer: res.data})
         })
         this.setState({total:totalTemp.toFixed(2)})
 
@@ -107,7 +113,7 @@ export default class FormModalEditBillShipper extends React.Component {
                 >
                     <div className='row'>
                         <div className='col-4'>
-                            <DialogTitle >Thông tin phiếu đặt</DialogTitle>
+                            <DialogTitle >Thông tin đơn hàng</DialogTitle>
                             <DialogContent
 
                             >
@@ -154,7 +160,9 @@ export default class FormModalEditBillShipper extends React.Component {
 
                                         />
                                     </FormControl>
-                                    <FormControl fullWidth >
+                                    <div className='row'>
+                                        <div className='col-5'>
+                                        <FormControl fullWidth >
                                         <TextField
                                             label="SĐT"
                                             value={Object(this.state.data.SDTNN).length && this.state.data.SDTNN}
@@ -164,7 +172,37 @@ export default class FormModalEditBillShipper extends React.Component {
                                         // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
 
                                         />
-                                    </FormControl>
+                                        </FormControl>
+
+                                        </div>
+                                        <div className='col-7'>
+                                        <FormControl fullWidth >
+                                        <TextField
+                                            label="EMAIL"
+                                            value={Object(this.state.customer.EMAIL).length && this.state.customer.EMAIL}
+                                            InputProps={{
+                                                name: "email"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
+
+                                        />
+                                        </FormControl>
+
+                                        </div>
+
+                                    </div>
+                                    <FormControl fullWidth >
+                                        <TextField
+                                            label="Ghi chú"
+                                            value={Object(this.state.data.GHICHU) && this.state.data.GHICHU}
+                                            InputProps={{
+                                                name: "note"
+                                            }}
+                                        // onChange={(e) => this.setState({data: {...this.state.data,SDTNN: e.target.value} })}
+
+                                        />
+                                        </FormControl>
+                                    
                                     <FormControl fullWidth >
                                         <TextField
                                             label="Trạng thái"

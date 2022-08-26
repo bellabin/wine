@@ -55,6 +55,11 @@ export class CustomerController {
         return this.customerService.update(id, body)
     }
 
+    @Put('/detail/:id')
+    updateCustomerDetail(@Param('id') id: string ,@Body() body:UpdateCustomerDto){
+        return this.customerService.updateCustomerDetail(id,body)
+    }
+
     @Delete(':id')
     delete(@Param('id') id: string) {
         return this.customerService.delete(id)

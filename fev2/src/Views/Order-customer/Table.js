@@ -11,10 +11,9 @@ import { GetListBill, GetListPD } from "../../services/Bill";
 import { GetListCustomer } from "../../services/Customer";
 import { GetNVGH } from "../../services/Staff";
 import { findByState } from "../../services/Phieudat";
-import FormModalEditBillShipper from "./FormModal-Edit";
-import FormModalDeleteBillShipper from "./FormModal-Delete";
 import FormModalEditBillCustomer from "./FormModal-Edit";
 import FormModalDeleteBillCustomer from "./FormModal-Delete";
+
 
 export default function DenseTable(props) {
     
@@ -41,20 +40,20 @@ export default function DenseTable(props) {
 
     
     function Edit(data) {
-        //console.log(data)
+        console.log('data',data)
         React.refModalEditBillCustomer?.open();
         React.refModalEditBillCustomer.Edit(data);
     }
 
-    function Delete(MAPD, listNVGH ,data) {
-        React.refModalDeleteBillCustomer?.open();
-        React.refModalDeleteBillCustomer.Delete(MAPD,listNVGH, data);
+    // function Delete(MAPD, listNVGH ,data) {
+    //     React.refModalDeleteBillCustomer?.open();
+    //     React.refModalDeleteBillCustomer.Delete(MAPD,listNVGH, data);
 
-    }
+    // }
     const totalCTPD = (list) => {
         let total = 0
         list.map(cur => {
-            total += cur.GIA 
+            total += (cur.GIA * cur.SOLUONG)
         })
         
         return total.toFixed(2)
@@ -73,13 +72,13 @@ export default function DenseTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {listPds.map((row) => (
+                        {listPds && listPds.map((row,index) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.MAPD}
+                                    {index + 1}
                                 </TableCell>
                                 <TableCell align="left">{row.NGAYDAT}</TableCell>
                                 <TableCell align="left">
@@ -109,17 +108,17 @@ export default function DenseTable(props) {
                                     style={{ paddingRight: "10px" }}
                                     onClick={() => Edit(row)}
                                 ></i>
-                                <i
+                                {/* <i
                                     className="fas fa-pencil-alt"
                                     onClick={() => Delete(row.MAPD, listNVGH, row)}
-                                ></i>
+                                ></i> */}
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
-                <FormModalEditBillCustomer ref={(ref) => (React.refModalEditBill = ref)} />
-                <FormModalDeleteBillCustomer ref={(ref) => (React.refModalDeleteBill = ref)} listNVGH={listNVGH} />
+                <FormModalEditBillCustomer ref={(ref) => (React.refModalEditBillCustomer = ref)} />
+                {/* <FormModalDeleteBillCustomer ref={(ref) => (React.refModalDeleteBill = ref)} listNVGH={listNVGH} /> */}
             </TableContainer>
         </>
     );

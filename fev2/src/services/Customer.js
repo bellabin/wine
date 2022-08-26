@@ -17,4 +17,7 @@ export const loginUser = async (payload) => {
   return HttpService.post(`auth/login`,payload)
 }
 
+export const updateCustomerDetail = async (id,payload) => {
+  return HttpService.put(`customers/detail/${id}`, payload)
+}
 

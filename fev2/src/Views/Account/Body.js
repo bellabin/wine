@@ -45,8 +45,8 @@ export default class Body extends Component {
 
                             <div className="col-md-10">
                                 <Routes>
-                                <Route path={KeyNavigate.OrderCustomer} element={<OrderCustomer/>}  />
-        <Route path={KeyNavigate.CustomerDetail} element={<CustomerDetail/>}  />
+                                    <Route path={KeyNavigate.OrderCustomer} element={<OrderCustomer/>}  />
+                                    <Route path={KeyNavigate.CustomerDetail} element={<CustomerDetail/>}  />
                                 </Routes>
                             </div>
 

@@ -20,7 +20,7 @@ export default function DenseTable(props) {
     const listPds = props.list
     const [listCustomers, setListCustomers] = useState([]);
     const [listNVGH,setListNVGH] = useState([])
-    const listNVGH1 =  GetNVGH() 
+    
 
     
     // const listNVGH = props.listNVGH
@@ -59,7 +59,7 @@ export default function DenseTable(props) {
     const totalCTPD = (list) => {
         let total = 0
         list.map(cur => {
-            total += cur.GIA 
+            total += cur.GIA * cur.SOLUONG
         })
         
         return total.toFixed(2)
@@ -98,23 +98,23 @@ export default function DenseTable(props) {
                 <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Mã số</TableCell>
-                            <TableCell align="left">Ngày</TableCell>
-                            <TableCell align="left">Thông tin người đặt</TableCell>
+                            <TableCell style={{width: '5%'}}>STT</TableCell>
+                            <TableCell align="left" style={{width: '10%'}}>Ngày</TableCell>
+                            <TableCell align="left" style={{width: '28%'}}>Thông tin người đặt</TableCell>
                             <TableCell align="left">NV duyệt</TableCell>
                             <TableCell align="left">NV giao</TableCell>
-                            <TableCell align="left">Trạng thái</TableCell>
-                            <TableCell align="left">Tổng tiền</TableCell>
+                            <TableCell align="left" style={{width: '10%'}}>Trạng thái</TableCell>
+                            <TableCell align="left" style={{width: '10%'}}>Tổng tiền</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {listPds && listPds.map((row) => (
+                        {listPds && listPds.map((row, index) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.MAPD}
+                                    {index + 1}
                                 </TableCell>
                                 <TableCell align="left">{row.NGAYDAT}</TableCell>
                                 <TableCell align="left">
@@ -140,7 +140,7 @@ export default function DenseTable(props) {
                                     {listNVGH && listNVGH.map((nvgh) => {
                                         if(row.MANVGH === nvgh.MANV) {
                                             return (
-                                                <TableCell align="left">{nvgh.HO.concat(' ').concat(nvgh.TEN)}</TableCell>
+                                                nvgh.HO.concat(' ').concat(nvgh.TEN)
                                             )
                                         }
                                     })}

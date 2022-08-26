@@ -221,4 +221,29 @@ export class PhieudatService {
 		.orderBy('phieudat.NGAYDAT','DESC')
 		.getMany()
 	}
+
+	async getListPdByCustomer(id: string) {
+		return this.phieudatRepo.createQueryBuilder('phieudat')
+		.where('phieudat.MAKH = :id',{id:id})
+		.setFindOptions({
+			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+        })
+		.orderBy('phieudat.NGAYDAT','DESC')
+		.getMany()
+	}
+
+	async findByStateAndCustomer(TRANGTHAI: string, MAKH: string) {
+		if(TRANGTHAI === 'ALL'){
+			return this.phieudatRepo.find({
+				where: { MAKH: MAKH },
+				relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+				order: { NGAYDAT: 'DESC'},
+			})
+		}
+		return this.phieudatRepo.find({
+			where: { TRANGTHAI: TRANGTHAI, MAKH:MAKH },
+			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
+			order: { NGAYDAT: 'DESC'},
+		})
+	}
 }

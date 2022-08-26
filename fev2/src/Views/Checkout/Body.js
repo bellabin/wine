@@ -159,6 +159,7 @@ export default class Body extends Component {
             <div className="row">
               <div>
                 <div className="checkout-inner">
+                
                   <div className="billing-address">
                     <p>Thông Tin Đặt Hàng :</p>
                     <Box

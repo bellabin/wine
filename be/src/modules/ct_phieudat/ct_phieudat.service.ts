@@ -53,7 +53,7 @@ export class CtPhieudatService {
 
   async getTotalRev(from:string,to:string) {
     return this.ctphieudatRepo.query(`
-    SELECT sum(cp.GIA) as gia 
+    SELECT sum(cp.GIA * cp.SOLUONG) as gia 
     FROM ct_phieudat cp
     INNER JOIN (
       SELECT * 

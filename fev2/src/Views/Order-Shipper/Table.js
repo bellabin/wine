@@ -52,7 +52,7 @@ export default function DenseTable(props) {
     const totalCTPD = (list) => {
         let total = 0
         list.map(cur => {
-            total += cur.GIA 
+            total += cur.GIA * cur.SOLUONG
         })
         
         return total.toFixed(2)
@@ -71,13 +71,13 @@ export default function DenseTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody >
-                        {listPds.map((row) => (
+                        {listPds.map((row, index) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.MAPD}
+                                    {index + 1}
                                 </TableCell>
                                 <TableCell align="left">{row.NGAYDAT}</TableCell>
                                 <TableCell align="left">

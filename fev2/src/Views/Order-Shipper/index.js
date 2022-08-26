@@ -67,7 +67,7 @@ export default class OrderShipper extends Component {
               <FormControlLabel value="ALL" control={<Radio />} label="Tất cả" />
               <FormControlLabel value="Đã phân công" control={<Radio />} label="Đã phân công" />
               <FormControlLabel value="Đã giao" control={<Radio />} label="Đã giao hàng" />
-              <FormControlLabel value="Đã huỷ" control={<Radio />} label="Đã huỷ" />
+              {/* <FormControlLabel value="Đã huỷ" control={<Radio />} label="Đã huỷ" /> */}
             </RadioGroup>
           </Box>
           {/* <Box className='col-6' sx={{ display: 'flex' }}>

@@ -5,7 +5,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
-import { getListPdByNVGH } from '../../services/Phieudat';
+import { getListPdByCustomer, getListPdByNVGH, getListPdByStateAndCustomer } from '../../services/Phieudat';
 import { getListPdByStateAndNVGH } from '../../services/Phieudat';
 import { addAccessTokenToLocalStorage, addUserProfileToLS, getAccessTokenFromLocalStorage } from '../../helper/accessToken';
 import jwt from 'jwt-decode' 
@@ -24,22 +24,25 @@ export default class OrderCustomer extends Component {
   componentDidMount() {
     const token = getAccessTokenFromLocalStorage()
     const tokenDecode = jwt(token)
-    console.log(tokenDecode.userId)
+    // console.log(tokenDecode.userId)
 
 
-    getListPdByNVGH('003').then(res => {
+    getListPdByCustomer(tokenDecode.userId).then(res => {
       console.log(res.data)
       this.setState({listPds: res.data})
     })
   }
 
   handleChange = (e) => {
-    getListPdByStateAndNVGH(e.target.value, '003').then(res => {
+    const token = getAccessTokenFromLocalStorage()
+    const tokenDecode = jwt(token)
+    getListPdByStateAndCustomer(e.target.value, tokenDecode.userId).then(res => {
       console.log(res.data)
 
       this.setState({listPds: res.data})
       this.setState({filter: e.target.value})
     })
+    ///getpd by cus
   }
   onCreate = () => {
     this.refModal?.open()
@@ -60,8 +63,8 @@ export default class OrderCustomer extends Component {
               onChange={(e) => this.handleChange(e)}
             >
               <FormControlLabel value="ALL" control={<Radio />} label="Tất cả" />
-              <FormControlLabel value="Đã phân công" control={<Radio />} label="Đã phân công" />
-              <FormControlLabel value="Đã giao" control={<Radio />} label="Đã giao hàng" />
+              <FormControlLabel value="Đã phân công" control={<Radio />} label="Đã xác nhận" />
+              <FormControlLabel value="Đã giao" control={<Radio />} label="Đã hoàn tất" />
               <FormControlLabel value="Đã huỷ" control={<Radio />} label="Đã huỷ" />
             </RadioGroup>
           </Box>
