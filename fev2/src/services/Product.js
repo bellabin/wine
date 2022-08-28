@@ -97,4 +97,5 @@ export const getPaypalDetail = async (arr) => {
 
 export const updateSLT = (MADONG, slt) => {
   return HttpService.put(`winelines/update/slt/${MADONG},${slt}`)
+  
 }

@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import { GetListPD } from '../../services/Bill';
 import { findByState } from "../../services/Phieudat";
-import { GetCustomerById, updateCustomerDetail } from '../../services/Customer';
+import { GetCustomerById, updateCustomerDetail, updateCustomerPassword } from '../../services/Customer';
 import { getUser } from '../../helper/accessToken'
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -26,6 +26,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import jwt from 'jwt-decode' 
 import { getAccessTokenFromLocalStorage } from '../../helper/accessToken';
+import { loginUser } from '../../services/Customer';
 
 
 
@@ -60,7 +61,7 @@ export default class CustomerDetail extends Component {
     const token = jwt(getAccessTokenFromLocalStorage())
     // let id = JSON.parse(getUser()).userId
     GetCustomerById(token.userId).then(res => {
-      console.log('date', res.data)
+      // console.log('date', res.data)
       this.setState({
         customer: res.data, data: {
           MAKH: res.data.MAKH,
@@ -115,7 +116,7 @@ export default class CustomerDetail extends Component {
     })
   }
 
-  handleSubmitPassword = async (oldPass, newPass) => {
+  handleSubmitPassword = async (oldPass, newPass, data) => {
     // console.log(oldPass, newPass)
 
     //validate
@@ -123,6 +124,42 @@ export default class CustomerDetail extends Component {
       alert('Mật khẩu cũ & mới không được để trống')
     }
 
+    const payload = {
+      USERNAME:this.state.data.USERNAME,
+      PASSWORD: oldPass
+    }
+
+    console.log(payload)
+
+    await loginUser(payload).then(response => {
+      
+      if(response.status === 201 && response.data.role === 'customer') {
+        // alert('Mật khẩu chính xác')
+
+        let newData = {
+          MAKH: data.MAKH,
+          HO: data.HO,
+          TEN: data.TEN,
+          GIOITINH: data.GIOITINH,
+          NGAYSINH: data.NGAYSINH,
+          DIACHI: data.DIACHI,
+          SDT: data.SDT,
+          EMAIL: data.EMAIL,
+          USERNAME: data.USERNAME,
+          PASSWORD: newPass,
+
+        }
+
+        updateCustomerPassword(data.MAKH, newData).then(res => {
+          if (res.status === 200) {
+            alert('Cập nhập thành công')
+          }
+    
+        })
+      }
+    },reason => {
+      alert('Mật khẩu không chính xác')
+    })
     
 
 
@@ -343,7 +380,7 @@ export default class CustomerDetail extends Component {
                     borderColor: "#FF5733",
                     marginBottom: '20px',
                   }}
-                  onClick={() => this.handleSubmitPassword(this.state.oldPass, this.state.newPass)}
+                  onClick={() => this.handleSubmitPassword(this.state.oldPass, this.state.newPass, this.state.data)}
                 >
                   Xác nhận
                 </Button>

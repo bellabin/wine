@@ -12,6 +12,7 @@ import {checkKm, checkPrice, toDecimal} from './convertPrice'
 export class WinelineService {
     constructor(
         @InjectRepository(Wineline) private winelineRepo: Repository<Wineline> //inject repo
+        
     ) {}
 
     findAll() { //function handle get list wineline
@@ -76,11 +77,14 @@ export class WinelineService {
     }
 
     async updateSLT(MADONG: string, slt: number) {
-        const wineline = await this.findById(MADONG)
+        console.log('md',MADONG)
+
+        
+            const wineline = await this.findById(MADONG)
 
         if (!wineline) throw new NotFoundException('Wineline is not exist')
 
-        if(wineline.SOLUONGTON < slt) throw new NotFoundException('Not enough!')
+        // if(wineline.SOLUONGTON < slt) throw new NotFoundException('Not enough!')
 
         return this.winelineRepo.createQueryBuilder('wineline')
 		.update(Wineline)
@@ -89,6 +93,8 @@ export class WinelineService {
 		})
 		.where("MADONG = :MADONG",{MADONG:MADONG})
 		.execute()
+       
+        
     }
 
     async delete(MADONG: string) {
@@ -205,5 +211,13 @@ export class WinelineService {
         SELECT soluongton from dongruou d 
         WHERE d.MADONG = ${madong}
         `)
+    }
+
+    async checkSlt(MADONG: string, SOLUONG: number){
+        const product = await this.findById(MADONG)
+        if(product.SOLUONGTON < SOLUONG){
+            return false
+        }
+        return true
     }
 }

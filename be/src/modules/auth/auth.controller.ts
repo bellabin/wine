@@ -13,6 +13,8 @@ export class AuthController {
   @Get('me')
   @Roles()
   getMe(@Request() req) {
+    console.log('call get me with req', req.user);
+    
     return req.user
   }
 

@@ -46,6 +46,12 @@ export class PhieudatController {
         return this.phieudatService.createPaypalPd(payload)
     }
 
+    @Post('create/checkslt/paypal') //create new pd
+    checkPaypalPd(@Body() payload: CreatePhieudatDto) {
+        
+        return this.phieudatService.checkSltPayPal(payload)
+    }
+
     @Put(':id') //update pd
     update(@Param('id') id: string, @Body() body: UpdatePhieudatDto) {
         return this.phieudatService.update(id, body)
@@ -80,4 +86,7 @@ export class PhieudatController {
     findByStateAndCustomer(@Param('state') state: string, @Param('id') id: string) {
         return this.phieudatService.findByStateAndCustomer(state,id)
     }
+
+
+    
 }

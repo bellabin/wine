@@ -1,8 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { ConsoleLogger, flatten, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { CtPhieudatService } from 'src/modules/ct_phieudat/ct_phieudat.service'
 import { CreateCtPhieudatDto } from 'src/modules/ct_phieudat/dto/create-ct_phieudat.dto'
-import { Repository } from 'typeorm'
+import { DataSource, Repository } from 'typeorm'
 import { CreatePhieudatDto } from '../dto/create-phieudat.dto'
 import { UpdatePhieudatDto } from '../dto/update-phieudat.dto'
 import { Phieudat } from '../entities/phieudat.entity'
@@ -12,13 +12,17 @@ import { CtPhieudat } from 'src/modules/ct_phieudat/entities/ct_phieudat.entity'
 import { GetTotalDto } from '../dto/get-total.dto'
 import { UpdateCtPhieudatDto } from 'src/modules/ct_phieudat/dto/update-ct_phieudat.dto'
 import { StaffService } from 'src/modules/staffs/staff.service'
+import { getManager } from 'typeorm'
+import { WinelineService } from 'src/modules/wineline/wineline.service'
 
 @Injectable()
 export class PhieudatService {
 	constructor(
 		@InjectRepository(Phieudat) private phieudatRepo: Repository<Phieudat>, //inject repo
 		private ctPhieuDatService: CtPhieudatService,
-		private staffService : StaffService
+		private staffService : StaffService,
+		private winelineService: WinelineService,
+		private dataSource: DataSource
 	) {}
 
 	findAll() {
@@ -67,16 +71,11 @@ export class PhieudatService {
 		})
 	}
 
+	
 	async create(payload: CreatePhieudatDto) {
-		//func handle create new pd
-		const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
-
-		await this.phieudatRepo.save(phieudat) //khi save thi data moi duoc luu vao db
-
+		// console.log(this.dataSource)
+		// check slt
 		const { CTPDS } = payload
-
-		const promises = []
-
 		for (const ct_phieudat of CTPDS) {
 			const createCtPhieudatDto: CreateCtPhieudatDto = {
 				MAPD: payload.MAPD,
@@ -84,15 +83,62 @@ export class PhieudatService {
 				SOLUONG: ct_phieudat.SOLUONG,
 				GIA: ct_phieudat.GIA,
 			}
-
-			promises.push(this.ctPhieuDatService.create(createCtPhieudatDto))
+			//check ne
+			const bool = await this.winelineService.checkSlt(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
+			console.log('bool',bool)
+			if(bool === false){
+				console.log('in here')
+				throw new InternalServerErrorException('Sản phẩm không đủ số lượng trong kho!')
+			}
 		}
 
-		const cTPDs = await Promise.all(promises)
+		const queryRunner = this.dataSource.createQueryRunner();
 
-		phieudat.ct_phieudats = cTPDs
+		await queryRunner.connect();
+		await queryRunner.startTransaction();
+		try {
+			//func handle create new pd
+			
 
-		return phieudat
+			// const { CTPDS } = payload
+			const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
+
+			await this.phieudatRepo.save(phieudat) //khi save thi data moi duoc luu vao db
+
+			const promises = []
+
+			for (const ct_phieudat of CTPDS) {
+				const createCtPhieudatDto: CreateCtPhieudatDto = {
+					MAPD: payload.MAPD,
+					MADONG: ct_phieudat.MADONG,
+					SOLUONG: ct_phieudat.SOLUONG,
+					GIA: ct_phieudat.GIA,
+				}
+
+				//update slt
+				await this.winelineService.updateSLT(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
+
+				promises.push(
+					await this.ctPhieuDatService.create(createCtPhieudatDto)
+					)
+			}
+
+
+			const cTPDs = await Promise.all(promises)
+		
+
+			phieudat.ct_phieudats = cTPDs
+			
+			await queryRunner.commitTransaction();
+			return phieudat
+		} catch(err) {
+			console.log('loi ne');
+			
+			await queryRunner.rollbackTransaction();
+			throw err;
+		} finally {
+			await queryRunner.release();
+		}
 	}
 
 	async createPaypalPd(payload: CreatePhieudatDto) {
@@ -245,5 +291,24 @@ export class PhieudatService {
 			relations: ['staff', 'customer', 'ct_phieudats', 'bill'],
 			order: { NGAYDAT: 'DESC'},
 		})
+	}
+
+	async checkSltPayPal (payload: CreatePhieudatDto){
+		const { CTPDS } = payload
+		for (const ct_phieudat of CTPDS) {
+			const createCtPhieudatDto: CreateCtPhieudatDto = {
+				MAPD: payload.MAPD,
+				MADONG: ct_phieudat.MADONG,
+				SOLUONG: ct_phieudat.SOLUONG,
+				GIA: ct_phieudat.GIA,
+			}
+			//check ne
+			const bool = await this.winelineService.checkSlt(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
+			console.log('bool',bool)
+			if(bool === false){
+				console.log('in here')
+				throw new InternalServerErrorException('Sản phẩm không đủ số lượng trong kho!')
+			}
+		}
 	}
 }

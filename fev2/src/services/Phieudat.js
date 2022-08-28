@@ -5,17 +5,17 @@ import { updateSLT } from "./Product"
 
 export const createPhieuDat = async (data) => {
 
-  data.CTPDS.map(cur => {
-    console.log(cur.MADONG, cur.SOLUONG)
-    updateSLT(cur.MADONG, cur.SOLUONG)
-    .then(res => {
-      console.log(res)
-      if (res.status !== 201){
-        // alert('Failed')
-        return
-      }
-    })
-  })
+  // data.CTPDS.map(cur => {
+  //   console.log(cur.MADONG, cur.SOLUONG)
+  //   updateSLT(cur.MADONG, cur.SOLUONG)
+  //   .then(res => {
+  //     console.log(res)
+  //     if (res.status !== 201){
+  //       // alert('Failed')
+  //       return
+  //     }
+  //   })
+  // })
 
   // if(this.updateSLT())
   return HttpService.post('phieudat', {
@@ -107,4 +107,22 @@ export const getListPdByCustomer = (MAKH) => {
 
 export const getListPdByStateAndCustomer = (TRANGTHAI,MAKH) => {
   return HttpService.get(`phieudat/cus&state/list/${TRANGTHAI},${MAKH}`)
+}
+
+export const checkSltPaypal = (data) => {
+  return HttpService.post('phieudat/create/checkslt/paypal', {
+    NGAYDAT: moment(new Date()).format('YYYY-MM-DD'),
+    HONN: data.HONN,
+    TENNN: data.TENNN,
+    DIACHINN: data.DIACHINN,
+    SDTNN: data.SDTNN,
+    GHICHU: data.GHICHU,
+    TRANGTHAI: "Chưa duyệt",
+    MANVD: "",
+    MANVGH: "",
+    MAKH: data.MAKH,
+    CTPDS: data.CTPDS
+    
+    
+  })
 }

@@ -7,6 +7,7 @@ import { WinelineService } from './wineline.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Wineline])], //import entity
   controllers: [WinelineController], //import controller
-  providers: [WinelineService] //import service
+  providers: [WinelineService], //import service
+  exports:[WinelineService]
 })
 export class WinelineModule {}

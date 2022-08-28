@@ -60,6 +60,11 @@ export class CustomerController {
         return this.customerService.updateCustomerDetail(id,body)
     }
 
+    @Put('/pass/detail/pleaseeeeeee/:MAKH')
+    updateCustomerPassword(@Param('MAKH') MAKH: string ,@Body() body:UpdateCustomerDto){
+        return this.customerService.updateCustomerPass(MAKH,body)
+    }
+
     @Delete(':id')
     delete(@Param('id') id: string) {
         return this.customerService.delete(id)

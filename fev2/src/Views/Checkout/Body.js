@@ -11,8 +11,12 @@ import Paypal from "../../components/Paypal";
 import { Button } from "@mui/material";
 import { Table, TableRow } from "@mui/material";
 import * as moment from "moment";
-import { getAccessTokenFromLocalStorage, getUserProfileFromLS, removeUserProfileToLS } from "../../helper/accessToken";
-import { createPhieuDat } from "../../services/Phieudat";
+import {
+  getAccessTokenFromLocalStorage,
+  getUserProfileFromLS,
+  removeUserProfileToLS,
+} from "../../helper/accessToken";
+import { checkSltPaypal, createPhieuDat } from "../../services/Phieudat";
 import { updateSLT } from "../../services/Phieudat";
 import { checkKm, checkPrice, toDecimal } from "../../helper/convertPrice";
 import { getMe } from "../../services/Getme";
@@ -24,8 +28,9 @@ export default class Body extends Component {
       carts: [],
       products: [],
       payment: 0,
-      total:0,
-      customer:  JSON.parse(getUserProfileFromLS()), /// ???
+      total: 0,
+      customer: JSON.parse(getUserProfileFromLS()), /// ???
+      isSelectedPayPal: false,
       data: {
         HONN: "",
         TENNN: "",
@@ -41,7 +46,7 @@ export default class Body extends Component {
     };
   }
   async componentDidMount() {
-    // const token = getAccessTokenFromLocalStorage() 
+    // const token = getAccessTokenFromLocalStorage()
     // if(!token) {
     //   alert('Vui lòng đăng nhập')
     //   window.location.href('/Login')
@@ -56,78 +61,85 @@ export default class Body extends Component {
     //   console.log('res', res.data)
     //   this.setState({customer: res.data})
     // })
-    
+
     const cartsT = JSON.parse(getListCartItemsFromLocalStorage());
-    if(cartsT) {
+    if (cartsT) {
       let productsT = [];
-    cartsT.map((cur) => {
-      GetProductById(cur.productId)
-        .then((res) => {
-          //console.log(res.data)
-          productsT.push(res.data);
-        })
-        .catch((err) => console.log(err));
-    });
-    this.setState({ products: productsT });
+      cartsT.map((cur) => {
+        GetProductById(cur.productId)
+          .then((res) => {
+            //console.log(res.data)
+            productsT.push(res.data);
+          })
+          .catch((err) => console.log(err));
+      });
+      this.setState({ products: productsT });
 
-    let listCTPDstemp = [];
-    let totalAmountTemp = 0;
+      let listCTPDstemp = [];
+      let totalAmountTemp = 0;
 
-    cartsT.map((cur) => {
-      let CTPDtemp = {};
-      CTPDtemp.MADONG = cur.productId;
-      CTPDtemp.SOLUONG = cur.quantity;
-      GetProductById(cur.productId)
-        .then((res) => {
-          let price = checkPrice(res.data.changeprices);
-          let promoPrice =
-            checkPrice(res.data.changeprices) *
-            toDecimal(checkKm(res.data.ct_khuyenmais));
-          let totalTemp = price - promoPrice;
-          CTPDtemp.GIA = totalTemp 
-          totalAmountTemp += totalTemp * cur.quantity;
-          // console.log(totalAmountTemp)
-          this.setState({ total: totalAmountTemp.toFixed(2) });
+      cartsT.map((cur) => {
+        let CTPDtemp = {};
+        CTPDtemp.MADONG = cur.productId;
+        CTPDtemp.SOLUONG = cur.quantity;
+        GetProductById(cur.productId)
+          .then((res) => {
+            let price = checkPrice(res.data.changeprices);
+            let promoPrice =
+              checkPrice(res.data.changeprices) *
+              toDecimal(checkKm(res.data.ct_khuyenmais));
+            let totalTemp = price - promoPrice;
+            CTPDtemp.GIA = totalTemp;
+            totalAmountTemp += totalTemp * cur.quantity;
+            // console.log(totalAmountTemp)
+            this.setState({ total: totalAmountTemp.toFixed(2) });
+          })
+          .catch((err) => console.log(err));
+        listCTPDstemp.push(CTPDtemp);
+      });
 
-        })
-        .catch((err) => console.log(err));
-      listCTPDstemp.push(CTPDtemp);
-    });
-
-
-    this.setState({
-      data: {
-        HONN: this.state.customer.HO,
-        TENNN: this.state.customer.TEN,
-        DIACHINN: this.state.customer.DIACHI,
-        SDTNN: this.state.customer.SDT,
-        GHICHU: "",
-        TRANGTHAI: "Chưa duyệt",
-        MANVD: "",
-        MANVGH: "",
-        MAKH: this.state.customer.MAKH,
-        CTPDS: listCTPDstemp,
-      },
-    });
+      this.setState({
+        data: {
+          HONN: this.state.customer.HO,
+          TENNN: this.state.customer.TEN,
+          DIACHINN: this.state.customer.DIACHI,
+          SDTNN: this.state.customer.SDT,
+          GHICHU: "",
+          TRANGTHAI: "Chưa duyệt",
+          MANVD: "",
+          MANVGH: "",
+          MAKH: this.state.customer.MAKH,
+          CTPDS: listCTPDstemp,
+        },
+      });
     }
-    
-    
   }
 
   handleChange = (e) => {
     this.setState({ payment: e.target.value });
   };
-  
+
   handleName = (e) => {
-    let ho = e.target.value.trim().split(' ').slice(0, -1).join(' ')
-    let ten = e.target.value.trim().split(' ').slice(-1).join(' ')
-    this.setState({data:{ ...this.state.data,HONN: ho, TENNN: ten} })
-  }
+    let ho = e.target.value.trim().split(" ").slice(0, -1).join(" ");
+    let ten = e.target.value.trim().split(" ").slice(-1).join(" ");
+    this.setState({ data: { ...this.state.data, HONN: ho, TENNN: ten } });
+  };
 
   checkPaypalState = (e) => {
     if (this.state.payment === 1) {
-      return <Paypal total={this.state.total} pd={this.state.data}></Paypal>;
-    } else return <></>;
+      checkSltPaypal(this.state.data).then(
+        (res) => {
+          return (
+            <Paypal total={this.state.total} pd={this.state.data}></Paypal>
+          );
+        },
+        (err) => {
+          alert(err.response.data.message);
+          this.setState({ payment: 0 });  
+          return <></>;
+        }
+      );
+    }
   };
 
   checkout = async () => {
@@ -136,19 +148,23 @@ export default class Body extends Component {
     //check slt
     //neu ko du thi cut
     //co thi tao]
-    await createPhieuDat(this.state.data).then(res => {
-      if(res.status === 201) {
-        alert('Đặt hàng thành công')
+    await createPhieuDat(this.state.data).then(
+      (res) => {
+        if (res.status === 201) {
+          alert("Đặt hàng thành công");
 
-        removeUserProfileToLS()
+          removeUserProfileToLS();
 
-        ///update slt
-        // updateSLT()
+          ///update slt
+          // updateSLT()
 
-        window.location.href('/')
+          window.location.href("/");
+        }
+      },
+      (err) => {
+        alert(err.response.data.message);
       }
-    });
-
+    );
   };
   render() {
     return (
@@ -159,7 +175,6 @@ export default class Body extends Component {
             <div className="row">
               <div>
                 <div className="checkout-inner">
-                
                   <div className="billing-address">
                     <p>Thông Tin Đặt Hàng :</p>
                     <Box
@@ -170,43 +185,76 @@ export default class Body extends Component {
                       <FormControl fullWidth>
                         <TextField
                           label="Họ và tên"
-                          defaultValue={this.state.customer && this.state.customer.HO.concat(
-                            " "
-                          ).concat(this.state.customer.TEN) }
+                          defaultValue={
+                            this.state.customer &&
+                            this.state.customer.HO.concat(" ").concat(
+                              this.state.customer.TEN
+                            )
+                          }
                           InputProps={{
                             name: "Email",
                           }}
                           onChange={(e) => this.handleName(e)}
+                          disabled={this.state.payment === 1}
                         />
                       </FormControl>
                       <FormControl fullWidth>
                         <TextField
                           label="Số điện thoại"
-                          defaultValue={this.state.customer ? this.state.customer.SDT : ''}
+                          defaultValue={
+                            this.state.customer ? this.state.customer.SDT : ""
+                          }
                           InputProps={{
                             name: "Email",
                           }}
-                          onChange={(e) => this.setState({data:{ ...this.state.data,SDT: e.target.value} })}
+                          onChange={(e) =>
+                            this.setState({
+                              data: { ...this.state.data, SDT: e.target.value },
+                            })
+                          }
+                          disabled={this.state.payment === 1}
                         />
                       </FormControl>
                       <FormControl fullWidth>
                         <TextField
                           label="Email"
-                          defaultValue={this.state.customer ? this.state.customer.EMAIL : ''}
+                          defaultValue={
+                            this.state.customer ? this.state.customer.EMAIL : ""
+                          }
                           InputProps={{
                             name: "Email",
                           }}
-                          onChange={(e) => this.setState({data:{ ...this.state.data,EMAIL: e.target.value} })}
+                          onChange={(e) =>
+                            this.setState({
+                              data: {
+                                ...this.state.data,
+                                EMAIL: e.target.value,
+                              },
+                            })
+                          }
+                          disabled={this.state.payment === 1}
                         />
                       </FormControl>
                       <FormControl fullWidth>
                         <TextField
                           label="Địa chỉ giao hàng"
-                          defaultValue={this.state.customer ? this.state.customer.DIACHI : ''}
+                          defaultValue={
+                            this.state.customer
+                              ? this.state.customer.DIACHI
+                              : ""
+                          }
                           InputProps={{
                             name: "Email",
                           }}
-                          onChange={(e) => this.setState({data:{ ...this.state.data,DIACHI: e.target.value} })}
+                          onChange={(e) =>
+                            this.setState({
+                              data: {
+                                ...this.state.data,
+                                DIACHI: e.target.value,
+                              },
+                            })
+                          }
+                          disabled={this.state.payment === 1}
                         />
                       </FormControl>
                       <FormControl fullWidth>
@@ -219,7 +267,15 @@ export default class Body extends Component {
                           InputProps={{
                             name: "Email",
                           }}
-                          onChange={(e) => this.setState({data:{ ...this.state.data,GHICHU: e.target.value} })}
+                          onChange={(e) =>
+                            this.setState({
+                              data: {
+                                ...this.state.data,
+                                GHICHU: e.target.value,
+                              },
+                            })
+                          }
+                          disabled={this.state.payment === 1}
                         />
                       </FormControl>
                       <p style={{ marginTop: "10px" }}>
@@ -243,25 +299,27 @@ export default class Body extends Component {
                           <MenuItem value={1}>Paypal</MenuItem>
                         </Select>
                       </FormControl>
-                      
+
                       {this.checkPaypalState()}
                     </Box>
                     <Table style={{ marginTop: "20px" }}>
                       <TableRow
                         style={{ textAlign: "center", fontSize: "30px" }}
                       >
-                        <Button
-                          variant="outlined"
-                          style={{
-                            textAlign: "center",
-                            fontSize: "20px",
-                            color: "#FF5733",
-                            borderColor: "#FF5733",
-                          }}
-                          onClick={this.checkout}
-                        >
-                          Xác nhận
-                        </Button>
+                        {this.state.payment === 0 && (
+                          <Button
+                            variant="outlined"
+                            style={{
+                              textAlign: "center",
+                              fontSize: "20px",
+                              color: "#FF5733",
+                              borderColor: "#FF5733",
+                            }}
+                            onClick={this.checkout}
+                          >
+                            Xác nhận
+                          </Button>
+                        )}
                       </TableRow>
                     </Table>
                   </div>

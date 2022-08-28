@@ -10,6 +10,8 @@ import { getAccessTokenFromLocalStorage, removeToken, removeUserProfileToLS } fr
 import { getUser } from "../helper/accessToken";
 import { addUserProfileToLS } from "../helper/accessToken";
 import { GetCustomerById } from "../services/Customer";
+import jwt from 'jwt-decode' 
+
 
 export default class Header extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ export default class Header extends Component {
     this.state = {
       products: [],
       itemInCart: 0,
-      token :''
+      token :'',
+      name:'',
     };
   }
 
@@ -28,6 +31,7 @@ export default class Header extends Component {
         // console.log('product header',this.state.products);
       })
       .catch((err) => console.log(err));
+    
     const cart = JSON.parse(getListCartItemsFromLocalStorage());
 
     let count = 0;
@@ -39,8 +43,16 @@ export default class Header extends Component {
     }
 
     let token = getAccessTokenFromLocalStorage()
-    if(!token) token = ''
-    this.setState({token:token})
+    if(token){
+
+      this.setState({token:token})
+      GetCustomerById(jwt(token).userId)
+      .then((res) => {
+        this.setState({ name: res.data.TEN });
+      })
+      .catch((err) => console.log(err));  
+    }
+    
     
   }
 
@@ -51,9 +63,14 @@ export default class Header extends Component {
     window.location.reload()
   }
 
+
+
   async handleClick(){
-    const usrId = JSON.parse(getUser());
-      await GetCustomerById(usrId.userId).then((res) => {
+    //fix: jwt
+    let token = getAccessTokenFromLocalStorage()
+
+    
+      await GetCustomerById(jwt(token).userId).then((res) => {
         addUserProfileToLS(res.data);
       });
   }
@@ -170,6 +187,7 @@ export default class Header extends Component {
                     </li>
                     <li style={{color: "#ff6f61", display: "inline", float: "left" }}>
                     {this.state.token.length !== 0 && (
+                      <>
                       <Link
                         style={{
                           display: "block",
@@ -183,6 +201,15 @@ export default class Header extends Component {
                       >
                         Log out
                       </Link>
+                      <p
+                      style={{
+                          display: "block",
+                          textAlign: "center",
+                          textDecoration: "none",
+                        }}>
+                          {'Xin chào '.concat(this.state.name)}
+                      </p>
+                      </>
                     )}
                     </li>
                   </ul>

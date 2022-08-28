@@ -21,6 +21,12 @@ export const updateCustomerDetail = async (id,payload) => {
   return HttpService.put(`customers/detail/${id}`, payload)
 }
 
+export const updateCustomerPassword = async (id,payload) => {
+  console.log(payload)
+  return HttpService.put(`customers/pass/detail/pleaseeeeeee/${id}`, payload)
+}
+
+
 export const registerCustomer = async (payload) => {
   return HttpService.post(`customers`,payload)
 }

@@ -89,13 +89,24 @@ export class CustomerService {
 
   async updateCustomerDetail(id: string ,payload: UpdateCustomerDto){
     const { PASSWORD } = payload;
-    const hashedPassword = hashSync(PASSWORD, 10);
-    payload.PASSWORD = hashedPassword;
+    
+    let { HO } = payload;
+    
+      let arr = HO.split(" ")
+      let i, kq='',temp
+      for(i=0;i<arr.length;i++){
+        temp = arr[i].trim()
+        if(temp != ''){
+            kq += temp + ' '
+        }
+      }
+      kq.trim()
+
     return this.customerRepo.createQueryBuilder('customer')
 		.update(Customer)
 		.set({
 			// MAKH: payload.MAKH,
-      HO: payload.HO,
+      HO: kq.trim(),
       TEN: payload.TEN,
       GIOITINH: payload.GIOITINH,
       NGAYSINH: payload.NGAYSINH,
@@ -107,4 +118,25 @@ export class CustomerService {
 		.where("MAKH = :MAKH",{MAKH:id})
 		.execute()
   }
+
+  async updateCustomerPass(id: string ,payload: UpdateCustomerDto){
+    const { PASSWORD } = payload;
+    // console.log('pass day',payload.PASSWORD)
+
+    
+    const hashedPassword = hashSync(PASSWORD, 10);
+    payload.PASSWORD = hashedPassword;
+
+
+    return this.customerRepo.createQueryBuilder('customer')
+    .update(Customer)
+    .set({
+      PASSWORD: payload.PASSWORD,
+    })
+    .where("MAKH = :MAKH",{MAKH:id})
+    .execute()
+  }
+
 }
+
+

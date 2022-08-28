@@ -1,16 +1,37 @@
 import { Body, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
+import { WinelineService } from '../wineline/wineline.service';
 import { CreateCtPhieudatDto } from './dto/create-ct_phieudat.dto';
 import { UpdateCtPhieudatDto } from './dto/update-ct_phieudat.dto';
 import { CtPhieudat } from './entities/ct_phieudat.entity';
 
 @Injectable()
 export class CtPhieudatService {
+  constructor(
+    @InjectRepository(CtPhieudat) private ctphieudatRepo: Repository <CtPhieudat>,
+    private winelineService: WinelineService,
+		private dataSource: DataSource
 
-  @InjectRepository(CtPhieudat) private ctphieudatRepo: Repository <CtPhieudat>
+  ) {
+    
+  }
   
   async create(payload: CreateCtPhieudatDto) { //func handle create new ctpd
+      
+
+    // let quantity = await this.winelineService.getQuantity(payload.MADONG)
+    // console.log(typeof(quantity[0].soluongton), typeof(payload.SOLUONG))
+
+    // console.log('this is quantity',quantity[0].soluongton,'payload', payload.SOLUONG)
+    // console.log('result', Number(quantity[0].soluongton) - Number(payload.SOLUONG))
+    // if(Number(quantity[0].soluongton) < Number(payload.SOLUONG)){
+    //   console.log('i was here')
+    //   throw new Error('not enough')
+    // }
+
+    // this.winelineService.updateSLT(payload.MADONG, Number(payload.SOLUONG) )
+
     const ct_phieudat = this.ctphieudatRepo.create(payload) //create nhung chua duoc save
 
     await this.ctphieudatRepo.save(ct_phieudat) //khi save thi data moi duoc luu vao db
