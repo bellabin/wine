@@ -41,4 +41,11 @@ export class ReviewService {
 
         return this.reviewRepo.remove(review)
     }
+
+    async GetByMADONG(MADONG: string){
+        return this.reviewRepo.find({
+            where:{MADONG:MADONG},
+            relations: ['wineline','customer'],
+          })
+    }
 }

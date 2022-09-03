@@ -25,5 +25,5 @@ export class CreateBillDto {
 
     @ApiProperty()
     @IsString()
-    MAPD!: string
+    MAPD: string
 }

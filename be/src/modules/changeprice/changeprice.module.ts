@@ -6,6 +6,7 @@ import { Changeprice } from './entities/changeprice.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Changeprice])],
+  exports:[ChangepriceService],
   controllers: [ChangepriceController],
   providers: [ChangepriceService]
 })

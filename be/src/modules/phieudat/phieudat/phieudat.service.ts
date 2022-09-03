@@ -144,14 +144,7 @@ export class PhieudatService {
 	async createPaypalPd(payload: CreatePhieudatDto) {
 		//func handle create new pd
 
-		const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
-
-		await this.phieudatRepo.save(phieudat) //khi save thi data moi duoc luu vao db
-
 		const { CTPDS } = payload
-
-		const promises = []
-
 		for (const ct_phieudat of CTPDS) {
 			const createCtPhieudatDto: CreateCtPhieudatDto = {
 				MAPD: payload.MAPD,
@@ -159,15 +152,62 @@ export class PhieudatService {
 				SOLUONG: ct_phieudat.SOLUONG,
 				GIA: ct_phieudat.GIA,
 			}
-
-			promises.push(this.ctPhieuDatService.create(createCtPhieudatDto))
+			//check ne
+			const bool = await this.winelineService.checkSlt(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
+			console.log('bool',bool)
+			if(bool === false){
+				console.log('in here')
+				throw new InternalServerErrorException('Sản phẩm không đủ số lượng trong kho!')
+			}
 		}
 
-		const cTPDs = await Promise.all(promises)
+		const queryRunner = this.dataSource.createQueryRunner();
 
-		phieudat.ct_phieudats = cTPDs
+		await queryRunner.connect();
+		await queryRunner.startTransaction();
+		try {
+			//func handle create new pd
+			
 
-		return phieudat
+			// const { CTPDS } = payload
+			const phieudat = this.phieudatRepo.create(payload) //create nhung chua duoc save
+
+			await this.phieudatRepo.save(phieudat) //khi save thi data moi duoc luu vao db
+
+			const promises = []
+
+			for (const ct_phieudat of CTPDS) {
+				const createCtPhieudatDto: CreateCtPhieudatDto = {
+					MAPD: payload.MAPD,
+					MADONG: ct_phieudat.MADONG,
+					SOLUONG: ct_phieudat.SOLUONG,
+					GIA: ct_phieudat.GIA,
+				}
+
+				//update slt
+				await this.winelineService.updateSLT(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
+
+				promises.push(
+					await this.ctPhieuDatService.create(createCtPhieudatDto)
+					)
+			}
+
+
+			const cTPDs = await Promise.all(promises)
+		
+
+			phieudat.ct_phieudats = cTPDs
+			
+			await queryRunner.commitTransaction();
+			return phieudat
+		} catch(err) {
+			console.log('loi ne');
+			
+			await queryRunner.rollbackTransaction();
+			throw err;
+		} finally {
+			await queryRunner.release();
+		}
 	}
 
 	async update(MAPD: string, payload: UpdatePhieudatDto) {
@@ -178,6 +218,7 @@ export class PhieudatService {
 		const staff = await this.staffService.findById(payload.MANVD)
 		console.log(payload.MANVD)
 
+		
 		// await this.phieudatRepo.update(MAPD, phieudat)
 
 		//phieudat.ct_phieudats = cTPDs

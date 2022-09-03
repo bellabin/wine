@@ -29,6 +29,7 @@ export class CtPromotionController {
 
   @Delete('')
   remove(@Query('MAKM') MAKM: string, @Query('MADONG') MADONG: string) {
+    console.log('called delete ctpromo', MAKM, MADONG)
     return this.ctPromotionService.remove(MAKM,MADONG);
   }
 }

@@ -25,9 +25,23 @@ export class ProviderService {
     }
 
     async create(payload: CreateProviderDto) { //func handle create new provider
+
+        const lastProvider = await this.providerRepo
+            .createQueryBuilder('provider')
+            .orderBy('provider.MANCC', "DESC")
+            .limit(1)
+            .getOne();
+        const lastId = Number(lastProvider.MANCC) + 1;
+        payload.MANCC = lastId.toLocaleString('en-US', {
+            minimumIntegerDigits: 3,
+            useGrouping: false
+        });
+
         const provider = this.providerRepo.create(payload) //create nhung chua duoc save
 
+
         await this.providerRepo.save(provider) //khi save thi data moi duoc luu vao db
+
 
         return provider
     }

@@ -25,6 +25,18 @@ export class TrademarksService {
     }
 
     async create(payload: CreateTrademarksDto) { //func handle create new trademark
+
+        const lastBrand = await this.trademarkRepo
+            .createQueryBuilder('trademark')
+            .orderBy('trademark.MATH', "DESC")
+            .limit(1)
+            .getOne();
+        const lastId = Number(lastBrand.MATH) + 1;
+        payload.MATH = lastId.toLocaleString('en-US', {
+            minimumIntegerDigits: 3,
+            useGrouping: false
+        });
+
         const trademark = this.trademarkRepo.create(payload) //create nhung chua duoc save
 
         await this.trademarkRepo.save(trademark) //khi save thi data moi duoc luu vao db

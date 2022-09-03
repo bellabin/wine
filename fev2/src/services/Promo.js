@@ -64,8 +64,9 @@ export const UpdateCtPromoById = async (id, data) => {
   })
 }
 
-export const DeleteCtPromoById = async (id) => {
-  return HttpService.delete(`ct-promotion/${id}`)
+export const DeleteCtPromoById = async (MAKM, MADONG) => {
+  console.log('delete ctpromo')
+  return HttpService.delete(`ct-promotion?MAKM=${MAKM}&MADONG=${MADONG}`)
 }
 
 export const CreateCtPromo = async (data) => {

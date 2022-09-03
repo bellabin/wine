@@ -8,7 +8,24 @@ import { Promotion } from './entities/promotion.entity';
 @Injectable()
 export class PromotionService {
   @InjectRepository(Promotion) private promotionRepo: Repository<Promotion>
+
+
+
   async create(payload: CreatePromotionDto) {
+
+    // console.log(payload)
+    const lastPromo = await this.promotionRepo
+            .createQueryBuilder('promotion')
+            .orderBy('promotion.MAKM', "DESC")
+            .limit(1)
+            .getOne();
+        const lastId = Number(lastPromo.MAKM) + 1;
+        payload.MAKM = lastId.toLocaleString('en-US', {
+            minimumIntegerDigits: 3,
+            useGrouping: false
+        });
+
+
     const promotion = this.promotionRepo.create(payload)
 
     await this.promotionRepo.save(promotion)

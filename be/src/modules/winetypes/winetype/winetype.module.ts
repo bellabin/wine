@@ -6,6 +6,7 @@ import { Winetype } from '../entities/winetype.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Winetype])],
+  exports:[WinetypeService],
   providers: [WinetypeService],
   controllers: [WinetypeController]
 })

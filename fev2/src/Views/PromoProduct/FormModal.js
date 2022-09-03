@@ -14,9 +14,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Switch from '@mui/material/Switch';
 import { async } from 'q';
-import {CreateProvider} from '../../services/Provider'
+import { CreateProvider } from '../../services/Provider'
 import { GetListProduct, UpdateProductById } from '../../services/Product';
-import { GetListPromo } from '../../services/Promo';
+import { CreateCtPromo, GetListPromo } from '../../services/Promo';
 import { UpdateCtPromoById } from '../../services/Promo';
 
 export default class FormModalPromoProduct extends React.Component {
@@ -25,16 +25,20 @@ export default class FormModalPromoProduct extends React.Component {
         this.state = {
             open: false,
             data: {
-                products:[],
-                promos:[],
-                MADONG:'',
-                MAKM:'',
-                PHANTRAMGIAM:'',
+                products: [],
+                promos: [],
+                MADONG: '',
+                MAKM: '',
+                PHANTRAMGIAM: 0,
             },
+            isSubmit: false,
+            products:[],
+            promos:[],
+
         }
     }
 
-    
+
 
     Close = () => {
         this.setState({ open: false })
@@ -43,30 +47,57 @@ export default class FormModalPromoProduct extends React.Component {
         this.setState({ open: true })
     }
 
-    
-    componentDidMount(){
+
+    componentDidMount() {
         GetListProduct()
             .then(res => {
                 this.setState({ products: res.data })
             })
             .catch(err => console.log(err))
-            
+
         GetListPromo()
             .then(res => {
                 this.setState({ promos: res.data })
             })
-            .catch(err => console.log(err))    
+            .catch(err => console.log(err))
     }
 
     onSubmit = async (event) => {
         event.preventDefault()
-        //console.log(this.state.data)
-        //await this.createProvider()
-        this.close()
-        
+        console.log(this.state.data)
+
+        this.setState({isSubmit: true})
+
+        if (this.state.data.MADONG.length === 0 ||
+            this.state.data.MAKM.length === 0 ||
+            this.state.data.PHANTRAMGIAM <= 0 ||
+            isNaN(this.state.data.PHANTRAMGIAM) === true
+
+        ) {
+            return
+        }else{
+            await this.createPromoProduct().then()
+            .catch(err => {
+                // console.log('err',err)
+                alert(err.response.data.message)
+            })
+            this.Close()
+        }
+
     }
 
-    
+    async createPromoProduct(){
+        const data = {
+            MADONG: this.state.data.MADONG,
+            MAKM: this.state.data.MAKM,
+            PHANTRAMGIAM: this.state.data.PHANTRAMGIAM
+
+        }
+        console.log(data)
+        await CreateCtPromo(data)
+    }
+
+
 
     render = () => {
         return (
@@ -84,38 +115,108 @@ export default class FormModalPromoProduct extends React.Component {
                 >
                     <DialogTitle>Product promotion form</DialogTitle>
                     <DialogContent>
-                    <Box
-                        sx={{
-                            '& .MuiTextField-root': { m: 1 },
-                        }}
+                        <Box
+                            sx={{
+                                '& .MuiTextField-root': { m: 1 },
+                            }}
 
-                    >
-                        <FormControl fullWidth >
-                            <TextField
-                                label="MADONG"
-                                InputProps={{
-                                    name: "Ten"
-                                }}
-                                onChange={(e) => {
-                                    this.setState({data: {...this.state.data,MADONG: e.target.value} })
-                                }}
+                        >
+                            <FormControl fullWidth style={{ marginTop: '20px' }}>
+                                <InputLabel id="demo-simple-select-label">Dòng rượu</InputLabel>
+                                <Select
+                                    MenuProps={{
+                                        PaperProps: {
+                                            style: {
+                                                maxHeight: 40 * 4.5 + 8,
+                                                width: 250
+                                            }
+                                        },
+                                        // Show dropdow at bottom of select
+                                        getContentAnchorEl: null,
 
-                            />
-                        </FormControl>
-                        <FormControl fullWidth >
-                            <TextField
-                                label="MAKM"
-                                InputProps={{
-                                    name: "Ten"
-                                }}
-                                onChange={(e) => {
-                                    this.setState({data: {...this.state.data,MAKM: e.target.value} })
-                                }}
+                                        MenuListProps: {
+                                            tabindex: "1",
+                                            tabIndex: "1"
+                                        }
+                                    }}
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={this.state.data.MADONG}
+                                    // label="Chọn nhân viên giao"
+                                    onChange={(e) => this.setState({ data: { ...this.state.data, MADONG: e.target.value } })}
+                                >
 
-                            />
-                        </FormControl>
-                        
-                    </Box>
+
+                                    {this.state.products && this.state.products.map((cur) => {
+                                        return (
+                                            <MenuItem value={cur.MADONG}>{cur.TENDONG}</MenuItem>)
+                                    })}
+
+
+                                </Select>
+                                {(this.state.isSubmit && this.state.data.MADONG.length === 0) && (
+                                    <div style={{ color: "red" }}>Vui lòng chọn dòng rượu!</div>
+                                )}
+                            </FormControl>
+
+                            <FormControl fullWidth style={{ marginTop: '20px' }}>
+                                        <InputLabel id="demo-simple-select-label">Đợt khuyến mãi</InputLabel>
+                                        <Select
+                                            MenuProps={{
+                                                PaperProps: {
+                                                    style: {
+                                                        maxHeight: 40 * 4.5 + 8,
+                                                        width: 250
+                                                    }
+                                                },
+                                                // Show dropdow at bottom of select
+                                                getContentAnchorEl: null,
+
+                                                MenuListProps: {
+                                                    tabindex: "1",
+                                                    tabIndex: "1"
+                                                }
+                                            }}
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={this.state.data.MAKM}
+                                            // label="Chọn nhân viên giao"
+                                            onChange={(e) => this.setState({ data: { ...this.state.data, MAKM: e.target.value } })}
+                                        >
+
+
+                                            {this.state.promos && this.state.promos.map((cur) => {
+                                                return (
+                                                    <MenuItem value={cur.MAKM}>{cur.TENKM}</MenuItem>)
+                                            })}
+
+
+                                        </Select>
+                                        {(this.state.isSubmit && this.state.data.MAKM.length === 0) && (
+                                            <div style={{color: "red"}}>Vui lòng chọn đợt khuyến mãi!</div>
+                                        )}
+                                    </FormControl>
+
+                            <FormControl fullWidth >
+                                <TextField
+                                    label="Phần trăm giảm"
+                                    InputProps={{
+                                        name: "Ten"
+                                    }}
+                                    onChange={(e) => {
+                                        this.setState({ data: { ...this.state.data, PHANTRAMGIAM: e.target.value } })
+                                    }}
+
+                                />
+                                {(this.state.isSubmit && this.state.data.PHANTRAMGIAM <= 0) && (
+                                    <div style={{color: "red"}}>Phần trăm giảm phải lớn hơn 0!</div>
+                                )}
+                                {(this.state.isSubmit && isNaN(this.state.data.PHANTRAMGIAM) === true ) && (
+                                    <div style={{color: "red"}}>Phần trăm giảm phải là số!</div>
+                                )}
+                            </FormControl>
+
+                        </Box>
                     </DialogContent>
                     <DialogActions>
                         <Button type='submit' color='success' variant='contained'>Submit</Button>

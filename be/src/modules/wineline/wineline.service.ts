@@ -7,11 +7,16 @@ import { Wineline } from './entities/wineline.entity'
 import findProductByNameQuery from './queries/findProductByName'
 import HotProductQuery from './queries/hot-products.query'
 import {checkKm, checkPrice, toDecimal} from './convertPrice'
+import { WinetypeService } from '../winetypes/winetype/winetype.service'
+import { Changeprice } from '../changeprice/entities/changeprice.entity'
+import { ChangepriceService } from '../changeprice/changeprice.service'
 
 @Injectable()
 export class WinelineService {
     constructor(
-        @InjectRepository(Wineline) private winelineRepo: Repository<Wineline> //inject repo
+        @InjectRepository(Wineline) private winelineRepo: Repository<Wineline>, //inject repo
+        private winetypeService: WinetypeService,
+        private changePriceService: ChangepriceService,
         
     ) {}
 
@@ -61,9 +66,49 @@ export class WinelineService {
 }
 
     async create(payload: CreateWinelineDto) { //func handle create new wineline
-        const wineline = this.winelineRepo.create(payload) //create nhung chua duoc save
 
+        console.log(payload)
+
+        const lastWineline = await this.winelineRepo
+            .createQueryBuilder('wineline')
+            .orderBy('wineline.MADONG', "DESC")
+            .limit(1)
+            .getOne();
+        const lastId = Number(lastWineline.MADONG) + 1;
+        payload.MADONG = lastId.toLocaleString('en-US', {
+            minimumIntegerDigits: 3,
+            useGrouping: false
+        });
+
+        
+
+        const wineline = new Wineline //create nhung chua duoc save
+        wineline.MADONG = payload.MADONG
+        wineline.TENDONG = payload.TENDONG
+        wineline.CHITIET = payload.CHITIET
+        wineline.MOTA = payload.MOTA
+        wineline.SOLUONGTON = payload.SOLUONGTON
+        wineline.HINHANH = payload.HINHANH
+        wineline.TRANGTHAI = payload.TRANGTHAI
+        wineline.MATH = payload.MATH
+        wineline.winetype = await this.winetypeService.findById(payload.MALOAI)
+        wineline.cungcaps = []
+        // wineline.changeprices = [change_price]
         await this.winelineRepo.save(wineline) //khi save thi data moi duoc luu vao db
+
+        
+        console.log(wineline)
+
+        // console.log(payload.MANV)
+
+        const change_price = new Changeprice
+        change_price.MADONG = payload.MADONG
+        change_price.NGAYTHAYDOI = new Date
+        change_price.MANV = payload.MANV
+        change_price.GIA = payload.GIA
+
+        await this.changePriceService.create(change_price)
+
 
         return wineline
     }

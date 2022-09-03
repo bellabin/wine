@@ -39,7 +39,7 @@ export default class FormModalDeleteProduct extends React.Component {
 
     Delete(MADONG){
 
-        this.setState({MANCC: MADONG})
+        this.setState({MADONG: MADONG})
 
     }
     render = () => {

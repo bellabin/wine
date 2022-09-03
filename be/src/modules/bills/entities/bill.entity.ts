@@ -17,8 +17,8 @@ export class Bill {
     @Column({type:'varchar'})
     MASOTHUE!: string
 
-    @Column({type:'char'})
-    MANV!: string
+    // @Column({type:'char'})
+    // MANV!: string
 
     @ManyToOne(() => Staff, staff => staff.bills)
     @JoinColumn({name:'MANV'})

@@ -13,6 +13,7 @@ import {
 } from "../../services/Product";
 import { useState, useEffect } from "react";
 import { GetListPromo, GetListCtPromo } from "../../services/Promo";
+import FormModalDeletePromoProduct from "./FormModal-Delete";
 
 export default function DenseTable() {
   const [listProducts, setListProducts] = useState([]);
@@ -64,10 +65,10 @@ export default function DenseTable() {
     
     }
 
-    function Delete(MANCC) {
+    function Delete(MAKM, MADONG) {
     React.refModalDeletePromoProduct?.open()
 
-    React.refModalDeletePromoProduct.Delete( MANCC)
+    React.refModalDeletePromoProduct.Delete( MAKM, MADONG)
     // const index = listProviders.findIndex(x => x.MANCC === MANCC)
     // console.log(index)
     // if(index >= 0) {
@@ -110,16 +111,20 @@ export default function DenseTable() {
                     <TableCell align="left">{ctpromo.wineline.TENDONG}</TableCell>
                     <TableCell align="left">{ctpromo.PHANTRAMGIAM} %</TableCell>
                     <TableCell align="right">
+                    {console.log(ctpromo.MADONG)}
                       <i className="fas fa-pencil-alt" style={{ paddingRight: "10px" }} onClick={() => Edit(row)}></i>
-                      <i className="fas fa-trash-alt" onClick={() => Delete(row.MADONG)}></i>
+                      <i className="fas fa-trash-alt" onClick={() => Delete(row.MAKM,ctpromo.MADONG)}></i>
                     </TableCell>
                   </TableRow>
                 );
               }
             })
           )}
+
         </TableBody>
       </Table>
+      {/* <FormModalEdit ref={(ref) => (React.refModalEditProvider = ref)} /> */}
+      <FormModalDeletePromoProduct ref={(ref) => (React.refModalDeletePromoProduct = ref)} />
     </TableContainer>
   );
 }

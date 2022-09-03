@@ -26,6 +26,7 @@ export class CtPhieudatController {
   update(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string, @Body() updateCtPhieudatDto: UpdateCtPhieudatDto) {
     return this.ctPhieudatService.update(IDCTPD, MAPD, MADONG, updateCtPhieudatDto);
   }
+  
 
   @Delete('')
   remove(@Query('IDCTPD') IDCTPD: number,@Query('MAPD') MAPD: string,@Query('MADONG') MADONG: string) {

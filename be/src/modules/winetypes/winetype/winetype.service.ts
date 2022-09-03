@@ -26,6 +26,20 @@ export class WinetypeService {
     }
 
     async create(payload: CreateWinetypeDto) { //func handle create new winetype
+
+
+        const lastWinetype = await this.winetypeRepo
+            .createQueryBuilder('winetype')
+            .orderBy('winetype.MALOAI', "DESC")
+            .limit(1)
+            .getOne();
+        const lastId = Number(lastWinetype.MALOAI) + 1;
+        payload.MALOAI = lastId.toLocaleString('en-US', {
+            minimumIntegerDigits: 3,
+            useGrouping: false
+        });
+
+
         const winetype = this.winetypeRepo.create(payload) //create nhung chua duoc save
 
         await this.winetypeRepo.save(winetype) //khi save thi data moi duoc luu vao db

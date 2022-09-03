@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 
+
 export class CreateWinelineDto {
     @ApiProperty()
     @IsString()
@@ -45,5 +46,5 @@ export class CreateWinelineDto {
 
     @ApiProperty()
     @IsString()
-    MANCC!: string
+    MANV!: string
 }

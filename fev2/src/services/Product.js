@@ -71,6 +71,7 @@ export const CreateProduct = async (data) => {
     MALOAI: data.MALOAI,
     MATH: data.MATH,
     MANCC: data.MANCC,
+    MANV: data.MANV,
   })
 }
 

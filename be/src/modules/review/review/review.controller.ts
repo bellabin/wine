@@ -19,6 +19,11 @@ export class ReviewController {
         return this.reviewService.findById(MAKH,MADONG,NGAYDANHGIA)
     }
 
+    @Get('madong/:MADONG')
+    getByMadong(@Param('MADONG') MADONG: string){
+        return this.reviewService.GetByMADONG(MADONG)
+    }
+
     @Post() //create new review
     create(@Body() payload: CreateReviewDto) {
         return this.reviewService.create(payload)

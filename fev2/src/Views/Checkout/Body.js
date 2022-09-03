@@ -129,6 +129,7 @@ export default class Body extends Component {
     if (this.state.payment === 1) {
       checkSltPaypal(this.state.data).then(
         (res) => {
+          console.log('paypal enable')
           return (
             <Paypal total={this.state.total} pd={this.state.data}></Paypal>
           );

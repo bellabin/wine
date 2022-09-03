@@ -26,6 +26,8 @@ export default class FormModal extends React.Component {
                 TENTH: '',
                 
             },
+            isSubmit: false,
+
         }
     }
 
@@ -44,8 +46,15 @@ export default class FormModal extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         console.log(this.state.data)
-        await this.createBrand()
-        this.close()
+        this.setState({isSubmit: true})
+
+        if (this.state.data.TENTH.length === 0 
+        ) {
+            return
+        }else{
+            await this.createBrand()
+            this.Close()
+        }
         
     }
 
@@ -93,6 +102,9 @@ export default class FormModal extends React.Component {
                                 }}
 
                             />
+                            {(this.state.isSubmit && this.state.data.TENTH.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền tên thương hiệu!</div>
+                            )}
                         </FormControl>
                         
                     </Box>

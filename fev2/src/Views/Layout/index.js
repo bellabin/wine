@@ -2,11 +2,35 @@ import React, { Component } from 'react'
 import Button from '@mui/material/Button';
 import { Link, NavLink, Routes } from 'react-router-dom';
 import { KeyNavigate } from '../../helper/KeyNavigate';
-import { removeToken } from '../../helper/accessToken';
+import { removeToken, getAccessTokenFromLocalStorage } from '../../helper/accessToken';
+import { GetCustomerById } from "../../services/Customer";
+import jwt from 'jwt-decode'
+import { GetStaffById } from '../../services/Staff';
 
 
 export default class LayoutAdmin extends Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+          token :'',
+          name:'',
+        };
+      }
+
+    componentDidMount(){
+        let token = getAccessTokenFromLocalStorage()
+        console.log(jwt(token))
+        if(token){
+
+        this.setState({token:token})
+        GetStaffById(jwt(token).userId)
+        .then((res) => {
+            console.log(res)
+            this.setState({ name: res.data.TEN });
+        })
+        .catch((err) => console.log(err));  
+        }
+    }
 
     removeTokenAdmin = () => {
         removeToken()
@@ -24,7 +48,7 @@ export default class LayoutAdmin extends Component {
                                 <i className="fa fa-users-cog"></i> Trang quản trị
                             </div>
                             <div className="col-sm-6">
-                                <i className=""></i>
+                                <i className="">Xin chào {this.state.name}</i>
                             </div>
                         </div>
                     </div>

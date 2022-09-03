@@ -37,6 +37,7 @@ export default function DenseTable() {
 
 
 
+
   const handleFromTime = (time) => {
     setFromTime(time);
     // console.log(fromTime)
@@ -46,7 +47,8 @@ export default function DenseTable() {
     // console.log(toTime)
   };
 
-  const handleRev = (fromTime, toTime) => {
+
+  const handleRev = async (fromTime, toTime) => {
     const vFromTime = moment(fromTime).format("YYYY-MM-01");
     const vToTime = moment(toTime).format("YYYY-MM-01");
 
@@ -55,11 +57,16 @@ export default function DenseTable() {
       setTotalPd(res.data.length)
     })
     GetTotalIncomeFromTo(vFromTime,vToTime).then(res => {
-      console.log(res.data[0].gia)
-      if(res.data[0].gia) {
-      console.log(res.data[0].gia)
+      //
+      console.log(res.data)
+      let totalTemp = 0
+      if(res.data) {
+      // console.log(res.data[0].gia)
+        res.data.map(cur => {
+          totalTemp += cur.tong
+        })
 
-        setTotalIncome(res.data[0].gia)}
+        setTotalIncome(totalTemp)}
     })
     var fromMonth = Number(moment(fromTime).format('M'));
     var toMonth = Number(moment(toTime).format('M'));
@@ -94,9 +101,14 @@ export default function DenseTable() {
         nextTemp.setFullYear(fromTime.getFullYear())
         nextTemp.setDate(1)
         nextTemp.setMonth(fromTime.getMonth() + i + 1)
-        GetTotalIncomeFromTo(moment(temp).format("YYYY-MM-DD"),moment(nextTemp).format("YYYY-MM-DD"))
+        await GetTotalIncomeFromTo(moment(temp).format("YYYY-MM-DD"),moment(nextTemp).format("YYYY-MM-DD"))
         .then(res => {
-            let totalIncomeTemp = res.data[0].gia
+            // console.log('chart',res.data[0].tong)
+            let totalIncomeTemp = 0
+
+            res.data.map(cur => {
+              totalIncomeTemp += cur.tong
+            })
             if(totalIncomeTemp === null) totalIncomeTemp = 0
             listLable.push(mS[temp.getMonth()].concat(' ').concat(temp.getFullYear()))
             listData.push(totalIncomeTemp.toFixed(2))
@@ -105,8 +117,19 @@ export default function DenseTable() {
     
     setListLable1(listLable)
     setListData1(listData)
+    console.log(listData)
 
   };
+
+  const tableRev = (lable,data) => {
+    console.log('tablerev', lable)
+    lable.forEach(cur => {
+      <TableRow>
+        <TableCell align="center">?</TableCell>
+        <TableCell align="center">Doanh thu</TableCell>
+      </TableRow>
+    });
+  }
   return (
     <>
       <Box display="flex" gap={1}>
@@ -137,7 +160,8 @@ export default function DenseTable() {
       <Box className='col-6' sx={{ display: 'flex' }} style={{ marginTop: "20px" } }>
         <CardContent
         component={Paper} 
-        style={{backgroundColor:'#00BFFF'}}>
+        // style={{backgroundColor:'#00BFFF'}}
+        >
           <Typography variant="h6" component="div" >
             Tổng đơn hàng: {totalPd} {' '}  đơn
           </Typography>
@@ -149,6 +173,31 @@ export default function DenseTable() {
           </Typography>
           <Typography variant="body2">
             
+          <TableContainer TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Tháng/năm</TableCell>
+              <TableCell align="center">Doanh thu</TableCell>
+            </TableRow>
+            {/* {console.log('render', lable1)} */}
+          </TableHead>
+          <TableBody>
+            {lable1.map((row, index) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row" align="center">
+                  {row}
+                </TableCell>
+                <TableCell align="center">{data1[index].concat(' $')}</TableCell>
+                
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
            
           </Typography>
         </CardContent>

@@ -91,8 +91,9 @@ export default class SignUp extends React.Component {
         }
     }
 
-    render = () => {
+    render() {
         return (
+            <>
             <div>
                 {/* <!-- Top bar Start --> */}
                 <div class="top-bar">
@@ -123,18 +124,7 @@ export default class SignUp extends React.Component {
                                 <span class="navbar-toggler-icon"></span>
                             </button>
 
-                            <div
-                                class="collapse navbar-collapse justify-content-between"
-                                id="navbarCollapse"
-                            >
-                                <div class="navbar-nav mr-auto">
-                                    <a href="/" class="nav-item nav-link">Trang Chủ</a>
-                                    <a href="/san-pham" class="nav-item nav-link">Sản Phẩm</a>
-                                    {/* <!-- <a href="product-detail.html" class="nav-item nav-link">Product Detail</a> --> */}
-                                    <a href="/gio-hang" class="nav-item nav-link">Giỏ Hàng</a>
-                                </div>
-                                <div class="navbar-nav ml-auto"></div>
-                            </div>
+                            
                         </nav>
                     </div>
                 </div>
@@ -318,18 +308,14 @@ export default class SignUp extends React.Component {
                                         <div class="social">
                                             <a href=""><i class="fab fa-twitter"></i></a>
                                             <a href="https://www.facebook.com/ybx1802"
-                                            ><i class="fab fa-facebook-f"></i
-                                            ></a>
+                                            ><i class="fab fa-facebook-f"></i></a>
                                             <a href="https://www.linkedin.com/in/huy-tran-57777b202/"
-                                            ><i class="fab fa-linkedin-in"></i
-                                            ></a>
+                                            ><i class="fab fa-linkedin-in"></i></a>
                                             <a href="https://www.instagram.com/huy_jr18"
-                                            ><i class="fab fa-instagram"></i
-                                            ></a>
+                                            ><i class="fab fa-instagram"></i></a>
                                             <a
                                                 href="https://www.youtube.com/channel/UCctcteJFmH4Wxc8npHW9Cog"
-                                            ><i class="fab fa-youtube"></i
-                                            ></a>
+                                            ><i class="fab fa-youtube"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -402,8 +388,8 @@ export default class SignUp extends React.Component {
                 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
             </div>
 
-
-        );
+            </>
+        )
     }
 
 }

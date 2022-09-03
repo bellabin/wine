@@ -1,5 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PhieudatService } from 'src/modules/phieudat/phieudat/phieudat.service';
+import { StaffService } from 'src/modules/staffs/staff.service';
 import { Repository } from 'typeorm';
 import { CreateBillDto } from '../dto/create-bill.dto';
 import { UpdateBillDto } from '../dto/update-bill.dto';
@@ -8,7 +10,9 @@ import { Bill } from '../entities/bill.entity';
 @Injectable()
 export class BillService {
     constructor(
-        @InjectRepository(Bill) private billRepo: Repository<Bill> //inject repo
+        @InjectRepository(Bill) private billRepo: Repository<Bill>, //inject repo
+        private phieudatService: PhieudatService,
+        private staffService: StaffService,
     ) {}
 
     findAll() { //function handle get list bill
@@ -26,7 +30,21 @@ export class BillService {
     }
 
     async create(payload: CreateBillDto) { //func handle create new bill
-        const bill = this.billRepo.create(payload) //create nhung chua duoc save
+        let bill = new Bill //create nhung chua duoc save
+
+        const pd = await this.phieudatService.findById(payload.MAPD)
+
+        const staff = await this.staffService.findById(payload.MANV)
+
+        bill.MAHD = payload.MAHD
+        bill.staff = staff
+        bill.MASOTHUE = payload.MASOTHUE
+        bill.NGAY = new Date()
+        bill.THANHTIEN = payload.THANHTIEN
+        bill.phieudat = pd
+
+
+
 
         await this.billRepo.save(bill) //khi save thi data moi duoc luu vao db
 

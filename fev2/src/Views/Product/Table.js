@@ -102,7 +102,7 @@ export default function DenseTable() {
               <TableCell align="left">{row.SOLUONGTON}</TableCell>
               {listWinetypes &&
                 listWinetypes.map((wineType) => {
-                  console.log(row)
+                  {/* console.log(row) */}
 
                   if (row.winetype.MALOAI === wineType.MALOAI) {
                     return (

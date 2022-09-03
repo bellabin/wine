@@ -9,6 +9,11 @@ import { CtPromotion } from './entities/ct_promotion.entity';
 export class CtPromotionService {
   @InjectRepository(CtPromotion) private ctpromoRepo: Repository<CtPromotion>
   async create(payload: CreateCtPromotionDto) {
+
+    const check = await this.findOne(payload.MAKM, payload.MADONG)
+    if(check){
+      throw new NotFoundException('Sản phẩm đã có trong đợt khuyến mãi')
+    }
     const ct_promotion = this.ctpromoRepo.create(payload)
 
     await this.ctpromoRepo.save(ct_promotion)
@@ -45,6 +50,8 @@ export class CtPromotionService {
 
   async remove(MAKM: string, MADONG: string) {
     const ct_promotion = await this.findOne(MAKM, MADONG)
+
+    console.log('delete ctpromo', ct_promotion)
 
     return this.ctpromoRepo.remove(ct_promotion) 
   }

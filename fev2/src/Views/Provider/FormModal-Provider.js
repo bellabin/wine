@@ -29,6 +29,8 @@ export default class FormModalProvider extends React.Component {
                 DIACHI: '',
 
             },
+            //
+            isSubmit: false,
         }
     }
 
@@ -48,8 +50,19 @@ export default class FormModalProvider extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         console.log(this.state.data)
-        await this.createProvider()
-        this.close()
+        this.setState({isSubmit: true})
+
+        if (this.state.data.TENNCC.length === 0 ||
+            this.state.data.DIACHI.length === 0 ||
+            this.state.data.EMAIL.length === 0 ||
+            this.state.data.SDT.length === 0 
+        ) {
+            return
+        }else{
+            await this.createProvider()
+            this.Close()
+        }
+        
         
     }
 
@@ -89,7 +102,7 @@ export default class FormModalProvider extends React.Component {
                         }}
 
                     >
-                        <FormControl fullWidth >
+                        {/* <FormControl fullWidth >
                             <TextField
                                 label="Mã nhà cung cấp"
                                 InputProps={{
@@ -100,7 +113,7 @@ export default class FormModalProvider extends React.Component {
                                 }}
 
                             />
-                        </FormControl>
+                        </FormControl> */}
                         <FormControl fullWidth >
                             <TextField
                                 label="Tên"
@@ -110,8 +123,10 @@ export default class FormModalProvider extends React.Component {
                                 onChange={(e) => {
                                     this.setState({data: {...this.state.data,TENNCC: e.target.value} })
                                 }}
-
                             />
+                            {(this.state.isSubmit && this.state.data.TENNCC.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền tên nhà cung cấp!</div>
+                            )}
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
@@ -122,6 +137,9 @@ export default class FormModalProvider extends React.Component {
                                 onChange={(e) => this.setState({data:{ ...this.state.data,SDT: e.target.value} })}
 
                             />
+                            {(this.state.isSubmit && this.state.data.TENNCC.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền số điện thoại!</div>
+                            )}
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
@@ -132,6 +150,9 @@ export default class FormModalProvider extends React.Component {
                                 onChange={(e) => this.setState({data: {...this.state.data,EMAIL: e.target.value} })}
 
                             />
+                            {(this.state.isSubmit && this.state.data.TENNCC.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền email!</div>
+                            )}
                         </FormControl>
                         <FormControl fullWidth >
                             <TextField
@@ -142,6 +163,9 @@ export default class FormModalProvider extends React.Component {
                                 onChange={(e) => this.setState({data: {...this.state.data,DIACHI: e.target.value} })}
 
                             />
+                            {(this.state.isSubmit && this.state.data.TENNCC.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền địa chỉ</div>
+                            )}
                         </FormControl>
                     </Box>
                     </DialogContent>

@@ -27,6 +27,8 @@ export default class FormModal extends React.Component {
                 
 
             },
+            isSubmit: false,
+
         }
     }
 
@@ -45,8 +47,16 @@ export default class FormModal extends React.Component {
     onSubmit = async (event) => {
         event.preventDefault()
         console.log(this.state.data)
-        await this.createProductType()
-        this.close()
+
+        this.setState({isSubmit: true})
+
+        if (this.state.data.TENLOAI.length === 0 
+        ) {
+            return
+        }else{
+            await this.createProductType()
+            this.Close()
+        }
         
     }
 
@@ -94,6 +104,9 @@ export default class FormModal extends React.Component {
                                 }}
 
                             />
+                            {(this.state.isSubmit && this.state.data.TENLOAI.length === 0) && (
+                                <div style={{color: "red"}}>Vui lòng điền tên loại rượu!</div>
+                            )}
                         </FormControl>
                         
                     </Box>

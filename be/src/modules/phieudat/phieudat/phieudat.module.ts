@@ -12,6 +12,7 @@ import { PhieudatService } from './phieudat.service';
     TypeOrmModule.forFeature([Phieudat]),
     CtPhieudatModule, StaffModule, WinelineModule
   ],
+  exports:[PhieudatService],
   providers: [PhieudatService],
   controllers: [PhieudatController]
 })
