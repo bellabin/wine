@@ -22,6 +22,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box, Button } from "@mui/material";
 import * as moment from "moment";
 import { letterSpacing } from "@mui/system";
+import ExportCSV from "../../components/ExportExcel";
 import LineChart from "./Chart";
 
 export default function DenseTable() {
@@ -32,6 +33,10 @@ export default function DenseTable() {
   const [listPds, setListPds] = useState([]);
   const [lable1,setListLable1] = useState([]) 
   const [data1,setListData1] = useState([])  
+  const [filterState,setFilterState] = useState(false) 
+  const [table,setTable] = useState([]) 
+  
+
 
   var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
 
@@ -68,6 +73,8 @@ export default function DenseTable() {
 
         setTotalIncome(totalTemp)}
     })
+    setFilterState(true)
+
     var fromMonth = Number(moment(fromTime).format('M'));
     var toMonth = Number(moment(toTime).format('M'));
     var fromYear = Number(moment(fromTime).format('Y'));
@@ -117,6 +124,16 @@ export default function DenseTable() {
     
     setListLable1(listLable)
     setListData1(listData)
+    let listTableTemp = []
+    listLable.map((cur,index) => {
+      let obj = {
+        thang: cur,
+        doanhthu: listData[index]
+      }
+      listTableTemp.push(obj)
+    })
+    setTable(listTableTemp)
+    console.log('tab',listTableTemp)
     console.log(listData)
 
   };
@@ -155,6 +172,8 @@ export default function DenseTable() {
           >
             Lọc
           </Button>
+
+          {(filterState === true) && <ExportCSV csvData={table} fileName = 'test'></ExportCSV>}
         </LocalizationProvider>
       </Box>
       <Box className='col-6' sx={{ display: 'flex' }} style={{ marginTop: "20px" } }>

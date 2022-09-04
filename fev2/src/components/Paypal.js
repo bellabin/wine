@@ -82,6 +82,8 @@ function Button(props) {
     const items = []
     const carts = JSON.parse(getListCartItemsFromLocalStorage())
 
+    console.log('asdasd')
+
     getPaypalDetail(carts).then(res => {
       let arrs = res.data
       let total = 0
@@ -122,10 +124,13 @@ export default function Paypal(props) {
   // const [carts, setCarts] = useState([])
   const [total, setTotal] = useState()
   const [pd, setPd] = useState({})
+  // console.log('222')
+
 
   useEffect(() => {
     // console.log(getListCartItemsFromLocalStorage())
     // setCarts(JSON.parse(getListCartItemsFromLocalStorage()))
+    // console.log('111')
     setTotal(props.total)
     setPd(props.pd)
   }, [ total])

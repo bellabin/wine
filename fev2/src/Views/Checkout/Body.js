@@ -116,7 +116,12 @@ export default class Body extends Component {
   }
 
   handleChange = (e) => {
+    
     this.setState({ payment: e.target.value });
+    // if(e.target.value === 0){
+    //   this.setState({isSelectedPayPal: false})
+    //   console.log('da set')
+    // }
   };
 
   handleName = (e) => {
@@ -125,14 +130,13 @@ export default class Body extends Component {
     this.setState({ data: { ...this.state.data, HONN: ho, TENNN: ten } });
   };
 
-  checkPaypalState = (e) => {
+  checkPaypalState =  (e) => {
+    let result 
     if (this.state.payment === 1) {
-      checkSltPaypal(this.state.data).then(
+      
+       checkSltPaypal(this.state.data).then(
         (res) => {
-          console.log('paypal enable')
-          return (
-            <Paypal total={this.state.total} pd={this.state.data}></Paypal>
-          );
+          this.setState({isSelectedPayPal: true})
         },
         (err) => {
           alert(err.response.data.message);
@@ -140,7 +144,11 @@ export default class Body extends Component {
           return <></>;
         }
       );
+      // return (
+      //   <Paypal total={this.state.total} pd={this.state.data}></Paypal>
+      // )
     }
+
   };
 
   checkout = async () => {
@@ -303,10 +311,14 @@ export default class Body extends Component {
 
                       {this.checkPaypalState()}
                     </Box>
+                    {this.state.payment === 1 && this.state.isSelectedPayPal && (
+                      <Paypal total={this.state.total} pd={this.state.data}></Paypal>
+                    )}
                     <Table style={{ marginTop: "20px" }}>
                       <TableRow
                         style={{ textAlign: "center", fontSize: "30px" }}
                       >
+                      
                         {this.state.payment === 0 && (
                           <Button
                             variant="outlined"
@@ -320,8 +332,11 @@ export default class Body extends Component {
                           >
                             Xác nhận
                           </Button>
+                          
                         )}
                       </TableRow>
+            {/* <Paypal total={this.state.total} pd={this.state.data}></Paypal> */}
+
                     </Table>
                   </div>
                 </div>

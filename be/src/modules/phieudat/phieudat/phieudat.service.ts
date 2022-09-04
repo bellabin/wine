@@ -85,7 +85,7 @@ export class PhieudatService {
 			}
 			//check ne
 			const bool = await this.winelineService.checkSlt(createCtPhieudatDto.MADONG, createCtPhieudatDto.SOLUONG)
-			console.log('bool',bool)
+			// console.log('bool',bool)
 			if(bool === false){
 				console.log('in here')
 				throw new InternalServerErrorException('Sản phẩm không đủ số lượng trong kho!')
