@@ -24,8 +24,6 @@ const ExportCSV = ({ csvData, fileName, wscols }) => {
 
     const Heading = [
         {
-          thang: "Tháng",
-          doanhthu: "Doanh thu",
           title:'Báo cáo doanh thu'
         }
       ];

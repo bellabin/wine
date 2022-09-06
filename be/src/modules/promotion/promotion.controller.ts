@@ -22,6 +22,11 @@ export class PromotionController {
     return this.promotionService.findOne(id);
   }
 
+  @Get('/curPromo/cur')
+  getCurrentPromo(){
+    return this.promotionService.getCurrentPromo()
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePromotionDto: UpdatePromotionDto) {
     return this.promotionService.update(id, updatePromotionDto);

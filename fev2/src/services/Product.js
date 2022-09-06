@@ -49,6 +49,16 @@ export const CreateProductType = async (data) => {
 export const UpdateProductById = async (id, data) => {
   return HttpService.put(`winelines/${id}`, {
     TENDONG: data.TENDONG,
+    GIA: data.GIA,
+    TRANGTHAI: data.TRANGTHAI,
+    HINHANH: data.HINHANH,
+    MOTA: data.MOTA,
+    CHITIET: data.CHITIET,
+    SOLUONGTON: data.SOLUONGTON,
+    MALOAI: data.MALOAI,
+    MATH: data.MATH,
+    MANCC: data.MANCC,
+    MANV: data.MANV,
 
   })
 }

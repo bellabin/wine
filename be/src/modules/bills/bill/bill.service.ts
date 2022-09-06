@@ -29,6 +29,20 @@ export class BillService {
           })
     }
 
+    async findByMAPD(MAPD:string){
+
+        // console.log(MAPD)
+
+        const pd = await this.phieudatService.findById(MAPD)
+
+        // console.log(pd)
+
+        return this.billRepo.findOne({
+            where:{MAHD:pd.bill.MAHD},
+            relations: ['staff', 'phieudat', 'phieutras'],
+        })
+    }
+
     async create(payload: CreateBillDto) { //func handle create new bill
         let bill = new Bill //create nhung chua duoc save
 

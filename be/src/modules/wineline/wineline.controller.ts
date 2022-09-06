@@ -50,6 +50,7 @@ export class WinelineController {
 
     @Put(':id') //update 
     update(@Param('id') id: string, @Body() body: UpdateWinelineDto) {
+        // console.log('update wineline', body)
         return this.winelineService.update(id, body)
     }
 

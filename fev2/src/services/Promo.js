@@ -9,6 +9,11 @@ export const GetPromoById = async (id) => {
   return HttpService.get(`promotion/${id}`)
 }
 
+export const GetCurPromo = async () => {
+  return HttpService.get(`promotion/curPromo/cur`)
+
+}
+
 
 
 

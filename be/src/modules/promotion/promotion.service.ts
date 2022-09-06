@@ -46,6 +46,15 @@ export class PromotionService {
     })
   }
 
+  async getCurrentPromo (){
+    return this.promotionRepo.createQueryBuilder('khuyenmai')
+    .where('khuyenmai.NGAYBATDAU <= CURRENT_DATE()  and khuyenmai.NGAYKETTHUC >= CURRENT_DATE()')
+    .setFindOptions({
+      relations: ['staff', 'ct_khuyenmais'],
+    })
+    .getOne();
+  }
+
   async update(MAKM: string, body: UpdatePromotionDto) {
     const promotion = await this.findOne(MAKM)
 

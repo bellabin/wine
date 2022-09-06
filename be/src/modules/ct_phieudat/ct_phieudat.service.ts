@@ -73,16 +73,20 @@ export class CtPhieudatService {
   }
 
   async getTotalRev(from:string,to:string) {
+
     return this.ctphieudatRepo.query(`
-    SELECT sum(cp.GIA * cp.SOLUONG) as tong, MONTH (p.NGAYDAT) as thang
+    SELECT sum(cp.GIA * cp.SOLUONG) as tong, MONTH (p.NGAYDAT) as thang, YEAR(p.NGAYDAT) as nam
     FROM ct_phieudat cp
     INNER JOIN (
       SELECT * 
       FROM phieudat p
-          WHERE p.NGAYDAT >= '${from}' AND p.NGAYDAT <= '${to}' AND p.TRANGTHAI = 'Đã giao'
-          ) p ON cp.MAPD = p.MAPD
-      GROUP BY thang
+      WHERE p.NGAYDAT >= '${from}' AND p.NGAYDAT <= '${to}' AND p.TRANGTHAI = 'Đã giao'
+    ) p ON cp.MAPD = p.MAPD
+    GROUP BY nam,thang
+    ORDER BY nam,thang
     `)
+
+    
   }
 
   async getRevenueProduct(from: string, to: string){

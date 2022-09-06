@@ -13,6 +13,7 @@ import FormModalEditBill from "./FormModal-Edit";
 import FormModalDeleteBill from "./FormModal-Delete";
 import { GetListStaff, GetNVGH, GetStaffById } from "../../services/Staff";
 import { findByState } from "../../services/Phieudat";
+import BillDetailDialog from "../../components/BillDetail";
 
 export default function DenseTable(props) {
     
@@ -54,6 +55,14 @@ export default function DenseTable(props) {
     function Delete(MAPD, listNVGH ,data) {
         React.refModalDeleteBill?.open();
         React.refModalDeleteBill.Delete(MAPD,listNVGH, data);
+
+    }
+
+    function BillDetail(data) {
+        
+
+        React.refModalBillDetail?.open();
+        React.refModalBillDetail.Detail(data);
 
     }
     const totalCTPD = (list) => {
@@ -103,8 +112,8 @@ export default function DenseTable(props) {
                             <TableCell align="left" style={{width: '28%'}}>Thông tin người đặt</TableCell>
                             <TableCell align="left">NV duyệt</TableCell>
                             <TableCell align="left">NV giao</TableCell>
-                            <TableCell align="left" style={{width: '10%'}}>Trạng thái</TableCell>
-                            <TableCell align="left" style={{width: '10%'}}>Tổng tiền</TableCell>
+                            <TableCell align="left" style={{width: '9%'}}>Trạng thái</TableCell>
+                            <TableCell align="left" style={{width: '9%'}}>Tổng tiền</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody >
@@ -162,6 +171,11 @@ export default function DenseTable(props) {
                                     className="fas fa-pencil-alt"
                                     onClick={() => Delete(row.MAPD, listNVGH, row)}
                                 ></i>
+                                {(row.TRANGTHAI !== 'Chưa duyệt') && <i
+                                    className="fas fa-file-pdf"
+                                    style={{marginLeft:'10px'}}
+                                    onClick={() => BillDetail(row)}
+                                ></i>}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -169,6 +183,7 @@ export default function DenseTable(props) {
                 </Table>
                 <FormModalEditBill ref={(ref) => (React.refModalEditBill = ref)} />
                 <FormModalDeleteBill ref={(ref) => (React.refModalDeleteBill = ref)} listNVGH={listNVGH} />
+                <BillDetailDialog ref={(ref) => (React.refModalBillDetail = ref)}/>
             </TableContainer>
         </>
     );

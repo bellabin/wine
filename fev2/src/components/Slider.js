@@ -6,6 +6,8 @@ import { CustomCard } from "./Card"
 
 const CustomeSlider = (props) => {
 
+  console.log(props.data)
+
   const settings = {
     dots: false,
     infinite: true,

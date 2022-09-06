@@ -21,6 +21,12 @@ export class BillController {
         return this.billService.findById(id)
     }
 
+    @Get('/phieudat/:MAPD')
+    findByMAPD(@Param('MAPD') MAPD: string){
+        console.log(MAPD)
+        return this.billService.findByMAPD(MAPD)
+    }
+
     @Post() //create new bill
     create(@Body() payload: CreateBillDto) {
         const MAHD = uuidv4().slice(0, 19)

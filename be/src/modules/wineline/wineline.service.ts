@@ -114,11 +114,42 @@ export class WinelineService {
     }
 
     async update(MADONG: string, body: UpdateWinelineDto) {
-        const wineline = await this.findById(MADONG)
+        // console.log('ser',MADONG ,body)
 
-        if (!wineline) throw new NotFoundException('Wineline is not exist')
+        const winetype1 = await this.winetypeService.findById(body.MALOAI)
+        // wineline.cungcaps = []
+        // wineline.changeprices = [change_price]
+        await this.winelineRepo.createQueryBuilder('wineline') //khi save thi data moi duoc luu vao db
+        .update(Wineline)
+        .set({
+            TENDONG: body.TENDONG,
+            TRANGTHAI: body.TRANGTHAI,
+            HINHANH: body.HINHANH,
+            MOTA: body.MOTA,
+            CHITIET: body.CHITIET,
+            SOLUONGTON: body.SOLUONGTON,
+            MATH: body.MATH,
+            winetype: winetype1
+        })
+        .where("MADONG = :id", {id: MADONG})
+        .execute()
 
-        return this.winelineRepo.update(MADONG, body)
+        const wineline1 = await this.findById(MADONG)
+        
+        // console.log(wineline)
+
+        // console.log(payload.MANV)
+
+        const change_price = new Changeprice
+        change_price.MADONG = MADONG
+        change_price.NGAYTHAYDOI = new Date
+        change_price.MANV = body.MANV
+        change_price.GIA = body.GIA
+
+        await this.changePriceService.create(change_price)
+
+
+        return wineline1
     }
 
     async updateSLT(MADONG: string, slt: number) {
@@ -208,12 +239,26 @@ export class WinelineService {
     }
 
     async getTopPromoProduct(){
-        return this.winelineRepo.createQueryBuilder('wineline')
-        .where('wineline__wineline_ct_khuyenmais.PHANTRAMGIAM >= 30')
-        .setFindOptions({
-            relations: ['winetype','trademark','ct_phieudats','ct_phieunhaps','changeprices','cungcaps','ct_khuyenmais','ct_orders','reviews']
+        let date = new Date
+        let data1 = await this.winelineRepo.query(`
+        SELECT k.TENKM , k.NGAYBATDAU , k.NGAYKETTHUC , ck.PHANTRAMGIAM, d.MADONG  
+        FROM khuyenmai k 
+        inner join ct_khuyenmai ck 
+        on ck.MAKM = k.MAKM 
+        and ck.PHANTRAMGIAM > 30
+        INNER join dongruou d 
+        on d.MADONG = ck.MADONG 
+        WHERE k.NGAYBATDAU <= CURRENT_DATE()  and k.NGAYKETTHUC >= CURRENT_DATE()`)
+
+        var listProducts = []
+        
+        data1.map(cur => {
+            listProducts.push(this.findById(cur.MADONG).then())
         })
-        .getMany();
+
+        let result = await Promise.all(listProducts)
+
+        return result
         //chua update ngay
     }
 

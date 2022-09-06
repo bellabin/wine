@@ -9,6 +9,10 @@ export const GetBillById = async (id) => {
   return HttpService.get(`bill/${id}`)
 }
 
+export const GetBillByMAPD = async (MAPD) => {
+  return HttpService.get(`bill/phieudat/${MAPD}`)
+}
+
 export const UpdateBillById = async (id, data) => {
   return HttpService.put(`bill/${id}`, {
     NGAY: data.NGAY,
