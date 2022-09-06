@@ -24,6 +24,10 @@ import * as moment from "moment";
 import { letterSpacing } from "@mui/system";
 import ExportCSV from "../../components/ExportExcel";
 import LineChart from "./Chart";
+import Pdf from "react-to-pdf";
+
+const ref1 = React.createRef();
+
 
 export default function DenseTable() {
   const [fromTime, setFromTime] = React.useState(new Date());
@@ -137,6 +141,7 @@ export default function DenseTable() {
     console.log(listData)
 
   };
+  
 
   const tableRev = (lable,data) => {
     console.log('tablerev', lable)
@@ -173,14 +178,24 @@ export default function DenseTable() {
             Lọc
           </Button>
 
-          {(filterState === true) && <ExportCSV csvData={table} fileName = 'test'></ExportCSV>}
+          {(filterState === true) && <Pdf targetRef={ref1} filename="rev.pdf" 
+                                margin = '0 auto'
+                                width=' 50% !important'
+                                height= '100% !important'
+                            >
+                                {({ toPdf }) => <Button 
+                                variant="outlined"
+                                onClick={toPdf}>Xuất Pdf</Button>}
+                            </Pdf>}
         </LocalizationProvider>
       </Box>
+      <div ref={ref1}>
       <Box className='col-6' sx={{ display: 'flex' }} style={{ marginTop: "20px" } }>
         <CardContent
         component={Paper} 
         // style={{backgroundColor:'#00BFFF'}}
         >
+
           <Typography variant="h6" component="div" >
             Tổng đơn hàng: {totalPd} {' '}  đơn
           </Typography>
@@ -221,6 +236,8 @@ export default function DenseTable() {
           </Typography>
         </CardContent>
       </Box>
+      </div>
+
       <LineChart 
         
         listPds={listPds} 
