@@ -32,3 +32,12 @@ export const defineUser = (payload) => {
 export const getUser = (payload) => {
     return sessionStorage.getItem('getMe', JSON.stringify(payload))
 }
+
+
+export const addCurPromoToLS = (MAKM) => {
+    sessionStorage.setItem('MAKM', MAKM)
+}
+
+export const getCurPromoFromLS = () => {
+    return sessionStorage.getItem('MAKM')
+}

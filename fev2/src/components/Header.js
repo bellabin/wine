@@ -6,11 +6,12 @@ import { getListCartItemsFromLocalStorage } from "../helper/addToCart";
 import ProductCus from "../Views/ProductCus/index";
 import SearchBar from "./SearchBar";
 import SearchBar2 from "./SearchBar";
-import { getAccessTokenFromLocalStorage, removeToken, removeUserProfileToLS } from "../helper/accessToken";
+import { addCurPromoToLS, getAccessTokenFromLocalStorage, removeToken, removeUserProfileToLS } from "../helper/accessToken";
 import { getUser } from "../helper/accessToken";
 import { addUserProfileToLS } from "../helper/accessToken";
 import { GetCustomerById } from "../services/Customer";
 import jwt from 'jwt-decode' 
+import { GetCurPromo } from "../services/Promo";
 
 
 export default class Header extends Component {
@@ -25,6 +26,9 @@ export default class Header extends Component {
   }
 
   componentDidMount() {
+    GetCurPromo().then(res => {
+      addCurPromoToLS(res.data.MAKM)
+    })
     GetListProduct()
       .then((res) => {
         this.setState({ products: res.data });

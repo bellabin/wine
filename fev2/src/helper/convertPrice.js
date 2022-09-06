@@ -1,4 +1,5 @@
 import { GetCurPromo } from "../services/Promo";
+import { getCurPromoFromLS } from "./accessToken";
 
 export const convertPrice = (gia, percent) => {
     
@@ -6,15 +7,23 @@ export const convertPrice = (gia, percent) => {
 }
 
 export const checkKm = (listKM) => {
-    let newListKm = []
+
     return convertKm(listKM) + "%";
 };
 
 export const convertKm = (listKm) => {
 
+    let MAKM = getCurPromoFromLS()
+    let listTemp = []
+    listKm.map(cur => {
+        if(cur.MAKM === MAKM){
+            listTemp.push(cur)
+        }
+    })
+    console.log(listTemp)
 
-    return (listKm && listKm[0] && listKm[0].PHANTRAMGIAM) ?
-        listKm[0].PHANTRAMGIAM : 0;
+    return (listTemp && listTemp[0] && listTemp[0].PHANTRAMGIAM) ?
+    listTemp[0].PHANTRAMGIAM : 0;
 }
 
 export const fixedPrice = (price) => {
